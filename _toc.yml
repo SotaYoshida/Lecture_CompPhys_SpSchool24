@@ -1,0 +1,21 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+ 
+format: jb-book
+root: home
+
+parts: 
+- caption: はじめに
+  chapters:
+  - file: notebooks/Chap1_Julia
+- caption: Part1
+  numbered: true
+  chapters:  
+  - file: notebooks/Chap_NuclearForce
+  - file: notebooks/Chap_IMSRG
+- caption: Part2
+  numbered: true
+  chapters:
+  - file: notebooks/Chap_shellmodel
+  - file: notebooks/Chap_emulator
+
