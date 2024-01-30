@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. 殻模型(配置間相互作用法) &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="4. Emulator/Surrogate model" href="Chap_emulator.html" />
+    <link rel="prev" title="2. 核子系の第一原理計算" href="Chap_IMSRG.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="ja">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_full.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   講義の狙いと資料の概要
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  はじめに
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap1_Julia.html">
+   Julia入門&amp;導入
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part1
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_NuclearForce.html">
+   1. 核力
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_IMSRG.html">
+   2. 核子系の第一原理計算
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part2
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. 殻模型(配置間相互作用法)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_emulator.html">
+   4. Emulator/Surrogate model
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/Chap_shellmodel.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_shellmodel.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap_shellmodel.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   3.1. 用語の説明
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jj-coupling">
+   3.2. jj-coupling軌道と魔法数
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   3.3. 殻模型の概要
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   3.4. 有効相互作用理論
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   3.5. 殻模型計算の実際
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   3.6. 殻模型計算コード
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   3.7. 参考文献
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">3. </span>殻模型(配置間相互作用法)<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では、核構造計算の最も基礎となる殻模型について説明する。</p>
+<div class="section" id="id2">
+<h2><span class="section-number">3.1. </span>用語の説明<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>殻模型(shell model)は&quot;かくもけい&quot;と呼ぶ人もいるが、専門家は&quot;からもけい&quot;と呼ぶ。
+核模型と区別するためなのか歴史的な経緯があるのかは知らない。</p>
+</div>
+<p>殻模型(shell model)というと、分野外の人は、Mayer-Jensenの殻模型(1963年 ノーベル物理学賞)を思い浮かべると思われる。
+例えば、猪木・川合 量子力学Ⅱなどの教科書にも載っている、<strong>魔法数</strong>(閉殻構造を与える核子数)の説明を与えたものである。</p>
+<p>一方で、現代の原子核分野では、殻模型というと、閉殻芯を仮定し、限られたバレンス(valence)軌道を
+activateした空間内での(厳密ないし漸近的に厳密な)対角化計算を指すのが一般的である。
+量子化学分野などでいうところの、配置間相互作用法・configuration interaction (CI)計算に相当する。
+この章でも、殻模型という言葉はこの意味で用いることにする。</p>
+<p>関連する用語として、閉殻芯の存在を仮定せず、全ての核子の自由度を陽に扱う手法のことを
+no-core shell model (NCSM)と呼ぶ。これは、ひろく計算物理分野で言うFull-CI計算に相当する。</p>
+</div>
+<div class="section" id="jj-coupling">
+<h2><span class="section-number">3.2. </span>jj-coupling軌道と魔法数<a class="headerlink" href="#jj-coupling" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>前述の魔法数を説明する上で重要なのが、軌道角運動量<span class="math notranslate nohighlight">\(\ell\)</span>と合成角運動量<span class="math notranslate nohighlight">\(j\)</span>である。</p>
+<p>核子が、平均的なポテンシャルの中で一粒子運動をしているという描像から、
+Mayer-Jensenは、スピン・軌道力(LS力)を導入することによって、
+安定な構造を示す核子の数、魔法数(2, 8, 20, 28, 50, 82, 126)を説明した。</p>
+<p>例えば3次元の等方調和振動子ポテンシャルで運動する粒子の場合、エネルギー準位は、
+主量子数<span class="math notranslate nohighlight">\(n\)</span>に対して、<span class="math notranslate nohighlight">\(E_n=(n+3/2)\hbar\omega\)</span>となる。
+このポテンシャルに、軌道角運動量<span class="math notranslate nohighlight">\(\ell\)</span>に依存する項<span class="math notranslate nohighlight">\(C \ell^2\)</span>を加えると、
+それぞれのエネルギー準位は<span class="math notranslate nohighlight">\(\ell\)</span>の値に応じて、分離する。
+また、<span class="math notranslate nohighlight">\(\ell\)</span>とスピン角運動量<span class="math notranslate nohighlight">\(s\)</span>の合成角運動量<span class="math notranslate nohighlight">\(j\)</span>に依存する項<span class="math notranslate nohighlight">\(C' \ell \cdot s\)</span>を加えると、
+合成の角運動量<span class="math notranslate nohighlight">\(j\)</span>に依存して、さらに縮退が解ける(順位が分離する)。
+この効果が、魔法数を与える上で重要になる。</p>
+<p>また、近年の理論・実験研究によって、中性子過剰(あるいは陽子過剰)な不安定原子核領域においては、
+従来の魔法数が消失したり、新たな魔法数が発現することが明らかになってきている。
+このことは、Nilsonダイアグラムからは、変形の効果として理解することもできるし、
+現代的な大規模殻模型計算によって、実際に微視的な機構(テンソル力や有効核力の各成分の機微)からの
+理解も進んでいる。
+例えば、筆者も(文字通り末席に)参画している研究で言うと、下記のものなどがある。</p>
+<ul class="simple">
+<li><p>N.Tsunoda et al., Nature 587, 66 (2020).</p></li>
+<li><p>Y.Kondo et al., Nature 620, 965 (2023).</p></li>
+</ul>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>&quot;調和振動子&quot;というと、量子力学の教科書に載っているような、
+主量子数<span class="math notranslate nohighlight">\(n\)</span>に対して、エネルギー準位が<span class="math notranslate nohighlight">\(n\)</span>に応じて離散的になるポテンシャルを想像する人が多いと思うが、
+調和振動子基底という場合、第一原理計算やCI計算を専門とする人の多くにとっては、
+既に軌道角運動量<span class="math notranslate nohighlight">\(\ell\)</span>や合成角運動量<span class="math notranslate nohighlight">\(j\)</span>が与えられ、軌道が分離している状況を想像する人が多い(と思う)。
+筆者は、このことが原因で、平均場理論やDFTが得意な研究者に誤解を与えてすれ違いコントになってしまった経験がある。</p>
+</div>
+<p>殻模型(に限らないが)では、核子の状態を表す表示として、通常、調和振動子(harmonic oscillator; HO)基底を用いる。
+<span class="math notranslate nohighlight">\(n,l,j\)</span>をそれぞれ、主量子数、軌道角運動量、全角運動量として、<span class="math notranslate nohighlight">\(n,l,j\)</span>、そしてprotonとneutronの区別を明示するために、
+<span class="math notranslate nohighlight">\(t_z\)</span>を用いて、<span class="math notranslate nohighlight">\(n,l,j,t_z\)</span>で軌道をラベル付けする。</p>
+<p>主殻(major-shell)は<span class="math notranslate nohighlight">\(e=2n+l\)</span>によって決まる。
+例えば、<span class="math notranslate nohighlight">\(n=e=0\)</span>の場合、<span class="math notranslate nohighlight">\(l=0\)</span>のみが許され、<span class="math notranslate nohighlight">\(j=1/2\)</span>となるため、<span class="math notranslate nohighlight">\(0s\)</span>軌道と呼ばれる。
+<span class="math notranslate nohighlight">\(e=1\)</span>の場合も、<span class="math notranslate nohighlight">\(n\)</span>は0のみが許され、<span class="math notranslate nohighlight">\(l=1\)</span>のみが許されるため、<span class="math notranslate nohighlight">\(0p\)</span>軌道(<span class="math notranslate nohighlight">\(0p_{1/2}\)</span>と<span class="math notranslate nohighlight">\(0p_{3/2}\)</span>)と呼ばれる。
+<span class="math notranslate nohighlight">\(e=2\)</span>の場合は、<span class="math notranslate nohighlight">\(n=0,1\)</span>が許され、それぞれ<span class="math notranslate nohighlight">\(l=2,0\)</span>が許されるため、<span class="math notranslate nohighlight">\(1s0d\)</span>軌道(<span class="math notranslate nohighlight">\(1s_{1/2}, 0d_{3/2}, 0d_{5/2}\)</span>)と呼ばれ、
+分野においては、単に<span class="math notranslate nohighlight">\(sd\)</span>軌道と呼ばれるのがほとんどである。以後同様。</p>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">3.3. </span>殻模型の概要<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>殻模型の基本的な考え方は、対象とする原子核が、閉殻芯と少数のバレンス核子からなる系であると仮定し、それらの自由度のみからその構造を記述することを目的とするものである。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>もちろん、全ての原子核でこのような仮定が成り立つ訳では無いが、70年代来から今日に至るまで、原子核の構造を記述するための基本的な手法として、殻模型が用いられてきたという背景がある。なかでも特に顕著な例が安定核近傍の原子核である。</p>
+</div>
+<p>例えば、sd shellと呼ばれる<span class="math notranslate nohighlight">\(1s_{1/2},0d_{3/2},0d_{5/2}\)</span>の3つの軌道をバレンス空間として用いた計算は、
+<span class="math notranslate nohighlight">\(^{16}\mathrm{O}\)</span>
+を閉殻芯として、Z=8-20, N=8-20の
+<span class="math notranslate nohighlight">\({}^{40}\mathrm{Ca}\)</span>
+までの原子核を表現することができる。</p>
+<p>例として、<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span> という、陽子・中性子ともに12個の原子核を考える。
+マグネシウム同位体のうち自然界の約8割近くが、この<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span> (N=12)である。
+この<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span> を、24体系として解こうとするのは無理筋である。
+だが、この核を安定核である<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>を閉殻芯として、
+バレンス核子を4個の陽子と4個の中性子の&quot;バレンス&quot;核子を有効な自由度として扱うことで、
+いささか扱いやすくする、というのが殻模型の基本的な考え方である。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>細かいことを言えば、Full-CIなど2を超える複数主殻を扱う場合には、one-bodyの項で、
+非対角成分<span class="math notranslate nohighlight">\(h_{ab}\)</span>を陽に考える必要がある。
+2体力部分は、「平均場に取り込めない相互作用」という意味で、残留相互作用という言葉もよく用いられてきた。</p>
+</div>
+<p>上で導入した調和振動子基底のラベル<span class="math notranslate nohighlight">\(\{n,l,j,tz\}\)</span>を用いて、殻模型のハミルトニアンは、</p>
+<div class="math notranslate nohighlight">
+\[ 
+H = \sum_{i} \langle h_i \rangle a^\dagger_i a_i 
++ \frac{1}{4} \sum_{ijkl} \langle ij | v | kl \rangle a^\dagger_i a^\dagger_j a_l a_k
+\]</div>
+<p>と書くことができる。<span class="math notranslate nohighlight">\(h_i \equiv \langle i | h | i \rangle\)</span>は、一粒子軌道<span class="math notranslate nohighlight">\(i\)</span>のsingle-particle energy (SPE)であり、
+<span class="math notranslate nohighlight">\(\langle ij | v | kl \rangle\)</span>は、two-body matrix element (TBME)と呼ばれ、
+バレンス核子間に働く2体の相互作用を表す。</p>
+<p>理論に含まれるパラメータは、SPEとTBMEのみであるため、あとは後述のように適切な状態ベクトルを作って、対角化すれば良い。
+では、これらのSPEとTBMEはどのようにして決められるだろうか？</p>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">3.4. </span>有効相互作用理論<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>殻模型で用いられるバレンス核子間に働く相互作用は、閉殻芯の存在により、
+いわば媒質中の核力とも呼ぶべきものであり、free-spaceの核子間相互作用とは異なる。
+このような相互作用を、有効相互作用(effective interaction)や有効核力と呼ぶこともある。</p>
+<p>当然、この有効相互作用は、本来free-spaceの核子間相互作用を元にして構成されるべきものと期待されるが、
+一方で、これまでの現象論的な研究の成功の歴史もあり、それと同程度の精度を持つ有効相互作用を核力から
+構成することが困難であることも知られている。</p>
+<p>核力から有効相互作用を導出する方法として代表的なものを幾つか挙げておく:</p>
+<ul class="simple">
+<li><p>多体摂動論(Many-body perturbation theory; MBPT)</p></li>
+<li><p>Unitary correlation operator method (UCOM)</p></li>
+<li><p>Coupled-Cluster法やIM-SRG法を用いる方法</p></li>
+</ul>
+<p>こうした第一原理的な方法による有効相互作用(あるいはハミルトニアンに限定せず有効演算子)の導出は、
+今なお国際的にもホットな研究トピックの一つであり、筆者もその分野で研究を行っている一人である。</p>
+<p>一方で、1965-2000年頃の半世紀にわたって、現象論的なアプローチ
+「基底状態エネルギーや(low-lyingな)励起状態に対して、SPEやTBMEをfitする」
+方法論が幅広い原子核(とくに安定核近傍)の性質を非常に精度良く記述することができることが報告されてきた。</p>
+<p>このような方法によって構成された有効相互作用を前者と区別する意味で、現象論的やphenomenologicalと呼ぶことがある。</p>
+<p>現象論的な有効相互作用による計算の成功を示す特徴的な仕事として、前述のsd-shell領域における有効相互作用として、USD(Universal sd shell interaction)及びそれらを拡張したUSDB(USDAもある)相互作用などが知られている。</p>
+<p>USDBでは、<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>--<span class="math notranslate nohighlight">\({}^{40}\mathrm{Ca}\)</span> 領域の基底状態・励起状態の実験値を用いて有効相互作用をfitすることで、
+root-mean-square(rms)値にして200 keV以下の高精度で幅広い原子核を記述することができる事がわかっている。</p>
+<p>もちろん、<span class="math notranslate nohighlight">\(^{16}\mathrm{O}\)</span> コアからの励起が重要な原子核・状態について、sd shellのバレンス空間のみでの記述では不十分な場合もある。
+そうした状態はfitの場合には除外されたり、有効相互作用の評価の際にも除外されることが多いことには留意が必要であるが、
+少なくとも安定核近傍の酸素-カルシウム同位体の基底状態エネルギー・(低エネルギー領域の)励起スペクトル, 電磁遷移, ベータ崩壊などの量を
+広範にわたって殻模型以上に高精度で記述する方法は、現在のところ存在しない。
+その意味でよくUSD(B)を用いた計算は、ゴールドスタンダードと称される。</p>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">3.5. </span>殻模型計算の実際<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>もう少し計算の具体的な中身をイメージするために、より明示的に実際のコードの中でどのような計算が行われているのかを説明する。</p>
+<p>簡単のため、以下では、<span class="math notranslate nohighlight">\(^{4}\mathrm{He}\)</span>を閉殻芯とした、
+proton-neutronの2体系である<span class="math notranslate nohighlight">\({}^{6}\mathrm{Li}\)</span> (Z=N=3)を考えてみよう。</p>
+<p>この場合、バレンス空間は、<span class="math notranslate nohighlight">\(0p_{1/2}\)</span>と<span class="math notranslate nohighlight">\(0p_{3/2}\)</span>の2つのjj-coupling軌道からなる。
+軌道内の<span class="math notranslate nohighlight">\(j_z\)</span>で区別される状態の数は、それぞれ<span class="math notranslate nohighlight">\(2j+1\)</span>であるため、<span class="math notranslate nohighlight">\(p_{1/2}\)</span>なら２つ、<span class="math notranslate nohighlight">\(p_{3/2}\)</span>なら４つの状態が存在する.</p>
+<p>さらに、陽子・中性子を明示的に区別する(proton-neutron formalism)で言うなら、軌道の数は合計で6×2の12個ということになる。</p>
+<p>さて、<span class="math notranslate nohighlight">\({}^{6}\mathrm{Li}\)</span>という原子核の状態(配位)を表現するためには、</p>
+<div class="math notranslate nohighlight">
+\[
+| 000001 \rangle_p \otimes | 000001 \rangle_n 
+\]</div>
+<p>のように、陽子・中性子のそれぞれの配位を表す状態ベクトル(bit列)を用意してやれば良い。<br />
+0が非占有, 1が占有を表し、軌道の数だけビット列を用意すれば良い。</p>
+<p>今、弱い相互作用は考えず、陽子・中性子の数は変化しないとすると、
+<span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の陽子・中性子それぞれの状態を表すビット列は必ず、どれか一つだけがbitが立っていて、それ以外は0であるような状態になる。
+当然、許される配位の数は<span class="math notranslate nohighlight">\(6^2=36\)</span>個となる。</p>
+<p>この全てを考えてももちろん構わないのだが、実際には(有効)核力の持つ対称性から、
+<span class="math notranslate nohighlight">\(j_z\)</span>の和が0(奇数個の核子からなる核の場合は1/2)の状態のみを考えれば、その中に全ての状態の情報が含まれる。</p>
+<p>したがって、<span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の状態を表現するためには、状態の角運動量<span class="math notranslate nohighlight">\(J\)</span>が幾つであろうと、
+<span class="math notranslate nohighlight">\(\sum j_z = 0\)</span>を満たすような状態のみを考えれば良く、その数は10個となる。
+下に模式図を示した。</p>
+<img src="./pic/config_6Li_Jzeq0.png" width=75%>
+<p><span class="math notranslate nohighlight">\(j_z\)</span>の和を用いて状態を指定する計算方法はいわゆる<span class="math notranslate nohighlight">\(M\)</span>-schemeと呼ばれるもので、
+もしも<span class="math notranslate nohighlight">\(J=J'\)</span>のみの状態だけがほしいのであれば、全核子の<span class="math notranslate nohighlight">\(j_z\)</span>の合計が<span class="math notranslate nohighlight">\(J'\)</span>になる配位だけを考えれば良い。
+殻模型で、対角化すべき行列の次元、という際には、この<span class="math notranslate nohighlight">\(M\)</span>-schemeの元での配位の数を指すことが多い。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>proton, neutronのそれぞれの配位の<span class="math notranslate nohighlight">\(j_z\)</span>の合計が<span class="math notranslate nohighlight">\(M_{p}\)</span>, <span class="math notranslate nohighlight">\(M_{n}\)</span>であるとすると、
+<span class="math notranslate nohighlight">\(M_p + M_n = 0 \)</span> (or 1/2)となる配位を考えれば良いことになる。</p>
+</div>
+<p>この<span class="math notranslate nohighlight">\(M\)</span>-schemeの下で陽に扱うべきproton(neutron)の配位が<span class="math notranslate nohighlight">\(N_p\)</span>(<span class="math notranslate nohighlight">\(N_n\)</span>)個あるとすると、興味のある原子核の状態は、
+<span class="math notranslate nohighlight">\(N_p \times N_n\)</span>個存在することになる。</p>
+<div class="math notranslate nohighlight">
+\[
+| \psi \rangle = C_{ij} | i \rangle_p \otimes | j \rangle_n
+\]</div>
+<p>i,jはそれぞれ、proton, neutronの配位を表すビット列(ないしそれに対応する整数)である。</p>
+<p>このとき、殻模型のハミルトニアンの2体力部分は、proton-proton, neutron-neutron, proton-neutronの3つの項に分かれる。
+(<span class="math notranslate nohighlight">\({}^{6}\mathrm{Li}\)</span>の場合は当然、proton-neutron力のみが効く)。
+pp, nnの項は、それぞれneutron側の状態, proton側の状態を区別しないので、別々に考えられる。
+proton-neutronの項の場合は、proton側の状態とneutron側の状態の組み合わせを考える必要があるため、一般に考慮すべき項の数が多くなる。</p>
+<p>扱うバレンス核子の数が少なければ、<span class="math notranslate nohighlight">\(M_d = N_p \times N_n\)</span>の行列を明示的に作成してそれを対角化しても良いのだが、
+多くの興味のある問題の場合、行列要素を明示的に保持して対角化することは非現実的となる。</p>
+<p>対称性などの要請から、非零の行列要素の数は、<span class="math notranslate nohighlight">\(M_d\)</span>よりもぐっと小さくなる(スパースである)ことが多い。
+そこで、行列要素を陽に保持するのではなく、必要なときに行列要素を計算 or 参照する方法を用いる。</p>
+<p>また、実際の計算では、行列を対角化するのではなく、
+比較的少数のlow-lyingな(＝エネルギーが低い)固有値・固有ベクトルを求めることが多い。
+その際にはLanczos法をはじめ、Krylov部分空間を用いた反復対角化法による計算が主流となる。</p>
+<p>Lanczos法は、「20世紀のトップ１０アルゴリズム」の一つ、Krylov部分空間法に属するアルゴリズムであり、
+実対称行列の最大(最小)固有値・固有ベクトルを求めるためのアルゴリズムである。
+Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span>に対して、Hamiltonianを順次作用させて得られるベクトルを用いて、</p>
+<div class="math notranslate nohighlight">
+\[
+\{ |\psi_0\rangle, H|\psi_0\rangle, H^2|\psi_0\rangle, \cdots \}
+\]</div>
+<p>というKrylov部分空間を作り、その中での固有値・固有ベクトルを求める。
+<span class="math notranslate nohighlight">\(H\)</span>を繰り返し作用させることで、Krylov部分空間は次第に
+<span class="math notranslate nohighlight">\(H\)</span>の絶対値最大の固有値に対応する固有ベクトルの成分が増幅されるようになり、
+比較的少数の反復で、固有値・固有ベクトルを得ることができる。
+また、励起状態の計算についても、直交化のコストや収束判定に必要な反復回数の増加はあるものの、
+基底状態の計算と特段変わらない手順で自然に計算することができる。</p>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">3.6. </span>殻模型計算コード<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>また、分野内においては古くからshell-model計算を行うコードが開発・公開されており、</p>
+<ul class="simple">
+<li><p>OXBASH</p></li>
+<li><p>NuShellX&#64;MSU</p></li>
+<li><p>ANTOINE</p></li>
+<li><p><a class="reference external" href="https://github.com/cwjsdsu/BigstickPublick">BIGSTICK</a></p></li>
+<li><p><a class="reference external" href="https://sites.google.com/alumni.tsukuba.ac.jp/kshell-nuclear/home">KSHELL</a></p></li>
+</ul>
+<p>などが(もちろん他にも)ある。
+2024年現在においても精力的に開発が行われているものとしては、清水 則孝 氏(現: 筑波大学 計算科学研究センター)によるKSHELLが
+その機能の豊富さ・性能のいずれの面においても抜きん出ており、事実上これ一択、という状況にある。</p>
+<p>筆者のNuclearToolkit.jlにもshell-model計算を行うためのコード群としてShellModel.jlというものを内部に
+含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。</p>
+</div>
+<div class="section" id="id7">
+<h2><span class="section-number">3.7. </span>参考文献<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>shell-model計算に関するほぼ全ての必要な情報は、Alex Brown氏&#64;MSUのLecture Noteにまとめられている。
+Webで見つかりやすいものは2005年版だが、より新しいバージョンとして、
+Nuclear Talent(スクール)用の2017年版資料がMorten Hjorth-Jensen氏&#64;MSUの<a class="reference external" href="https://github.com/NuclearTalent/NuclearStructure/blob/master/doc/Literature/brown.pdf">GitHubレポジトリ</a>内で公開されている。</p>
+<p>Lanczos法など行列の固有値計算や関連の話題については <a class="reference external" href="https://www.maruzen-publishing.co.jp/item/?book_no=303655">計算力学レクチャーコース: 固有値計算と特異値計算(丸善出版)</a>など、素晴らしい書籍があり、筆者も実装の際に参考にさせて頂いた。</p>
+<p>また、NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などの固有値計算アルゴリズムを実装しているが、
+その開発段階においては、KSHELLの作者である清水則孝氏に多大なる助言を頂きながら、KSHELLのソースコードも適宜参考にさせて頂いた。</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "julia-1.9"
+        },
+        kernelOptions: {
+            kernelName: "julia-1.9",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'julia-1.9'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Chap_IMSRG.html" title="前へ ページ">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">前へ</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>核子系の第一原理計算</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Chap_emulator.html" title="次へ ページ">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Emulator/Surrogate model</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

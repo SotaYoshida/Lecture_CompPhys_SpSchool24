@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4. Emulator/Surrogate model &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="3. 殻模型(配置間相互作用法)" href="Chap_shellmodel.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="ja">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_full.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   講義の狙いと資料の概要
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  はじめに
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap1_Julia.html">
+   Julia入門&amp;導入
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part1
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_NuclearForce.html">
+   1. 核力
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_IMSRG.html">
+   2. 核子系の第一原理計算
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part2
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_shellmodel.html">
+   3. 殻模型(配置間相互作用法)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. Emulator/Surrogate model
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/Chap_emulator.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_emulator.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap_emulator.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   4.1. 核子系多体問題の代理モデルを取り巻く動向
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eigenvector-continuation-ec">
+   4.2. Eigenvector Continuation (EC)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eigenvector-continuation">
+     4.2.1. Eigenvector continuation法を用いた近似殻模型波動関数の構築
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dmd">
+   4.3. データ駆動型アプローチ (機械学習・DMD)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imsrg-net-pinnsim-srg">
+     4.3.1. IMSRG-Net: PINNsを用いたIM-SRG法の代理モデル
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.3.2. 動的モード分解
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   4.4. 核子系の量子計算
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="emulator-surrogate-model">
+<h1><span class="section-number">4. </span>Emulator/Surrogate model<a class="headerlink" href="#emulator-surrogate-model" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>代理モデルの構築は、(他の分野と同様)原子核物理における喫緊の課題である。</p>
+<p>原子核物理(とくに理論計算)においては、2010年代になりようやく不定性評価の重要性が認識されるようになり、ベイズ推定などを用いた不定性評価が行われるようになった。
+当然ながら、不定性評価を行うためには、計算コストが高い計算を何度も行う(サンプリング)必要があり、
+Full-CI法やPost-HF法などのhigh-fidelityな計算を何度も行うことは現実的ではない。</p>
+<p>そこで重要なのが、代理モデルの構築である。
+代理モデルは分野によって呼び方は様々だが、emulatorやsurrogate modelなどと呼ばれるのが一般的で、
+もう少しクラスを限定して、Reduced order modelやReduced basis modelなどとも呼ばれたりする。</p>
+<p>この資料では、核子多体系の構造・反応計算に対して、計算コストを抑えつつ同等の(あるいは数%未満の誤差を許容した)結果を得る方法を
+ざっくばらんに代理モデルと呼ぶことにする。</p>
+<div class="section" id="id1">
+<h2><span class="section-number">4.1. </span>核子系多体問題の代理モデルを取り巻く動向<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>原子核物理学において代理モデルが大きく注目をあびるようになったのは、やはり下記の論文が契機と思われる: Eigenvector Continuation with Subspace Learning: <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.121.032501">D. Frame et al., Phys. Rev. Lett. 121, 032501 (2018)</a></p>
+<p>この論文では、3次元のBose-Hubbard模型及びneutron matterの量子モンテカルロ計算について
+Eigenvector Continuation(EC)法と呼ばれる方法を用いて、パラメータを幾つか変更して実施した数点の計算結果から、
+所与のパラメータ点における波動関数やエネルギーを予測する方法を提案したものである。</p>
+<p>上記の論文はその後、爆発的に引用され、とくに原子核物理の理論計算コミュニティで、
+筆者を含めて構造計算、反応計算の両方において代理モデルの構築が一挙に進む契機となった。</p>
+<p>その実、背景にある数学としては特段新しいものではなく、計算物理や応用数学の本に載っている(こともある)Rayleigh-Ritz法や、
+Reduced basis methodとして他分野で理解されてきた手法の一種、あるいは再発明とみなすことができる。
+とはいえ、流体力学の文脈で提唱された動的モード分解(後述)についても、内部で行う数学的な操作は特異値分解など既知の手法であるが、その提案は2008年であり、歴史は浅い。<br />
+ある分野では既知とされるような概念でも、他分野で革新的になりえるという好例とも言える。</p>
+<p>その後、EC法は原子核物理コミュニティにおいても、Reduced basis methodsというより広い文脈から理解されるようになり、関連する研究が進められている。最近の動向としては、Rev. Mod. Phys.に投稿中とみられるレビュー論文<a class="reference external" href="https://arxiv.org/abs/2310.19419">T.Duguet et al., arXiv:2310.19419</a>などが詳しい。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>関連事項に興味があれば、ぜひスクールの際でも構わないが声をかけてもらえると嬉しい。</p>
+</div>
+<p>筆者も、CEA-Saclayで2023年6月に行われた国際会議<a class="reference external" href="https://esnt.cea.fr/Phocea/Page/index.php?id=109">Eigenvector continuation method in nuclear structure and reaction theory</a>にて招待講演を行うなど、日本国内では少しはこのあたりの動向について理解をしているつもりである。</p>
+</div>
+<div class="section" id="eigenvector-continuation-ec">
+<h2><span class="section-number">4.2. </span>Eigenvector Continuation (EC)<a class="headerlink" href="#eigenvector-continuation-ec" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここでは、具体的な問題を挙げることなく、EC法の概要を説明する。
+興味のある系のHamiltonianを<span class="math notranslate nohighlight">\(H(c)\)</span>とすると、当然そのSchrödinger方程式は以下のようになる:</p>
+<div class="math notranslate nohighlight">
+\[
+H(c) | \psi(c) \rangle = E(c) | \psi(c) \rangle
+\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(c\)</span>はパラメータである。例えば、<span class="math notranslate nohighlight">\(c\)</span>はサイトのホッピング項vsポテンシャル項の係数比であるとか、カイラル核力のLow-Energy Constantであるとかをイメージするとよい。</p>
+<p>EC法では、この元々の問題をすでに数点解いた結果を用いて、<span class="math notranslate nohighlight">\(H(c_\odot)\)</span>の固有値・固有ベクトルを予測することを考える。
+サンプル(ないしsnapshot)の数を<span class="math notranslate nohighlight">\(N_s\)</span>とすると、</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H(c_1) | \psi(c_1) \rangle = E(c_1) | \psi(c_1) \rangle \\
+\vdots\\
+H(c_{N_s}) | \psi(c_{N_s}) \rangle = E(c_{N_s}) | \psi(c_{N_s}) \rangle
+\end{split}\]</div>
+<p>のそれぞれの波動関数により、<span class="math notranslate nohighlight">\(N_s\)</span>次元の空間を張るベクトルを作ることができる。
+この<span class="math notranslate nohighlight">\(N_s\)</span>点のサンプル固有ベクトルを用いて、所与のパラメータの値における固有値問題を近似的に解くには、
+以下の一般化固有値問題を考えることになる:</p>
+<div class="math notranslate nohighlight">
+\[ 
+H(c_\odot) \vec{v} = \lambda N \vec{v}
+\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(\vec{v}\)</span>は<span class="math notranslate nohighlight">\(N_s\)</span>次元のベクトルであり、<span class="math notranslate nohighlight">\(N\)</span>は<span class="math notranslate nohighlight">\(N_s\)</span>次元の行列で、サンプル波動関数同士の内積を要素とする行列である。</p>
+<div class="math notranslate nohighlight">
+\[
+N_{ij} = \langle \psi(c_i) | \psi(c_j) \rangle
+\]</div>
+<p>このとき、<span class="math notranslate nohighlight">\(\lambda\)</span>は<span class="math notranslate nohighlight">\(H(c_\odot)\)</span>の固有値の近似値を与え、
+近似固有ベクトルは</p>
+<div class="math notranslate nohighlight">
+\[ 
+| \psi(c_\odot) \rangle \approx \sum_{i=1}^{N_s} v_i | \psi(c_i) \rangle
+\]</div>
+<p>として与えられる。</p>
+<p>このことから、一度サンプル波動関数を得てしまえば、別のパラメータ点で解くべき問題が、元の問題の次元ではなくサンプル数の次元にサイズダウンすることがわかる。
+肝心なのは、そうして得られた波動関数がどれほどの精度で元の問題の波動関数を再現できるか、ということであるが、
+(問題にもよるが)十程度のサンプル点をえることで、数%以下の誤差で波動関数を再現できることがFull-CI/valence-CI法やCoupled-Cluster法などの計算で報告されている。</p>
+<p>なぜこのようなことができるのか、単純化して説明すると、いま考えているHamiltonianのもとで固有値ベクトルすべてが張る空間は、
+naiiveには、サンプル点で得た固有ベクトルが張る低次元空間に十分<strong>近い</strong>ことが予想されるためである。</p>
+<p>実際、EC法は相転移のような特異な領域では、相を跨ぐようなサンプル点を予め用意する必要がある。
+順位交差のように、パラメータ領域によって基底状態と励起状態がクロスするような場合にも、
+サンプル波動関数のなかに、基底状態と励起状態の両方が含まれるようにすることが必要になる。</p>
+<div class="section" id="eigenvector-continuation">
+<h3><span class="section-number">4.2.1. </span>Eigenvector continuation法を用いた近似殻模型波動関数の構築<a class="headerlink" href="#eigenvector-continuation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>配置間相互作用法においてEC法をいち早く検証したのは、S.König et al., <a class="reference external" href="https://doi.org/10.1016/j.physletb.2020.135814">Phys. Lett. B 810, 10, 135814 (2020)</a>で、Full CI法を用いて得られた<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>の基底状態波動関数について、カイラル核力のlow-energy constants (LECs)に対する不定性評価(感度分析)をやってのけた。
+これは、EC法なしではとても実現できない計算である。
+上記の仕事では、16個のLECのうち3個のLECに対する不定性の評価を行っている。</p>
+<p>その後、筆者らは、より多くのパラメータを含む系(現象論的な相互作用を用いた殻模型計算)でEC法の有用性を検証した。<br />
+<a class="reference external" href="https://doi.org/10.1093/ptep/ptac057">S. Yoshida and Noritaka Shimizu, PTEP 2022 053D02</a></p>
+<p>現象論的な相互作用は、アイソスピン対称性を陽に仮定しても<span class="math notranslate nohighlight">\(sd\)</span>殻で66個、<span class="math notranslate nohighlight">\(pf\)</span>殻で199の1体・2体の行列要素を持つ
+このような多次元空間においても、25-50点程度のサンプル点で、数%以下の誤差で波動関数を再現できることを示した。
+また、近似波動関数を構成できれば、それをLanczos法の初期ベクトルとして使うことで、収束性を向上させる前処理的な用途にも使えることを示している。</p>
+<p>CI計算は、解くべき問題は大変なものの、Lanczos法の性質上、基底状態とともに励起状態の波動関数も特段の違いなく得ることができるため、
+一度サンプル波動関数を構築してしまえば、様々な状態・物理量(電磁遷移行列要素など)を系統的に調べることができる。</p>
+<p>有名な殻模型相互作用の波動関数のデータベースを用意しておいて、そこからユーザーは必要な波動関数を取り出して近似波動関数を用いる、
+といった方法も将来的にありえるかもしれない。</p>
+</div>
+</div>
+<div class="section" id="dmd">
+<h2><span class="section-number">4.3. </span>データ駆動型アプローチ (機械学習・DMD)<a class="headerlink" href="#dmd" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="imsrg-net-pinnsim-srg">
+<h3><span class="section-number">4.3.1. </span>IMSRG-Net: PINNsを用いたIM-SRG法の代理モデル<a class="headerlink" href="#imsrg-net-pinnsim-srg" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>IM-SRG法は、前章でも説明したように、核子多体系の構造計算において、近年最も注目されている手法の一つである。<br />
+(sub-)closed-shell系における基底状態の第一原理的な計算として、Coupled-Clusterとならび非常によく用いられるだけでなく、
+やMagnus展開を用いた定式化の特性から、模型空間の殻模型相互作用を含む任意の有効演算子を系統的に導出できるという利点を有している。</p>
+<p>当然このIM-SRG法についても、パラメータを変えたときの計算結果を得るためには、
+何度も大変な計算を繰り返す必要があるため、代理モデルの構築が喫緊の課題となっている。</p>
+<p>ここでは、筆者が提案した、IMSRG-Netと呼ばれる手法について説明する。論文は下記の通り:<a class="reference external" href="https://doi.org/10.1103/PhysRevC.108.044303">S. Yoshida Phys. Rev. C 108, 044303 (2023)</a></p>
+<p>IMSRG-Netは、PINNs(Physics Informed Neural Networks)と呼ばれる機械学習の手法を用いて、IM-SRG法の代理モデルを構築するものである。</p>
+<p>PINNsとは、物理法則を満たすようにニューラルネットワークのパラメータを学習する手法であり、
+一言で簡単に言えば「誤差関数に系を支配する微分方程式(ODE/PDE)を入れてしまえば物理法則を満たすように学習してくれるのでは？」というアイデアである。</p>
+<p>幸い、IM-SRG法はflow方程式という形の常微分方程式(ODE)であるため、PINNsを適用して遊んでみるのは、わりと自明である。
+下に模式図を示した。</p>
+<img src="./pic/imsrgnet_sketch.png" width=60%>
+<p>まずニューラルネットワークの構造は、最も基本的な全結合のニューラルネットワークを用いる(もちろんもっと複雑な構造を用いてもよいはずだが)。
+入力は、IM-SRG法のflow parameterである<span class="math notranslate nohighlight">\(s\)</span>で、出力は、IM-SRG法(そのとくにMagnus展開を用いるforlmulation)のユニタリ変換を与えるMagnus operator <span class="math notranslate nohighlight">\(\Omega(s)\)</span>である。</p>
+<p>ニューラルネットワークが計算の各ステップ<span class="math notranslate nohighlight">\(s\)</span>で得られるデータ<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を幾つか与えるだけで、<span class="math notranslate nohighlight">\(s\to\infty\)</span>での<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を予測するように学習できればそんなに嬉しいことはないが、もちろんそう上手くは行かない。
+そこで、IM-SRG法のflow方程式を、ニューラルネットワークの誤差関数に入れて、
+<span class="math notranslate nohighlight">\(\Omega(s)\)</span>の<span class="math notranslate nohighlight">\(s\)</span>に関する微分方程式(の第１近似)を誤差関数に入れることで、
+ニューラルネットワークがflow方程式を近似的に満たすように学習するようにする。</p>
+<p><span class="math notranslate nohighlight">\(d\Omega(s)/ds\)</span>は、ネットワークの出力に対する入力の微分であるため、
+自動微分や数値微分を用いて効率的に計算することができる。
+IMSRG法では、出力が大次元のため、自動微分の計算が大変なため、数値微分を用いている。</p>
+<p>こうした物理のドメイン知識を機械学習モデルに入れる際、よくあるのが、アーキテクチャ側を工夫する方法で、
+例えば画像認識の基本的なアルゴリズムとしてよく用いられるCNN(Convolutional Neural Network)は、
+画像の回転や並進に対して不変な特徴量を抽出するように設計されている。
+一方で、PINNsは誤差関数に物理のドメイン知識を入れることで、探索すべきパラメータ空間を制限している方法と言える。</p>
+<p><span class="math notranslate nohighlight">\(s\)</span>が比較的小さい領域では、flow方程式はかなり非線形性が強いため、<span class="math notranslate nohighlight">\(s \to \infty \)</span>での値を予測する外挿の精度は、
+当然悪くなってしまうが、ある一定の<span class="math notranslate nohighlight">\(s\)</span>までをデータ(snapshot)として与えることで、その後の計算をPINNsで省略できることがわかった。</p>
+<p>高速化としては、たかだか数10%程度であるが、それでも、PINNsを用いてIM-SRG法の計算コストを大幅に削減できることがわかった。
+また、<span class="math notranslate nohighlight">\(\eta(s=\infty)\)</span>という、IMSRG flow方程式の漸近的な振る舞いが学習の過程で自然に満たされるため、
+外挿の安定性が高いのもこの提案手法の特徴である。</p>
+</div>
+<div class="section" id="id2">
+<h3><span class="section-number">4.3.2. </span>動的モード分解<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>動的モード分解は、2008年にP.J. Schmidらによって提唱された手法であり、
+時空間に依存するデータを用いて、そのデータを生成する力学系の特徴を抽出する手法である。</p>
+<p>Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numerical and experimental data
+<a class="reference external" href="https://doi.org/10.1017%2FS0022112010001217">リンク</a>は3000の引用を超える。</p>
+<p><strong>動的モード分解(DMD)の基本</strong></p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>元々がメッシュ点で与えられた行列やテンソルなど多次元配列だとしても、一定の規則に基づいてベクトル化していると考えてほしい。</p>
+</div>
+<p>時間方向に対する<span class="math notranslate nohighlight">\(N+1\)</span>点のスナップショットが与えられたとする:<span class="math notranslate nohighlight">\(\{ \mathbf{x}_1, \ldots, \mathbf{x}_{N+1} \}\)</span>
+ここで、<span class="math notranslate nohighlight">\(\mathbf{x}_i\in\mathbb{R}^d\)</span>は、<span class="math notranslate nohighlight">\(d\)</span>次元のベクトルである。
+次に、それらスナップショットから構成される以下の<span class="math notranslate nohighlight">\(d\times N\)</span>行列を考える</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{X} := 
+\begin{pmatrix}
+| &amp; &amp; | \\
+\mathbf{x}_1 &amp; \cdots  &amp;\mathbf{x}_N \\
+| &amp; &amp; |
+\end{pmatrix}
+, \hspace{0.5cm}
+\mathbf{Y} := 
+\begin{pmatrix}
+| &amp; &amp; | \\
+\mathbf{x}_2 &amp; \cdots  &amp;\mathbf{x}_{N+1} \\
+| &amp; &amp; |
+\end{pmatrix}
+\end{split}\]</div>
+<p>一般に、<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>と<span class="math notranslate nohighlight">\(\mathbf{Y}\)</span>は、以下のような関係にある:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Y}=\mathbf{F}(\mathbf{X})
+\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(\mathbf{F}\)</span>は、<span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>から<span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>への写像(時間発展の操作とみなせる)で、非線形な関数の場合が多い。
+最もよくある場合としては、偏微分方程式に従う系だろうか。</p>
+<p>一般に大次元の系では、偏微分方程式を数値的に解くのがかなり大変で、何らかの方法で、系の時間発展を近似することも必要になる。</p>
+<p>DMDでは、この1ステップの時間発展を、線形写像<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>を用いて近似する事を考える:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Y}\approx\mathbf{A}\mathbf{X}
+\]</div>
+<p>もし上式の近似が良い近似であれば、系の時間発展を線形演算<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>で効率よく近似出来ると期待される。
+以降で見るように、DMDでは、データ(スナップショット)から<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>を求めるので、equation freeな手法である。</p>
+<p>&quot;良い近似&quot;では、曖昧なので、<span class="math notranslate nohighlight">\(A\)</span>の推定問題をFrobeniusノルムを用いて、以下の最小化問題と定義する:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{min}_{\mathbf{A}}\|\mathbf{Y}-\mathbf{A}\mathbf{X}\|_F^2
+\]</div>
+<p>もちろん、Moore-Penroseの擬似逆行列<span class="math notranslate nohighlight">\(X^+=V\Sigma^{-1}U\)</span>を用いて、<span class="math notranslate nohighlight">\(A=YX^+\)</span>として理論上は求めることができるが、
+注目するダイナミクスが大次元である場合、計算コストが高くなると予想される。</p>
+<p>DMDでは、データの次元<span class="math notranslate nohighlight">\(d\)</span>に比べて小さい<span class="math notranslate nohighlight">\(r\)</span>次元に射影したダイナミクスを考えることで、
+<span class="math notranslate nohighlight">\(A\)</span>の推定問題を少ない計算量で置き換え、系のダイナミクスを詳細に解析しやすくする、というのが基本的な発想となる。</p>
+<p><strong>DMDのアルゴリズム</strong></p>
+<p>DMDの基本的なアルゴリズムは以下の通りである:</p>
+<ol>
+<li><p>データ行列<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>を特異値分解する:</p>
+<div class="math notranslate nohighlight">
+\[
+    X = U\Sigma V^t
+    \]</div>
+<p>この際のSVDはいわゆるeconomy-size SVDと呼ばれるもので、<span class="math notranslate nohighlight">\(U\in\mathbb{R}^{d\times N}\)</span>, <span class="math notranslate nohighlight">\(\Sigma\in\mathbb{R}^{N\times N}\)</span>, <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{N \times N}\)</span>となる。</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(U,\Sigma,V\)</span>の低ランク近似 <span class="math notranslate nohighlight">\(r \ll \mathrm{min}(d,N) \)</span>を考える:</p>
+<div class="math notranslate nohighlight">
+\[
+    U_r = U(:,1:r), \Sigma_r = \Sigma(1:r,1:r), V_r = V(:,1:r)
+    \]</div>
+</li>
+<li><p>以下の<span class="math notranslate nohighlight">\(r \times r\)</span>行列を考える:</p>
+<div class="math notranslate nohighlight">
+\[
+    \tilde{A} = U_r^t A' U_r
+    \]</div>
+<p>ただし、</p>
+<div class="math notranslate nohighlight">
+\[
+    A' = Y V_r \Sigma^{-1}_r U^t_r
+    \]</div>
+<p>で、この<span class="math notranslate nohighlight">\(A'\)</span>が意味するところは、<span class="math notranslate nohighlight">\(YX^+=YV\Sigma^{-1}U\)</span>の近似である。</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\tilde{A}\)</span>の固有値<span class="math notranslate nohighlight">\(\lambda_i\in \mathbb{C}\)</span>と固有ベクトル<span class="math notranslate nohighlight">\(\mathbf{w}_i \in \mathbb{C}^r\)</span>を求める。</p>
+<div class="math notranslate nohighlight">
+\[
+    \tilde{A} w_j = \lambda_j w_j
+    \]</div>
+</li>
+<li><p>それぞれの固有値に対して、以下の<span class="math notranslate nohighlight">\(d\)</span>次元ベクトルを計算する:</p>
+<div class="math notranslate nohighlight">
+\[
+    \phi_j = \lambda_j^{-1} Y V_r \Sigma_r^{-1} w_j
+    \]</div>
+<p>これらをexact DMD modesと呼ぶ。あるいは、このexact DMD modesのかわりに<span class="math notranslate nohighlight">\(d\)</span>次元ベクトル</p>
+<div class="math notranslate nohighlight">
+\[
+    \xi_j = U_r w_j
+    \]</div>
+<p>を計算することもある。これは、exact DMD mode <span class="math notranslate nohighlight">\(\phi_j\)</span>の近似に相当し、<span class="math notranslate nohighlight">\(\xi_i\)</span>の集合をprojected DMD modesと呼ぶ。</p>
+</li>
+</ol>
+<p>まず1.で元のダイナミクスの低次元表現を得た後、
+3.では、その射影空間における時間発展(ユニタリ変換)の形となっている。
+4.の固有値解析においては、元の<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{N\times N}\)</span>に対する近似として、
+<span class="math notranslate nohighlight">\(\tilde{A}\in \mathbb{R}^{r\times r}\)</span>の固有値解析を行っており、<span class="math notranslate nohighlight">\(r \ll N\)</span>の場合に大幅な計算コストの削減が見込める。</p>
+<p>このとき、重要な性質が幾つかある:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\tilde{A}\)</span>の非ゼロ固有値は、<span class="math notranslate nohighlight">\(A'\)</span>の固有値に一致する</p></li>
+<li><p>exact DMD modesが<span class="math notranslate nohighlight">\(A'\)</span>の固有ベクトルとなる</p></li>
+</ul>
+<p>1.において、データ行列<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>の特異値分解を行うが、full rank SVDが大変な場合は、
+truncated SVDと呼ばれるような、主要な特異値を取り出す方法を考えると良い。</p>
+<p>full rank SVDについては、<code class="docutils literal notranslate"><span class="pre">LinearAlgebra.jl</span></code>の<code class="docutils literal notranslate"><span class="pre">svd</span></code>関数を用いればよいが、
+truncated SVDについては、<code class="docutils literal notranslate"><span class="pre">Arpack.jl</span></code>ないし<code class="docutils literal notranslate"><span class="pre">KrylovKit.jl</span></code>など、<strong>Krylov部分空間法</strong>を用いたパッケージを用いれば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#使用するパッケージをインストールしておこう (1回実行すればよいため、コメントアウトしておいた)</span>
+<span class="c"># using Pkg </span>
+<span class="c"># Pkg.add(&quot;Arpack&quot;)</span>
+<span class="c"># Pkg.add(&quot;KrylovKit&quot;)</span>
+
+<span class="k">using</span> <span class="n">LinearAlgebra</span> 
+<span class="k">using</span> <span class="n">Arpack</span>
+<span class="k">using</span> <span class="n">KrylovKit</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c"># LinearAlgebra.svd(A)</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c"># Arpack.svds(A; nsv=10)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">svds</span><span class="p">(</span><span class="n">A</span><span class="p">;</span> <span class="n">nsv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c"># KrylovKit.svds(A, nsv)</span>
+<span class="n">vals</span><span class="p">,</span> <span class="n">lvecs</span><span class="p">,</span> <span class="n">rvecs</span> <span class="o">=</span> <span class="n">svdsolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;LinearAlgebra: &quot;</span><span class="p">,</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span> <span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Arpack:        &quot;</span><span class="p">,</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="n">Z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;KrylovKit:     &quot;</span><span class="p">,</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>時系列データの再構成</strong></p>
+<p>上で記載したDMDモードと初期値<span class="math notranslate nohighlight">\(x_1\)</span>を用いて、時刻<span class="math notranslate nohighlight">\(k\)</span>におけるデータを再構成する方法を考えよう。</p>
+<p>まず、時刻<span class="math notranslate nohighlight">\(k\)</span>における推定値<span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span>は、以下のように計算される:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}_k = \mathbf{A}^{k-1} \mathbf{x}_1
+\]</div>
+<p>このとき、<span class="math notranslate nohighlight">\(A\)</span>の固有値・固有ベクトルが<span class="math notranslate nohighlight">\(\{ \lambda_i, \phi_i \}^r_{i=1}\)</span>とかける。
+<span class="math notranslate nohighlight">\(\mathrm{rank}(A) \le r\)</span>から</p>
+<div class="math notranslate nohighlight">
+\[
+A\Phi = \Phi \Lambda
+\]</div>
+<p>とかける。ここで、下記のように<span class="math notranslate nohighlight">\(\phi,\lambda\)</span>を行列化した。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Phi = 
+\begin{pmatrix}
+| &amp; &amp; | \\
+\phi_1 &amp; \ldots &amp; \phi_r \\ 
+| &amp; &amp; | \\
+\end{pmatrix}
+,\hspace{0.5cm} \Lambda = diag(\lambda_1, \ldots, \lambda_r)
+\end{split}\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(A\)</span>を</p>
+<div class="math notranslate nohighlight">
+\[
+A \simeq \Phi \Lambda \Phi^{+}
+\]</div>
+<p>と近似すると、</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}_k \approx A^{k-1} x_1 \simeq \Phi \Lambda^{k-1} \Phi^{+} x_1.
+\]</div>
+<p>として、DMD modeを用いて、時刻<span class="math notranslate nohighlight">\(k\)</span>における推定をすることができる。</p>
+<p>ここで、<span class="math notranslate nohighlight">\(z := \Phi^{+} x_1  \in \mathbb{R}^{}\)</span> と整理すると、</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}_k \approx \sum_{j=1}^r \lambda_j^{k-1} z_j \phi_j
+\]</div>
+<p>これを、一定の時間間隔<span class="math notranslate nohighlight">\(\Delta t\)</span>ごとの式として解釈するために書き直すと、</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}_{k+1} \approx \sum_{j=1}^r \exp ( \omega_j t) z_j \phi_j,
+\hspace{0.5cm} t\equiv (k-1) \Delta  t
+\hspace{0.5cm} \omega_j \equiv \frac{\log \lambda_j}{\Delta t}
+\]</div>
+<p>となる。</p>
+<p>固有値<span class="math notranslate nohighlight">\(\lambda_i\)</span>に対応する波形の<strong>周波数</strong>を、<span class="math notranslate nohighlight">\(f_i = \mathrm{Arg} \lambda_i / (2 \pi \Delta t)\)</span>と定義することができる。</p>
+<p>上の式をみるとそれぞれのモードに対する分解、例えば離散フーリエ変換(DFT)のような形となっていることがわかる。
+DFTと大きく異なるのは、固有モードが固定振動数(周期)を持つDFTに対して、DMDでは、周波数が(特異値の形で)重要な寄与を持つモードが動的に与えられている点である。</p>
+<p><code class="docutils literal notranslate"><span class="pre">NuclearToolkit.jl</span></code>には、DMDを用いて、IM-SRG法の代理モデルを構築するための関数が用意されている。
+DMDをIMSRG法に応用するアイデアは、MSU・FRIBグループで提案されたものである。
+今後、MSU・FRIBグループとの共同研究等も予定していることもあり、この資料では詳細については割愛する。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">4.4. </span>核子系の量子計算<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>量子計算を代理モデルとよぶべきかどうかは議論の余地があるが、上の定義に従って、記載することにする。</p>
+<p>先の、殻模型/配置間相互作用法の章でも述べたように、微視的な核構造計算として強力なツールであるCI法だが、
+その計算コストは考えるべき自由度に対して指数関数的に増大する、という困難を抱えている。
+これは、核子系に限らず、電子系などにおいても同様である。</p>
+<p>当然、物性物理や量子化学分野と同様、原子核物理においても、量子計算の応用が期待されており、
+必要なリソースの見積もりや簡単な系のシミュレータ・実機における計算なども多数報告されている。</p>
+<p>筆者も現在、核子系の量子計算の研究を東大・理研グループと共同で進めており、数日後の日本物理学会においても発表を行う
+→<a class="reference external" href="https://onsite.gakkai-web.net/jps/jps_search/2024sp/data2/html/programrk.html">18pU2-11</a>。
+是非お越しください!(宣伝)</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "julia-1.9"
+        },
+        kernelOptions: {
+            kernelName: "julia-1.9",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'julia-1.9'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Chap_shellmodel.html" title="前へ ページ">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">前へ</p>
+            <p class="prev-next-title"><span class="section-number">3. </span>殻模型(配置間相互作用法)</p>
+        </div>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

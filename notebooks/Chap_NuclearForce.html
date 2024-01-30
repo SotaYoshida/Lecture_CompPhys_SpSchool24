@@ -1,0 +1,850 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1. 核力 &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="2. 核子系の第一原理計算" href="Chap_IMSRG.html" />
+    <link rel="prev" title="Julia入門&amp;導入" href="Chap1_Julia.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="ja">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_full.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   講義の狙いと資料の概要
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  はじめに
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap1_Julia.html">
+   Julia入門&amp;導入
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part1
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1. 核力
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_IMSRG.html">
+   2. 核子系の第一原理計算
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part2
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_shellmodel.html">
+   3. 殻模型(配置間相互作用法)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_emulator.html">
+   4. Emulator/Surrogate model
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/Chap_NuclearForce.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_NuclearForce.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap_NuclearForce.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   1.1. 核力の基本的性質
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     1.1.1. アイソスピン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1.1.2. 核力の持つ基本的対称性
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     1.1.3. 現実的核力
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     1.1.4. カイラル有効場の理論
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     1.1.5. 3体力
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#momentum-space">
+   1.2. 核力の表示: momentum space
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#partial-wave-momentum-space-langle-p-l-s-j-t-z-v-p-lsjt-z-rangle">
+     1.2.1. partial-wave momentum space:
+     <span class="math notranslate nohighlight">
+      \(\langle p';L'S'J'T_z |V|p;LSJT_z\rangle\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#single-particle-space-single-particle-harmoic-oscillator-basis">
+     1.2.2. single-particle space (single-particle Harmoic oscillator basis)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#clubsuit">
+       1.2.2.1.
+       <span class="math notranslate nohighlight">
+        \(\clubsuit\)
+       </span>
+       こまか〜い注
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   1.3. 核力のソフト化
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   1.4. 相互作用ファイルの作成
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     1.4.1. 運動量空間におけるカイラル核力の2次元プロット
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clubsuit-magic-interaction-em1-8-2-0">
+     1.4.2.
+     <span class="math notranslate nohighlight">
+      \(\clubsuit\)
+     </span>
+     余談: Magic interaction: EM1.8/2.0
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">1. </span>核力<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>無限系もそう</p>
+</div>
+<p>原子核という有限量子多体系は核子間に働く相互作用である核力の複雑さに起因して非常にrichな様相を見せる系である。<br />
+中性子過剰核(陽子過剰核)などのいわゆる不安定核は、我々の身の回りの物質を構成する安定核とは全く異なる性質を示すことも多い。<br />
+顕著なもので言うと、魔法数の破れや反転の島、ハロー核といって少数の核子が周囲に広がり弱束縛する核などがある。</p>
+<p>こうした原子核の性質は、核子間の相互作用の複雑さに起因するものであり、核力を理解することは当然原子核の理解につながる。
+しかし、核力は非常に複雑なものであり、その理解は容易ではない。</p>
+<p>この章では、核力の基本的性質や、現代の構造・反応理論における標準的なインプットであるカイラル有効場理論に基づく核力ポテンシャルの概要を述べる。</p>
+<div class="section" id="id2">
+<h2><span class="section-number">1.1. </span>核力の基本的性質<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>核力の持つ特徴的な振る舞いとしては、</p>
+<ul class="simple">
+<li><p>近距離で強い斥力を持つ</p></li>
+<li><p>1fm程度の距離ではメソン交換による引力が働く</p></li>
+<li><p>2-3fmを超えると殆ど力が到達しない</p></li>
+<li><p>3体系以上になると、２体系の積み重ねで説明できない３体力が働く</p></li>
+</ul>
+<p>といった点が挙げられる。</p>
+<p>N. Ishii, S. Aoki, and T. Hatsuda <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.99.022001">Phys. Rev. Lett. 99, 022001 (2007)</a>
+の論文から、図を引用する</p>
+<img src="pic/Ishii_fig1.png" width=50%>
+<p>これは、核力の<span class="math notranslate nohighlight">\(^1S_0\)</span>成分について、距離<span class="math notranslate nohighlight">\(r\)</span>の関数として現実的核力(CD-Bonn, Reid93, AV18)をプロットしたものである。
+斥力芯や中間子交換による引力の寄与が見て取れる。※核力のチャンネルや現実的核力については後述する。</p>
+<div class="section" id="id3">
+<h3><span class="section-number">1.1.1. </span>アイソスピン<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>proton</p></th>
+<th class="head"><p>neutron</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>電荷</p></td>
+<td><p>e</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>質量 (MeV)</p></td>
+<td><p>938.272</p></td>
+<td><p>939.550</p></td>
+</tr>
+<tr class="row-even"><td><p>スピン</p></td>
+<td><p>1/2</p></td>
+<td><p>1/2</p></td>
+</tr>
+<tr class="row-odd"><td><p>半減期</p></td>
+<td><p><span class="math notranslate nohighlight">\(&gt;10^{34}\)</span> yr</p></td>
+<td><p>887 s</p></td>
+</tr>
+<tr class="row-even"><td><p>組成</p></td>
+<td><p>uud</p></td>
+<td><p>udd</p></td>
+</tr>
+</tbody>
+</table>
+<p>陽子と中性子の質量はほぼ同じであるため、同一の粒子(核子)の異なる荷電状態とみなして扱う事が多い。<br />
+ハイゼンベルクは電子のスピンに類似した核子の内部自由度を導入し、それをアイソスピンと呼んだ。</p>
+<p>もちろんこれは、核子の内部構造であったり、電磁相互作用/弱い相互作用などの影響を無視した近似であるが、
+核子間の相互作用を記述する上で、アイソスピンを導入することは非常に有効であることが経験的に分かっている。</p>
+<p>それぞれの相互作用を分類する際には、proton-proton: pp, neutron-neutron: nn, proton-neutron: pnなどと表記することにする。</p>
+<p>pn系は、スピンの場合と同じく(合成)アイソスピンを用いて</p>
+<p><span class="math notranslate nohighlight">\(I=1\)</span>成分 → <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{2}} (|n\rangle|p\rangle + |p\rangle|n\rangle)\)</span></p>
+<p><span class="math notranslate nohighlight">\(I=0\)</span>成分 → <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{2}} (|n\rangle|p\rangle - |p\rangle|n\rangle)\)</span></p>
+<p>と分類することができる。</p>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">1.1.2. </span>核力の持つ基本的対称性<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>核力には、基本的性質として以下の対称性(不変性)がある。
+核子の番号をそれぞれ1,2とすると、以下のように対称性・不変性から依存性(一般形)を限定することができる:</p>
+<ul class="simple">
+<li><p>核子の座標の交換に対する対称性: <span class="math notranslate nohighlight">\(V(1,2) = V(2,1)\)</span></p></li>
+<li><p>並進対称性: 核子間の相対座標<span class="math notranslate nohighlight">\(\boldsymbol{r}\equiv \boldsymbol{r}_1-\boldsymbol{r}_2\)</span>のみに依存する</p></li>
+<li><p>ガリレイ不変性: 核子間の相対運動量<span class="math notranslate nohighlight">\(\boldsymbol{p}\equiv \boldsymbol{p}_1-\boldsymbol{p}_2\)</span>のみに依存する</p></li>
+<li><p>空間反転不変性: 座標とスピンのflipに対して不変</p></li>
+<li><p>時間反転不変性: 運動量とスピンのflipに対して不変</p></li>
+<li><p>回転不変性: 各項は既約テンソルの意味でスカラーになる</p></li>
+<li><p>アイソスピン空間の回転不変性: <span class="math notranslate nohighlight">\(I=1\)</span>(３重項)に属する相互作用はpp,nn,pnで同じになる(合成のアイソスピンのみに依存)。</p></li>
+</ul>
+<p>では、それぞれの項の強さはどのように決定すればよいだろうか？</p>
+<p>格子QCD計算によって、核力を含むハドロン間相互作用をQCDに基づいて記述する試みとして、
+HAL QCD法による研究は特筆すべき成果を挙げている。
+先程の図でも引用した論文、N. Ishii, S. Aoki, and T. Hatsuda <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.99.022001">Phys. Rev. Lett. 99, 022001 (2007)</a>
+では、核力の近距離における斥力芯や、中-長距離における引力的な振る舞いをQCDから第一原理的に示すことに成功している、
+マイルストーン的な研究である。
+一方で、後述の３体力を含む核力の様々なチャネルを含む核力の様々な寄与をQCDから定量的に再現することは依然として困難である。</p>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">1.1.3. </span>現実的核力<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>主に90年代以降、現実的核力と呼ばれる核子間相互作用が提案されてきた。<br />
+これは、大雑把に言えば、核子間の相互作用の基本的な性質を反映した項を考え、
+NN散乱などの反応データ(3000とか4000以上)をもとに、それらの項のパラメータを調整することで構築されたものである。
+代表的なものとしては、<a class="reference external" href="https://doi.org/10.1103/PhysRevC.51.38">Argonne (<span class="math notranslate nohighlight">\(v_{18}\)</span>)</a>、
+<a class="reference external" href="https://doi.org/10.1103/PhysRevC.63.024001">CD-Bonn</a>、<a class="reference external" href="https://doi.org/10.1103/PhysRevC.49.2950">Nijmegen</a>などがある。</p>
+<p>現実的核力の構築に伴い、それらを直接のインプットとする第一原理計算の研究も盛んになった。
+特に重要な仕事を２つほど紹介しておく。</p>
+<ol>
+<li><p>Quantum Monte Carlo calculations of A=8 nuclei, R. B. Wiringa et al., <a class="reference external" href="https://journals.aps.org/prc/abstract/10.1103/PhysRevC.62.014001">Phys. Rev. C 62, 014001 (2000)</a><br />
+この仕事では、Argonne v18(+Urbana IX ３体力)をインプットとして、軽い核のVMC&amp;GFMC計算を行っている。<br />
+<img src="./pic/Wiringa_fig9.png"  width=47%><img src="./pic/Wiringa_fig15.png"  width=50%></p>
+<p>図左側にA=4-8の核の基底状態・及び励起状態のスペクトルを示している。
+基底状態エネルギーの系統的なズレはあるものの、核力をインプットとする計算が、軽い核のスペクトルをよく再現していることがわかる。</p>
+<p>図右側には <span class="math notranslate nohighlight">\({}^{8}\mathrm{Be}\)</span> の基底状態の密度分布が示されている。
+<span class="math notranslate nohighlight">\({}^{8}\mathrm{Be}\)</span> は、すぐに2つの<span class="math notranslate nohighlight">\(\alpha\)</span>粒子に崩壊する不安定核で、
+基底状態においてtwo-<span class="math notranslate nohighlight">\(\alpha\)</span>クラスターの成分を持つと考えられる。</p>
+<p>左側のプロットが実験室系での密度分布、右側が物体固定座標系での密度分布である。
+クラスター構造を仮定せずに初めて核力から <span class="math notranslate nohighlight">\(2\alpha\)</span> の成分を持つことを示したマイルストーン的な仕事である。</p>
+</li>
+<li><p>Large-basis ab initio no-core shell model and its application to 12C, P. Navratil et al., <a class="reference external" href="https://journals.aps.org/prc/abstract/10.1103/PhysRevC.62.054311">Phys. Rev. C 62, 054311 (2000)</a></p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>No-core shell modelとは、全ての核子を陽に扱うCI計算で、原子核分野でFull-CI計算という際には、NCSMを指す。
+もちろん、全ての核子について&quot;あらゆる&quot;状態(配位)を扱うことは不可能であるので、
+ある程度の大きさの空間を切り出して、その中での全ての配位を扱うことになる。
+こうした空間は通常、調和振動子基底のmajor-shellの数や、major-shellを跨ぐ励起を幾つまで許すかという値でtruncationすることが多い。</p>
+</div>
+<p>この仕事では、CD-BonnやArgonne v8'をインプットとして、軽い核のno-core shell model(NCSM)計算を行っている。<br />
+炭素12の基底状態エネルギー-92.162MeVに対して、当時扱える最も大きい基底空間での計算で-88.518(CD-Bonn), -87.675(AV8')と
+そこそこの精度の記述を与えている。また、励起状態についても、Hoyle状態と呼ばれるエキゾチックな状態を除いて、
+かなりの精度で記述できていることが伺える。</p>
+<p><img src="./pic/Navratil_fig1.png"  width=45%><img src="./pic/Navratil_fig7.png"  width=30%></p>
+</li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">1.1.4. </span>カイラル有効場の理論<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>2000年代以降は、カイラル有効場理論(Chiral EFT)に基づく核力が提案され、
+とくに2010年以降、微視的な核構造・核反応計算の標準的なインプットとして用いられるようになっている。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>power-countingの方法によっても整理は異なるし、有効な自由度をどのように選ぶかによっても異なる。
+例えば、核子と<span class="math notranslate nohighlight">\(\Delta\)</span>中間子を有効自由度として取り入れる<span class="math notranslate nohighlight">\(\Delta\)</span>-full EFTなどもある。</p>
+</div>
+<p>カイラル有効場理論は、QCDの低エネルギー有効理論であり、
+有効ラグランジアンを出発点に、２体力・３体力(より高次の多体力)を系統的に導出することができる。</p>
+<p>以下ではとくに、核子と核力を媒介するパイオンのみを顕な自由度として扱うものを指して、
+カイラル有効場理論と呼ぶことにする。</p>
+<p>Chiral EFTに基づく核力の整理を示す図を下に示した。</p>
+<img src="./pic/Machleidt_revFig1.png"  width=50%>
+<p>それぞれの寄与の順序は、power-countingによって決まる。
+例えば２体力の主要な寄与(leading order; LO)に着目すると、２つのダイアグラムがあることが見てとれる。
+このうち、湯川の中間子理論における核力, OPEP(One-pion exchange potential)の寄与が
+２つめのダイアグラムに対応する。
+１つ目の項(コンタクト項)は、pion以外の中間子の交換による相互作用などを表している。
+核子とパイオンのみを顕な自由度として扱う場合、それ以外の自由度の寄与はこのコンタクト項のように、
+vertex部分に吸収されることになる。
+それぞれのvertexには、低エネルギー係数(LEC)と呼ばれるパラメータが現れ、
+核力の場合は、核子-核子や核子-パイオンの散乱データをもとに、
+これらのパラメータを調整することで核力を構築することができる。
+散乱データをもとに核力を構築する考え方自体は、現実的核力と呼ばれていた核力と同様である。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>TPE項に現れる低エネルギー係数は実は２体力部分で決まる。残りのOne-pion exchange(OPE)項とコンタクト項の係数<span class="math notranslate nohighlight">\(c_D,c_E\)</span>は
+２体力とは独立のパラメータであり、３体系の物理量など、他の物理量を用いて決定する必要がある。</p>
+</div>
+<p>また、３体力については、NNLOに３つの寄与が現れている。中でもひときわ重要なのが、
+TPE(Two-pion exchange)と呼ばれる項であり、藤田-宮沢型３体力と呼ばれる３体力の主要な寄与に対応するものである。</p>
+<p>筆者はカイラル摂動論については全くの素人以下なので、一般論はこの辺りに留めて、以下ではユーザーの立場からもう少し整理を行う。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>両者の大きな違いはカットオフの方法である。
+Jülich系は、当初からSpectral function regularization (SFR)と呼ばれるカットオフの方法を用いていた
+一方で、Idaho系の初期(EM)の相互作用ではDimensional regularization (DR)と呼ばれるカットオフの方法を用いていて、
+これはSFRのカットオフを<span class="math notranslate nohighlight">\(\infty\)</span>とした特殊な場合となっている。
+Idaho系でも、N4LOのEMN系の相互作用を作る際に、より一般的なSFRカットオフへと拡張された。
+その意味では、両者の違いは少なくなりつつある。</p>
+</div>
+<p>カイラル有効場の理論に基づく核力ポテンシャルには(派生した相互作用もあるが)代表的には2つの系統があり、幾つか呼ばれ方が異なることもある。</p>
+<ul>
+<li><p>Idaho系
+Ruprecht Machleidtらを中心としたグループが提案したもの。<br />
+D.R. Entem and R. Machleidt, <a class="reference external" href="https://doi.org/10.1103/PhysRevC.68.041001">Phys. Rev. C 68, 041001 (2003)</a>.
+が有名。N3LOまでのNN核力を含み、Entem-Machleidt型と呼ばれたり、EMなど略される。
+カットオフが500MeVの通称EM500が、これまでに最も多く構造・反応計算で用いられてきた。<br />
+N4LOのTPEの寄与はEntem,Kaiser, Machleidt, Nosykらによる論文<a class="reference external" href="https://journals.aps.org/prc/abstract/10.1103/PhysRevC.91.014002">Phys. Rev. C 91, 014002 (2015)</a>によって与えれ、その後、Contact項も含めてN4LOまでのLECsを散乱データにfitした
+EMNと呼ばれる系統が提案され、2017年以降のab initio計算の標準的なインプットとなっている→D. R. Entem, R. Machleidt, and Y. Nosyk <a class="reference external" href="https://doi.org/10.1103/PhysRevC.96.024004">Phys. Rev. C 96, 024004 (2017)</a></p>
+<p>その他、詳細はレビュー論文に譲る → <a class="reference external" href="https://doi.org/10.1016/j.physrep.2011.02.001">Phys. Rep. 503, 1 (2011)</a>
+<a class="reference external" href="https://doi.org/10.3389/fphy.2020.00057">Front. in Phys. 8 (2020) 57</a></p>
+</li>
+<li><p>Jülich系
+Bochum-Jülichグループが提案したもの。当初は
+Evgeny Epelbaum, Ulf-G. Meissner, Walter Gloeckleらの頭文字を取ってEGMなどとも呼ばれていたが、
+近年では、JülichポテンシャルやLENPICポテンシャル(LENPIC collaborationから)などと呼ぶことが多い印象。</p>
+<p>レビュー論文 →  <a class="reference external" href="https://doi.org/10.1103/RevModPhys.81.1773">Rev. Mod. Phys. 81, 1773 (2009)</a>, <a class="reference external" href="https://doi.org/10.3389/fphy.2020.00098">Front. in Phys. 8 (2020) 98</a></p>
+</li>
+</ul>
+<p>この他、中重核の束縛エネルギーと核半径を再現するようにfitされた相互作用(例: <a class="reference external" href="https://doi.org/10.1103/PhysRevC.91.051301">NNLOsat</a>)や
+Full-CI用に最適化された相互作用(例: <a class="reference external" href="https://doi.org/10.1016/j.physletb.2006.10.066">JISP16</a>, <a class="reference external" href="https://doi.org/10.1016/j.physletb.2016.08.006">Daejeon16</a>)なども提案されひろく用いられているが、ここでは割愛する。</p>
+<p>以降では、主にIdaho系の２体相互作用を用いることにする。</p>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">1.1.5. </span>3体力<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>核子間相互作用は、核子が複合粒子であることに由来して、２体力だけでなく３体力(および高次の多体力)が働く。<br />
+３体力の重要性は様々な系で指摘されてきたが、とりわけ以下の２点からその重要性が強調されることも多い。</p>
+<ul>
+<li><p>有限核の束縛エネルギーの説明<br />
+核子-核子などの散乱データを精度良く記述する２体力を用いて第一原理計算を行うと、
+<span class="math notranslate nohighlight">\({}^{4}\mathrm{He}\)</span>などの軽い核の束縛エネルギーは実験値を過小評価し、
+<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>や<span class="math notranslate nohighlight">\({}^{40}\mathrm{Ca}\)</span>などの中重核をはじめ、重い核の束縛エネルギーの実験値を過大評価することが知られている。
+これは、２体力だけでは核子間の相互作用を十分に記述できていないことを示唆しており、
+軽い核では引力的、ある一定の質量数以降の重い核では斥力的な３体力が働いていることが示唆される。</p></li>
+<li><p>無限系<br />
+対称核物質の飽和性※や、中性子星(とくに太陽質量の２倍を超えるような重い中性子星)の質量半径関係などから、
+斥力的な３体力が不可欠であることが示唆される。<br />
+※ エネルギーvs密度の関数は最小点( <span class="math notranslate nohighlight">\(\rho \sim 0.16\)</span> fm <span class="math notranslate nohighlight">\(^{-3}\)</span> )を持ち、密度の飽和性とも呼ばれる。</p>
+  <img src="./pic/Hebeler_Fig2.png"  width=30%>
+<p>図は、K. Hebeler et al., <a class="reference external" href="http://dx.doi.org/10.1103/PhysRevC.83.031301">Phys. Rev. C  83, 031301(R) (2011)</a>の図2、対称核物質の核子あたりのエネルギー(vs Fermi momentum)を示したものである。
+カイラル相互作用の２体力だけでは、飽和密度を再現出来ないことが分かる。</p>
+</li>
+</ul>
+<p>3体力の難しさと面白さは、講義の時間(や筆者の能力)でカバーしきれるものではないので、資料では簡単な言及に留めておく。</p>
+<p>少数系から無限系に至るまでをカバーしたレビュー論文として、以下のものを挙げておく:<br />
+K. Hebeler, <a class="reference external" href="https://doi.org/10.1016/j.physrep.2020.08.009">Phys. Repo. 890, 1 (2021)</a></p>
+</div>
+</div>
+<div class="section" id="momentum-space">
+<h2><span class="section-number">1.2. </span>核力の表示: momentum space<a class="headerlink" href="#momentum-space" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>核力の表示は様々あるが、以下では、最も一般的な表示の一つである、momentum spaceでの表示を用いる。</p>
+<p>この資料では、重心系(２核子の重心運動を取り除いた相対運動量)で常に記述することを最初に断っておく。
+つまり、核子1の運動量を<span class="math notranslate nohighlight">\(\vec{p}\)</span>とすると、核子2の運動量は<span class="math notranslate nohighlight">\(-\vec{p}\)</span>となる座標系を考える。</p>
+<p>この２核子対が互いに相互作用を及ぼし合うとき、散乱の始状態・終状態の運動量をそれぞれ<span class="math notranslate nohighlight">\(\vec{p}\)</span>、<span class="math notranslate nohighlight">\(\vec{p}'\)</span>とし、
+平均運動量を<span class="math notranslate nohighlight">\(\vec{k} = \frac{1}{2}(\vec{p}+\vec{p}')\)</span>、運動量移行を<span class="math notranslate nohighlight">\(\vec{q}=\vec{p}-\vec{p}'\)</span>とする。
+このとき相互作用は</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V(\vec{p},\vec{p}')= V_C + \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_C +
+[V_S + \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_S]
+\vec{\sigma}_1 \cdot \vec{\sigma}_2 
++ [V_{LS}+ \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_{LS}] (- i \vec{S} \cdot (\vec{q} \times \vec{k})) \\
++ [V_T + \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_T] \vec{\sigma}_1 \cdot \vec{q} \vec{\sigma}_2 \cdot \vec{q}
++ [V_{\sigma L} + \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_{\sigma L}] \vec{\sigma}_1 \cdot (\vec{q}\times\vec{k}) \vec{\sigma}_2 \cdot (\vec{q}\times\vec{k})
+\end{split}\]</div>
+<p>といった一般的な形で書くことができる。<span class="math notranslate nohighlight">\(V\)</span>や<span class="math notranslate nohighlight">\(W\)</span>はそれぞれ、運動量やスピンへの依存性で寄与を整理するもので、
+<span class="math notranslate nohighlight">\(C\)</span> (central), <span class="math notranslate nohighlight">\(S\)</span> (spin), <span class="math notranslate nohighlight">\(LS\)</span> (spin-orbit), <span class="math notranslate nohighlight">\(T\)</span> (tensor), <span class="math notranslate nohighlight">\(\sigma L\)</span> (spin-spin-orbit)などと分類され、それぞれが <span class="math notranslate nohighlight">\( k\equiv | \vec{k} | \)</span> や <span class="math notranslate nohighlight">\(q\equiv | \vec{q} |\)</span> の関数となる。
+例えばMachleidtらのレビュー論文<a class="reference external" href="https://doi.org/10.1016/j.physrep.2011.02.001">Phys. Rep. 503, 1 (2011)</a>をみると、カイラル摂動論に基づいてこうした各項の振幅を計算する方法が示されている事がわかる。</p>
+<div class="section" id="partial-wave-momentum-space-langle-p-l-s-j-t-z-v-p-lsjt-z-rangle">
+<h3><span class="section-number">1.2.1. </span>partial-wave momentum space: <span class="math notranslate nohighlight">\(\langle p';L'S'J'T_z |V|p;LSJT_z\rangle\)</span><a class="headerlink" href="#partial-wave-momentum-space-langle-p-l-s-j-t-z-v-p-lsjt-z-rangle" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>重水素(deuteron)は2核子系の中で唯一、束縛状態を持つ系である。
+その束縛エネルギーの説明には、２核子間の相対の運動がS波だけでなく、わずかにD波の成分を持つことが重要である。
+実際、散乱データにfitして得られた核力を<span class="math notranslate nohighlight">\(^3S_1\)</span>,<span class="math notranslate nohighlight">\(^3D_1\)</span>,<span class="math notranslate nohighlight">\(^3S_1-^3D_1\)</span>の３つの部分に分けて、
+運動量項と足し上げて対角化すると、束縛エネルギーをよく再現することができる。</p>
+</div>
+<p>さて、上の一般系の核力を、いわゆるpartial-wave decompositionした形で書くことを考える。<br />
+つまり、核力ポテンシャルを合成の軌道角運動量やスピンなどの量子数で分類することを考える。<br />
+重水素の束縛エネルギーの記述であるとか、散乱断面積の解釈などには、こちらの表示が有用である。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><span class="math notranslate nohighlight">\(T_z\)</span>は合成アイソスピンのz成分<span class="math notranslate nohighlight">\(T_z=\{-1,0,1\}\)</span> (＝pp,pn, nn力のラベル).</p>
+</div>
+<p>momentum spaceの相互作用を、２核子の合成軌道角運動量<span class="math notranslate nohighlight">\(L\)</span>、合成スピン<span class="math notranslate nohighlight">\(S\)</span>、合成角運動量<span class="math notranslate nohighlight">\(J\)</span>, <span class="math notranslate nohighlight">\(T_z\)</span>
+に応じて、<span class="math notranslate nohighlight">\(^1S_0\)</span>, <span class="math notranslate nohighlight">\(^3S_1\)</span>, ... といった形で表示することを考える。</p>
+<p>この際、上で導入した<span class="math notranslate nohighlight">\(V, W\)</span>の各項について、各成分<span class="math notranslate nohighlight">\(\alpha=\{C,S,LS,T,\sigma L\}\)</span>の係数の
+線形結合でもって、<span class="math notranslate nohighlight">\(V(^1S_0) = \sum_{\alpha} C_{\alpha} V_{\alpha}\)</span>などとして
+チャンネルごとのポテンシャルを表現することができる。より詳細には<a class="reference external" href="https://doi.org/10.1016/j.physrep.2011.02.001">Machleidtらのレビュー論文</a>を参照のこと。</p>
+<p>これによって、合成の軌道角運動量など量子数の組<span class="math notranslate nohighlight">\(\{L,S,J,T_z\}\)</span>ごとに<span class="math notranslate nohighlight">\(p-p'\)</span>平面で核力ポテンシャルを表示することができる。</p>
+</div>
+<div class="section" id="single-particle-space-single-particle-harmoic-oscillator-basis">
+<h3><span class="section-number">1.2.2. </span>single-particle space (single-particle Harmoic oscillator basis)<a class="headerlink" href="#single-particle-space-single-particle-harmoic-oscillator-basis" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>実際の核構造計算手法では、核力を<span class="math notranslate nohighlight">\(\{n,\ell,j,t_z\}\)</span>の足を持った調和振動子基底(Harmonic oscillator basis)で展開して使う場合が多い。
+これは、閉殻芯に対応する占有軌道や、非占有軌道をバレンス空間とそれ以外に分類しやすく、
+conventionalな殻模型計算のように分かりやすい解釈を与えてくれる、という理由もあるように思う。</p>
+<p>核力ポテンシャルを、jj-couplingの軌道に対応する<span class="math notranslate nohighlight">\(\{n,\ell,j,t_z\}\)</span>の足を持った基底で展開することを考える。</p>
+<div class="math notranslate nohighlight">
+\[
+\langle a b | V | c d \rangle_J
+\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(a,b,c,d\)</span>は、<span class="math notranslate nohighlight">\(n, \ell, j, t_z \rangle\)</span>の量子数に対応するラベルである。</p>
+<div class="section" id="clubsuit">
+<h4><span class="section-number">1.2.2.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> こまか〜い注<a class="headerlink" href="#clubsuit" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>殆どの方に関係がないかもしれないが、細かい注を書いておく。
+執筆時点で、核力に基づいた構造計算をテーマにしている若い人が筆者の知る限りほぼ国内に居ないため、新規参入を考えている人が居れば...という願いも込めて書いておく。</p>
+<p>HO基底という際には、single-particle HO basisと、two-body HO basisの２つがあることに注意が必要であり、
+そこを抑えておかなければ、ab initio計算や核力のレビューなどを読むときに混乱することになる。</p>
+<p>上のpartial-wave momentum spaceでの表示を、single-particle spaceでの表示に変換する際、
+通常、２つのステップを踏むことになる。
+1つが、(2体)HO基底での表示に変換すること、もう１つが、(1体)HO基底での表示に変換することである。</p>
+<ol>
+<li><p>一般的なmomentum-spaceの行列要素<span class="math notranslate nohighlight">\(\langle p' \alpha | V | p \alpha \rangle\)</span>を、
+調和振動子基底の行列要素に変換する<br />
+ここで、<span class="math notranslate nohighlight">\(\alpha\)</span>は上でも登場した<span class="math notranslate nohighlight">\(L, S, J, T_z\)</span>の組み合わせなどをまとめて表すラベルである。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \langle N' \alpha' | V | N \alpha \rangle = \int dp' p'^2 \int dp p^2 \langle p' \alpha | V | p \alpha \rangle 
+    R_{N'L'}(p',b) R_{NL}(p,b) \\
+    R_{n\ell} (p,b) = \sqrt{\frac{2 n! b^3}{\Gamma(n+\ell+3/2)}} (pb)^\ell e^{-p^2b^2/2}
+    L^{\ell+1/2}_{n}(p^2b^2)
+    \end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(b\)</span>はoscillator parameterで、<span class="math notranslate nohighlight">\(b^{-1} = \sqrt{m\Omega}\)</span>, <span class="math notranslate nohighlight">\(L^k_n\)</span>は一般化Laguerre多項式である。</p>
+<p>two-body HO basisでは、「２核子の相対運動を調和振動子基底で展開しただけの数学的処理」と解釈すると良いかもしれない。
+Jacobi座標(運動量)を導入することで、この操作は自然に３体力に拡張することができる。あるいは、重心運動を陽に扱う場合にも、<span class="math notranslate nohighlight">\(N\)</span>は<span class="math notranslate nohighlight">\(n_\mathrm{rel},N_\mathrm{CM}\)</span>、<span class="math notranslate nohighlight">\(L\)</span>は<span class="math notranslate nohighlight">\(\ell_\mathrm{rel},L_\mathrm{CM}\)</span>など重心・相対運動の量子数を区別して別々に計算する必要がある。</p>
+</li>
+<li><p>(two-bodyの)HO基底をsingle-particle HOに変換する操作は、有名なTalmi-Moshinsky変換である。</p>
+<p>CM&amp;relativeの２体調和振動子の量子数をそれぞれ<span class="math notranslate nohighlight">\(N,L\)</span>, <span class="math notranslate nohighlight">\(n, \ell\)</span>とすると、
+single-particle HOへの変換は以下のような形で与えられる:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    | n_a \ell_a j_a n_b \ell_b j_b : J \rangle 
+      = \sum_{\Lambda S}\sum_{NLn\ell} \hat{\Lambda} \hat{S} \hat{j}_a \hat{j}_b 
+     \begin{Bmatrix} \ell_a &amp; \ell_b &amp; \Lambda \\ 1/2 &amp; 1/2 &amp; S \\ j_a &amp; j_b &amp; J \end{Bmatrix}
+     \langle n N [(\ell L) \Lambda S]J |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle_{d=1}
+     |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle
+    \end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\langle n N [(\ell L) \Lambda S]J |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle_{d=1}\)</span>部分が、いわゆるMoshinsky bracketやHO bracketなどと呼ばれるものであり、実装においては、<a class="reference external" href="https://doi.org/10.1016/S0375-9474(01)01101-0">G.P. Kamuntavičius et al., Nucl. Phys. A 695, 1 (2001)</a>が最もよく引用されている。</p>
+<p>single-particle HOは、jj-couplingの意味での調和振動子なので、物理的な解釈がしやすい。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">1.3. </span>核力のソフト化<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>核力は、核子間の強い相互作用であるため、散乱データをfitして得た現実的核力/カイラル核力をそのまま
+構造計算のインプットに使うと、発散してまともな計算ができなかったり、計算結果が安定しなかったりする。</p>
+<p>そこで用いられるのが核力のソフト化と呼ばれる操作である。
+対比として、ソフト化を施す前の相互作用をbareな核力(bareな相互作用)と呼んだりもする。
+歴史的にはBrucknerの<span class="math notranslate nohighlight">\(G\)</span>行列や、散乱のT行列を保持するように高運動量成分をカットする<span class="math notranslate nohighlight">\(V_\mathrm{low k}\)</span>など関連する事項があるが、
+ここではより現代的なSimilarity Renormalization Group (SRG)を用いたソフト化についてのみ紹介する。</p>
+<p>SRGは、S.K.Bogner et. al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.75.061001">Phys. Rev. C 75, 061001(R) (2007)</a>で提案された手法である。</p>
+<p>元の相互作用と等価な(物理量を変えない)、高運動量成分(短距離成分)を取り除いた相互作用を得るため、核力のHamiltonianに対する以下のユニタリ変換(SRG変換)を考えよう:</p>
+<div class="math notranslate nohighlight">
+\[
+H_\mathrm{SRG}(s) = U(s) H(s=0) U(s)^\dagger
+\]</div>
+<p>SRG変換を変換のgenerator(生成子)である<span class="math notranslate nohighlight">\(\eta(s)\)</span>導入し、フロー方程式の形で表すと</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{dH(s)}{ds}  &amp; = [\eta(s), H(s)] \\
+\eta(s) &amp; = \frac{dU(s)}{ds} U(s)^\dagger = -\eta^\dagger(s)
+\end{align}
+\end{split}\]</div>
+<p>と書くことができる。<span class="math notranslate nohighlight">\(H(s=0)\)</span>がbareな核力に対応する。
+generatorの選び方によって、核力のソフト化の程度や性質を調整することができる。<br />
+SRG変換とgeneratorの関係についての一般論としては、<span class="math notranslate nohighlight">\(H_\mathrm{SRG}\)</span>はgeneratorと<strong>似た</strong>構造を持つよう変換を受けることになる。</p>
+<p>Wigner, White, など様々なgeneratorが提案されているが、
+Hamiltonianの(partial wave p-p'平面の意味で)対角成分を採用する事が多い。</p>
+<p>bareなHamiltonianは、高運動量と低運動量成分をcoupleするような寄与(座標空間でいうと、近距離≒斥力芯に対応する成分)が大きく、
+これが計算を困難にする原因となっているわけだが、SRG変換によって、この成分をdecoupleした有効核力を得ることができる。</p>
+<p>ユニタリ変換の性質上、&quot;SRG変換によってHamiltonianの固有値は変化しない&quot;。
+ただし、ここにはトリックがあり、SRG変換によって生成(induce)される多体力を全て考慮すれば上の主張は正しいが、
+実際の多体計算においては、SRG変換によって生成される多体力を無視したり、induced-3NFまでのみを考慮したりすることが多く、
+上の主張は厳密には成り立たない。</p>
+<p>少なくとも2体のレベルで正しい操作をしているかどうかは、SRG変換の前後で、２体系の物理量(e.g. deuteronのbinding energy)が一致するかどうかを確認すればよい。実際、後で見るように、SRG変換によってdeuteronのbinding energyは変更を受けない。</p>
+</div>
+<div class="section" id="id9">
+<h2><span class="section-number">1.4. </span>相互作用ファイルの作成<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>NuclearToolkit.jlでは、相互作用ファイルを作成するためのインターフェースとして<code class="docutils literal notranslate"><span class="pre">make_chiEFTint</span></code>関数が用意されている。</p>
+<p>ファイルを読んでオプションを指定する方式を採用している都合上、少々JupyterNotebook上での実行と馴染まないところがあるが、
+実行ディレクトリに<code class="docutils literal notranslate"><span class="pre">optional_parameters.jl</span></code>というファイルを用意してオプションを書き換えるか、
+make_chiEFTint関数のoptional argumentとしてファイルを指定して実行すればよい:</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">make_chiEFTint</span><span class="p">(;</span><span class="n">fn_params</span><span class="o">=</span><span class="s">&quot;path_to_your_file&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>細かなオプションの指定は、Document中の<a class="reference external" href="https://sotayoshida.github.io/NuclearToolkit.jl/dev/parameters/">こちらのページ</a>
+やレポジトリ内の<a class="reference external" href="https://github.com/SotaYoshida/NuclearToolkit.jl/blob/main/optional_parameters.jl">サンプルファイル</a>を参照のこと。</p>
+<p>オプションのうち、以下の議論で重要になるのが、single-particle HO基底のサイズを決める<span class="math notranslate nohighlight">\(e_\mathrm{max}\)</span>と、
+HOのパラメータ<span class="math notranslate nohighlight">\(\hbar\omega\)</span>である。
+<span class="math notranslate nohighlight">\(\hbar\omega\)</span>は、基底を構成する調和振動子のエネルギー間隔に対応する量で、
+十分大きな模型空間を取れば、計算結果は<span class="math notranslate nohighlight">\(\hbar\omega\)</span>に依存しなくなる。</p>
+<p>以下では、デフォルト値を使って、カイラル核力の相互作用ファイルを作ってみよう.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">NuclearToolkit</span>
+<span class="n">make_chiEFTint</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Since optional_parameters.jl is not found, the default parameters will be used.
+You can specify the parameters with optional argument, fn_params like make_chiEFTint(;fn_params=&quot;PATH_TO_YOUR_FILE&quot;).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>size of dWS (jmax 9 lmax 40 e2max 8 Nnmax 20):
+     dtri    4.46 MB    dcgm0    1.11 MB  d6j_int    1.11 MB   d6j_lj    0.28 MB
+  d9j_lsj    1.76 MB  dictHOB    0.44 MB
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E(2H): bare = -2.224578 srg = -2.224578 Diff.1.485e-10
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">make_chiEFTint</span></code>関数を引数無しで実行すると、以下の手順</p>
+<ul class="simple">
+<li><p>Entem MachleidtのN3LO相互作用, カットオフは<span class="math notranslate nohighlight">\(\Lambda=500\)</span> MeV</p></li>
+<li><p><span class="math notranslate nohighlight">\(e_{\mathrm{max}}=4\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\hbar\omega=20\)</span> MeV</p></li>
+<li><p>運動量空間においてSRGを適用しソフト化する (<span class="math notranslate nohighlight">\(\lambda=2.0\)</span> fm^{-1}$)</p></li>
+<li><p>single-particle HO基底の相互作用ファイルをバイナリファイルとして書き出す。</p></li>
+</ul>
+<p>このバイナリファイルは殻模型計算コードKSHELLやNuclearToolkit.jlで用いられる<code class="docutils literal notranslate"><span class="pre">.snt</span></code>フォーマットと呼ばれるものをバイナリ化したものになっている。なお、KSHELLでFull CIやvalence CI計算を行う場合は、対応するテキストファイルにする必要がある(そのためのオプションもある)。</p>
+<p>sntファイルの詳細についてはDocument中の<a class="reference external" href="https://sotayoshida.github.io/NuclearToolkit.jl/dev/fileformat/">この項目</a>が参考になるが、概要だけ説明すると、single particle stateの定義(<span class="math notranslate nohighlight">\(\{n,\ell,j,tz\}\)</span>に対応)と、一粒子エネルギー(single particle energy, SPE)と二体行列要素(two-body matrix element, TBME)を格納したファイルになっている。</p>
+<p>また、上の実行結果で表示されているように、momentum spaceでの相互作用を計算した後、
+deuteronのbinding energyが評価されている。
+実験値-2.224579を再現する結果が得られていることと、SRGによって値が変化しないことが確認できる。
+末尾の桁のズレは、角度積分の分点の数を増やせば一致するが、ここでは省略する。</p>
+<div class="section" id="id10">
+<h3><span class="section-number">1.4.1. </span>運動量空間におけるカイラル核力の2次元プロット<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>partial-wave momentum spaceでの核力の表示で、Entem MachleidtのN3LO相互作用を作成した場合の
+<span class="math notranslate nohighlight">\(^1S_0, ^3S_1\)</span>成分(proton-neutron間力)を、2次元プロットしてみよう。
+左から順に、対角部分(bare vs SRG), bare核力の二次元プロット, SRG変換後の核力の二次元プロットになっている。</p>
+<p><span class="math notranslate nohighlight">\(^1S_0\)</span>成分:</p>
+<p><img alt="pn1S0" src="../_images/vmom_bare_vs_SRG_chiEFT_1S0_pn.png" /></p>
+<p><span class="math notranslate nohighlight">\(^3S_1\)</span>成分:</p>
+<p><img alt="pn3S1" src="../_images/vmom_bare_vs_SRG_chiEFT_3S1_pn.png" /></p>
+<p>partial-waveで見た2対角力核力の成分は、どれを見ても3.5fm程度の距離で0になる。<br />
+これは、カイラル核力において、カットオフを500MeVとしたことに由来する。</p>
+<p>SRG変換によって、とくに非対角成分(低運動量と高運動量のカップリング)が小さくなっている傾向が見て取れる。<br />
+カイラルの相互作用は元々カットオフが入っており従来の現実的核力よりも比較的ソフトな相互作用であるが、
+それでもなお、有限の模型空間で計算を行う際には、SRG変換などのソフト化を行わないと、基底状態エネルギーが発散してしまうこともある。</p>
+<p>３体力についても、同様にSRG変換を考えることができるが、NuclearToolkit.jlでは未実装な上、
+かなり複雑な計算になるため、ここでは割愛する。</p>
+</div>
+<div class="section" id="clubsuit-magic-interaction-em1-8-2-0">
+<h3><span class="section-number">1.4.2. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> 余談: Magic interaction: EM1.8/2.0<a class="headerlink" href="#clubsuit-magic-interaction-em1-8-2-0" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>とくにab initio計算のコミュニティにおいて、Magicと称されるカイラル核力が知られている。</p>
+<p>前述のmatterの計算を主に対象とするK.Hebeler et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.83.031301">PRC 83, 031301(R) (2011)</a>において、提案されたものだが、出版されしばらくして、中重核に適用すると、ab initio計算において、
+<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>領域の基底状態エネルギーと荷電半径をよく再現することがわかった。</p>
+<p>この相互作用はもともと、カイラル核力のEM500(N3LO)相互作用を、SRG変換によって<span class="math notranslate nohighlight">\(\lambda=1.8\)</span> <span class="math notranslate nohighlight">\(\mathrm{fm}^{-1}\)</span> までソフト化した2体力に、3-4体系の物理量を再現するようgenuine3体力を加えたものである。</p>
+<p>この相互作用は、3体力のSRGなどを考えない上、2体力のSRGによりinduceされる3体力についても無視しているため、２体力と3体力のconsistentな取り扱いとは言えないものの、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>の基底状態エネルギーと荷電半径をよく再現することが知られており、その理由が非自明なことも含めて、magicと称されている。</p>
+<p>カットオフやinduce多体力の寄与が、genuineな3体力のfitで(意図せず)補われて、高い精度が得られていることが示唆されるが、まだまだ議論は続いている。
+2024年3月時点においても、この相互作用を超える高い精度で、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>の基底状態エネルギーと荷電半径を再現するカイラルの相互作用は存在しない。
+ab initio計算とはその性質上「<strong>真面目にやれば正しい結果が得られるだろう</strong>」と期待するものだが、
+この相互作用は、そのような期待を裏切るものであるともいえ、なんとも面白い相互作用である。</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "julia-1.10"
+        },
+        kernelOptions: {
+            kernelName: "julia-1.10",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'julia-1.10'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Chap1_Julia.html" title="前へ ページ">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">前へ</p>
+            <p class="prev-next-title">Julia入門&amp;導入</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Chap_IMSRG.html" title="次へ ページ">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>核子系の第一原理計算</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,759 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>線形代数の復習 &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="ja">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_full.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   講義の狙いと資料の概要
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  はじめに
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap1_Julia.html">
+   Julia入門&amp;導入
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part1
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_NuclearForce.html">
+   1. 核力
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_IMSRG.html">
+   2. 核子系の第一原理計算
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part2
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_shellmodel.html">
+   3. 殻模型(配置間相互作用法)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_emulator.html">
+   4. Emulator/Surrogate model
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/Chap2_LinearAlgebra.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap2_LinearAlgebra.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap2_LinearAlgebra.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linearalgebra-jl">
+   LinearAlgebra.jl
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   ベクトルの定義
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   行列の定義
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   行列・ベクトルの演算
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lapack-blas">
+   LAPACK/BLAS: 線形代数演算ライブラリの紹介
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>線形代数の復習<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>※一部、所属大学における講義資料としての記述を含むので注意</p>
+<div class="section" id="linearalgebra-jl">
+<h2>LinearAlgebra.jl<a class="headerlink" href="#linearalgebra-jl" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Juliaには、線形代数のための標準ライブラリとして<code class="docutils literal notranslate"><span class="pre">LinearAlgebra.jl</span></code>がある。<br />
+ここでは、その機能を簡単に紹介するとともに、線形代数の復習をしながらJuliaに慣れていこう。</p>
+<p>LinearAlgebra内の関数を使用する際には、以下のようにすればよい。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">LinearAlgebra</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>ベクトルの定義<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ベクトルとは、スカラー倍と和について閉じた集合である。<br />
+Juliaでは、他の言語と同様に、ベクトルは配列で表現される。<br />
+配列の要素として、整数値(倍精度Int64が標準,Int32,Int16なども使える)や浮動小数点数(倍精度Float64が標準, Float32,Float16なども使える)を用いる。</p>
+<p>適当なベクトルを定義して、その型を確認してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">3.0</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c"># Juliaでは$()で囲むと変数や変数に対する演算の結果をprintlnに埋め込める</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;type a: </span><span class="si">$</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="s">, type b: </span><span class="si">$</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">b</span><span class="p">))</span><span class="s">, type c: </span><span class="si">$</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>type a: Vector{Int64}, type b: Vector{Float64}, type c: Vector{Float64}
+</pre></div>
+</div>
+</div>
+</div>
+<p>上のように、ベクトルを適当に定義すると、その方法によって、Int64,Float64のような型が自動的に決定される。<br />
+<code class="docutils literal notranslate"><span class="pre">c</span></code>の場合、1,3番目の要素は整数的に指定しているものの、2つめの要素の存在によって、より一般的な型であるFloat64を要素にもつ配列として定義されていることがわかる。</p>
+<p>ベクトルの要素の指定は、Pythonと同様にインデックスを指定してやればよいが、1からカウントすることに注意(CやPythonは0からカウント)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="k">end</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 3
+</pre></div>
+</div>
+</div>
+</div>
+<p>ベクトルのスカラー倍は、ブロードキャストを用いて</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">.*</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3-element Vector{Int64}:
+ 2
+ 4
+ 6
+</pre></div>
+</div>
+</div>
+</div>
+<p>などとしてやれば良いし、ベクトル同士の和は単純に</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3-element Vector{Float64}:
+ 2.0
+ 4.0
+ 6.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>とすればよい。(再び、結果のベクトルはFloat64のベクトルになっていることに注意しよう。)</p>
+</div>
+<div class="section" id="id3">
+<h2>行列の定義<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ベクトルが定義できたので、行列についても同様に定義しよう。<br />
+カンマなしで要素を並べると、列方向の要素として認識され、セミコロンで行方向の区切りを指定することができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+</pre></div>
+</div>
+</div>
+</div>
+<p>Int64の要素を持つ2×3行列が定義できた。それぞれの要素の取得は、ベクトルと同様にインデックスを指定してやればよい。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Pythonのときは<code class="docutils literal notranslate"><span class="pre">A[0][1]</span></code>といった指定だったが、Juliaでは<code class="docutils literal notranslate"><span class="pre">A[1,2]</span></code>となっていることに注意しよう。<br />
+後者の方がなんとなく、数学的な表記に近い気がする。</p>
+<p>また、indexには<code class="docutils literal notranslate"><span class="pre">begin</span></code>や<code class="docutils literal notranslate"><span class="pre">end</span></code>も使用できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="k">end</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<p>Juliaではcolumn-major(列方向優先)であることに注意しよう。したがって、&quot;2番目の要素&quot;は、2行目1列目の要素である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<p>3番目は...</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<p>となる。</p>
+<p>ゼロを値にもつ行列を作りたければ<code class="docutils literal notranslate"><span class="pre">zeros</span></code>を用いれば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Int32</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;a </span><span class="si">$a</span><span class="se">\n</span><span class="s">b </span><span class="si">$b</span><span class="s">&quot;</span><span class="p">)</span>   
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a [1, 2, 3]
+b [1.0, 2.0, 3.0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Juliaでは上三角行列・下三角行列、対角行列など、特別な構造を持つ行列を扱うことも簡単にできるが、ここでは割愛する。</p>
+<p>行列<span class="math notranslate nohighlight">\(A\)</span>の転置はシンプルにシングルクォートを用いるか、<code class="docutils literal notranslate"><span class="pre">transpose</span></code>関数を用いれば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">A</span><span class="o">&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3×2 adjoint(::Matrix{Float64}) with eltype Float64:
+  1.472     0.219172
+ -0.074387  0.759722
+ -0.457224  1.83168
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3×2 transpose(::Matrix{Float64}) with eltype Float64:
+  1.472     0.219172
+ -0.074387  0.759722
+ -0.457224  1.83168
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>行列・ベクトルの演算<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>もう少し、行列やベクトルの演算について続けよう。</p>
+<p>ベクトル同士の内積(あるいはdot積)は、<code class="docutils literal notranslate"><span class="pre">LinearAlgebra</span></code>にある<code class="docutils literal notranslate"><span class="pre">dot</span></code>関数を用いれば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>あるいは、ブロードキャストを用いて要素積を計算して和をとっても良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="o">.*</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>行列積は物凄くシンプルに積で書くことができて</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2×2 Matrix{Float64}:
+ -3.79008   0.613576
+ -1.51632  -0.843226
+</pre></div>
+</div>
+</div>
+</div>
+<p>もう少し効率の良い(数値計算で主に用いる)方法については、LAPACK/BLASの節で説明する。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>えっと...群の定義は他の授業で出てきたでしょうか？
+集合<span class="math notranslate nohighlight">\(G\)</span>に対する二項演算が定義されていて、その演算に対して(1)結合法則が成り立つ、(2)単位元が存在する、(3)逆元が存在する、という条件を満たすとき、<span class="math notranslate nohighlight">\(G\)</span>を群と呼ぶ。
+<span class="math notranslate nohighlight">\(n\)</span>次対称群とは、なんのことはない1からnまでの数を並び替える操作の集合である。
+この操作は、任意の２つの要素に対する互換(入れ替え)の繰り返しとして表現できる。</p>
+</div>
+<p>行列式は<span class="math notranslate nohighlight">\(n\times n\)</span>の正方行列に対して、下記で定義される。</p>
+<div class="math notranslate nohighlight">
+\[det(A) \equiv |A| \equiv \sum_{\sigma \in S_n} \mathrm{sgn}(\sigma) \prod_{i=1}^n a_{i,\sigma(i)}\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(\sigma\)</span>は<span class="math notranslate nohighlight">\(n\)</span>次対称群<span class="math notranslate nohighlight">\(S_n\)</span>の要素であり、<span class="math notranslate nohighlight">\(\mathrm{sgn}(\sigma)\)</span>は置換<span class="math notranslate nohighlight">\(\sigma\)</span>の符号である。
+この符号は、恒等変換を基準(正号)として、そこから幾つの互換(２要素間の入れ替え)が必要かを数え、その回数が偶数なら正号、奇数なら負号となる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3×3 Matrix{Float64}:
+ -1.5782    1.27336   0.358729
+ -0.064757  2.24053   1.56129
+ -2.20286   0.545738  0.658292
+</pre></div>
+</div>
+</div>
+</div>
+<p>に対して定義されて、<code class="docutils literal notranslate"><span class="pre">det</span></code>関数を用いればよくて</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-3.550324254376849
+</pre></div>
+</div>
+</div>
+</div>
+<p>対角成分の和であるトレース(trace)は<code class="docutils literal notranslate"><span class="pre">tr</span></code>関数を用いれば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">tr</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.320622524789642
+</pre></div>
+</div>
+</div>
+</div>
+<p>行列やベクトルに関する操作をしていると、よく2つのベクトル(行列,テンソル)の距離を計算したくなる。<br />
+距離というと、ユークリッド距離が思い浮かぶが、線形代数の世界では、様々な距離を考えることができる。<br />
+こうした距離をノルム(norm)と呼ぶ。代表的なものを３つ紹介しよう。　　
+以下では、簡単のためにベクトルを考えるが、行列についても同様に定義できる。</p>
+<ol>
+<li><p>L1ノルムは、ベクトルの各要素の絶対値の和で定義され、Lasso回帰や機械学習分野のスパース正則化などに用いられる。</p>
+<div class="math notranslate nohighlight">
+\[\|x\|_1 = \sum_{i=1}^n |x_i|\]</div>
+</li>
+<li><p>L2ノルムは、ベクトルの各要素の二乗和の平方根で定義される。ユークリッド距離にも対応している。</p>
+<div class="math notranslate nohighlight">
+\[\|x\|_2 = \sqrt{\sum_{i=1}^n x_i^2}\]</div>
+</li>
+<li><p>L<span class="math notranslate nohighlight">\(\infty\)</span>ノルムは、ベクトルの各要素の絶対値の最大値で定義される。</p>
+<div class="math notranslate nohighlight">
+\[\|x\|_\infty = \max_{i=1,\dots,n} |x_i|\]</div>
+</li>
+</ol>
+<p>Juliaでは、<code class="docutils literal notranslate"><span class="pre">norm</span></code>関数を用いて、ノルムを計算することができ、下でみるようにL2ノルム(またはフロベニウスノルム)がデフォルトとなっている。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">norm_1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">norm_2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">norm_default</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">norm_inf</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="nb">Inf</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;norm_1: </span><span class="si">$norm_1</span><span class="s">, norm_2: </span><span class="si">$norm_2</span><span class="s">, norm_default: </span><span class="si">$norm_default</span><span class="s">, norm_inf: </span><span class="si">$norm_inf</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>norm_1: 6.0, norm_2: 3.7416573867739413, norm_default: 3.7416573867739413, norm_inf: 3.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="lapack-blas">
+<h2>LAPACK/BLAS: 線形代数演算ライブラリの紹介<a class="headerlink" href="#lapack-blas" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Juliaに限らず、線形代数演算のためのライブラリとして最もポピュラーなものに、LAPACKやBLASがある。<br />
+LAPACKは、(元々)Fortranで書かれたライブラリで、線形代数演算のための基本的なサブルーチンを提供している。<br />
+BLASは、LAPACK内で用いられているサブルーチンで、ベクトル・行列の演算を高速に行うためのサブルーチンを提供している。
+BLASもFortranで書かれているが、C言語やC++などからも呼び出すことができたり、CPU/GPUなど様々な環境に最適化された実装が存在する。</p>
+<p>LAPACK/BLASは、線形代数演算のためのライブラリとして最もポピュラーであるだけでなく、他のライブラリの基礎としても用いられている。
+したがって、世界中でテストされていることも手伝って高品質で信頼性が高い。<br />
+数値誤差をなるべく避けるという意味でも、研究で数値解析を行ったり、何かプロダクトを作るときには、LAPACKやBLASを呼び出して使うことが推奨される。<br />
+PythonのNumpyもJuliaのLinearAlgebraもよくよく中を見ていくと、LAPACKやBLASを呼んでいることがわかる。</p>
+<p>ただし、数値計算の手法や&quot;間違え方&quot;を正しく知っておくためには、自分でコードを書いてみて失敗する経験も重要なように思う。<br />
+私もコレスキー分解を行う自作コードを書いて初めて、数値誤差に対する自身の理解の浅さに気がついたという経験があります。</p>
+<p>JuliaではLAPACK/BLASが用いられていて、特にBLASは標準でOpenBLASが用いられている。
+Intel製CPUを搭載したマシンでは、Intel MKLを用いることもできる。</p>
+<p>行列行列積を例にとって、LAPACK/BLASを用いた場合と、用いない場合の速度を比較してみよう。
+まず、LAPACK/BLASを用いない場合は、ループを用いて愚直に行列積を計算する。</p>
+<p>次に、LAPACK/BLASを用いる場合は、<code class="docutils literal notranslate"><span class="pre">LinearAlgebra</span></code>にある<code class="docutils literal notranslate"><span class="pre">BLAS.gemm!</span></code>関数を用いて行列積を計算する。</p>
+<p>行列の確保等が計算時間に入らないよう、破壊的な(既にある配列の要素を上書きするような)関数を用いている。
+<code class="docutils literal notranslate"><span class="pre">LinearAlgebra.jl</span></code>には、<code class="docutils literal notranslate"><span class="pre">mul!</span></code>という便利な関数があり、<code class="docutils literal notranslate"><span class="pre">LinearAlgebra.BLAS</span></code>系の関数を必要に応じて呼び出すようになっている。</p>
+<p>計測には、<code class="docutils literal notranslate"><span class="pre">BenchmarkTools</span></code>を用いよう。<code class="docutils literal notranslate"><span class="pre">&#64;btime</span></code>というマクロを付けるだけで、簡単に計測できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">BenchmarkTools</span>
+<span class="k">using</span> <span class="n">LinearAlgebra</span>
+
+<span class="k">function</span> <span class="n">matrix_product_own</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">.=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="nb">nothing</span>
+<span class="k">end</span> 
+
+<span class="k">function</span> <span class="n">matrix_product_BLAS</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">BLAS</span><span class="o">.</span><span class="n">gemm!</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">,</span><span class="sc">&#39;N&#39;</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">C</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">nothing</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="n">main</span><span class="p">()</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="c">#$はベンチマークのためのおまじない</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;w/  BLAS&quot;</span><span class="p">)</span>
+    <span class="nd">@btime</span> <span class="n">matrix_product_BLAS</span><span class="p">(</span><span class="o">$</span><span class="n">A</span><span class="p">,</span><span class="o">$</span><span class="n">B</span><span class="p">,</span><span class="o">$</span><span class="n">C</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;w/o BLAS&quot;</span><span class="p">)</span>
+    <span class="nd">@btime</span> <span class="n">matrix_product_own</span><span class="p">(</span><span class="o">$</span><span class="n">A</span><span class="p">,</span><span class="o">$</span><span class="n">B</span><span class="p">,</span><span class="o">$</span><span class="n">C</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w/  BLAS
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  11.642 ms (0 allocations: 0 bytes)
+w/o BLAS
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  970.996 ms (0 allocations: 0 bytes)
+</pre></div>
+</div>
+</div>
+</div>
+<p>著者の環境(M1 Mac Mini)で、BLASを用いる場合が11 ms, 用いない場合が1 s程度であった。</p>
+<p>今の場合、<code class="docutils literal notranslate"><span class="pre">&#64;btime</span></code>の結果(0 allocations: 0 bytes)からも分かるように、配列の確保によって時間がかかっている訳ではなく、
+両者とも行列<code class="docutils literal notranslate"><span class="pre">C</span></code>にゼロ詰めして、<code class="docutils literal notranslate"><span class="pre">A*B</span></code>の結果を上書きする、という演算の速度を比較している。
+実行時間の差から、BLASを用いる恩恵が目に見えて分かるかと思う。</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "julia-1.9"
+        },
+        kernelOptions: {
+            kernelName: "julia-1.9",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'julia-1.9'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

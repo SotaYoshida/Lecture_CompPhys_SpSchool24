@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. 核子系の第一原理計算 &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="3. 殻模型(配置間相互作用法)" href="Chap_shellmodel.html" />
+    <link rel="prev" title="1. 核力" href="Chap_NuclearForce.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="ja">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_full.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   講義の狙いと資料の概要
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  はじめに
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap1_Julia.html">
+   Julia入門&amp;導入
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part1
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_NuclearForce.html">
+   1. 核力
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. 核子系の第一原理計算
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part2
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_shellmodel.html">
+   3. 殻模型(配置間相互作用法)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_emulator.html">
+   4. Emulator/Surrogate model
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/Chap_IMSRG.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_IMSRG.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap_IMSRG.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#in-medium-similarity-renormalization-group-im-srg">
+   2.1. In-medium Similarity Renormalization Group (IM-SRG)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clubsuit-imsrgmagnus">
+     2.1.1.
+     <span class="math notranslate nohighlight">
+      \(\clubsuit\)
+     </span>
+     IMSRGのMagnus展開
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#normal-ordering">
+   2.2. Normal ordering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#valence-space-imsrg-vs-imsrg">
+   2.3. Valence-space IMSRG (VS-IMSRG)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clubsuit-hf-mbpt">
+   2.4.
+   <span class="math notranslate nohighlight">
+    \(\clubsuit\)
+   </span>
+   HF-MBPT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nucleartoolkit-jlimsrg">
+   2.5. NuclearToolkit.jlを用いたIMSRG計算
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">2. </span>核子系の第一原理計算<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では、核子系の第一原理計算についてとくにpost-HF法に着目して解説する。</p>
+<p>少数系の方法(Faddeev-Yakubovsky方程式、Green's function Monte Carlo法など)や、Full-CI法などについてはカバーしない(できない)。</p>
+<p>post-HF法のうちとくにIn-medium Similarity Renormalization Group(IM-SRG)法は、
+原子核の基底状態の第一原理計算手法としてだけでなく、
+殻模型の有効相互作用(バレンス空間の有効核力)の導出にも用いられるなど、応用上非常に重要な手法である。</p>
+<p>この章では、NuclearToolkit.jlを用いて、IMSRG法による核子系の第一原理計算を行う。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">NuclearToolkit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="in-medium-similarity-renormalization-group-im-srg">
+<h2><span class="section-number">2.1. </span>In-medium Similarity Renormalization Group (IM-SRG)<a class="headerlink" href="#in-medium-similarity-renormalization-group-im-srg" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>核力のソフト化の議論で登場した相似変換くりこみ群(SRG)は、核力をソフト化する方法として考案された後、
+核子系の第一原理計算にも応用されるようになった。</p>
+<ul class="simple">
+<li><p>K.Tsukiyama et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.106.222502">Phys. Rev. Lett. 106, 222502 (2011)</a>.</p></li>
+<li><p>K.Tsukiyama et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.85.061304">Phys. Rev. C 85, 061304(R) (2012)</a>.</p></li>
+</ul>
+<p>SRGの背景にあるアイデアは、高運動量-低運動量間のdecouplingであった。
+IM−SRG法は、SRG変換のdecouplingの対象を核子多体系のparticle-hole空間に拡張したものである。</p>
+<p>変換後のハミルトニアン<span class="math notranslate nohighlight">\(H(s)\)</span>のHF基底状態による期待値<span class="math notranslate nohighlight">\(\langle HF| H(s) | HF \rangle\)</span>が
+占有状態(hole)と非占有状態(particle)間のcouplingの寄与をdecouplingするようなSRG変換を行う。
+これにより、particle-hole間のcouplingは、自然な形で、hole-hole(particle-particle)間の多体Hamiltonianに
+繰り込まれるため、占有状態(<span class="math notranslate nohighlight">\(P\)</span> space)のみをもちいて、ハミルトニアンの期待値(すなわち基底状態エネルギー)を計算できる。</p>
+<div class="math notranslate nohighlight">
+\[
+E_\mathrm{HF} \equiv \langle HF| H(0) | HF \rangle &gt; E_\mathrm{IMSRG} \equiv \langle HF| H(s) | HF \rangle  \approx E_\mathrm{exact}
+\]</div>
+<p>schematic imageを書くと以下のようになる:</p>
+<img src="pic/schematic_IMSRG.png" width="50%">
+<p>元の図は、S.R.Stroberg et al., <a class="reference external" href="https://doi.org/10.1146/annurev-nucl-101917-021120">Ann. Rev. Nucl. and Part. Sci., 69 307-362 (2019)</a>から引用した。<br />
+左側が変換前のハミルトニアンを表し、<span class="math notranslate nohighlight">\(P\)</span>(<span class="math notranslate nohighlight">\(Q\)</span>) spaceがそれぞれ、占有状態(hole), 非占有状態(particle)に対応する。</p>
+<p>※1. IMSRG法はvariationalでないためエネルギーの上限を与えているとは限らないが、少なくとも
+particle-hole間のcouplingを考慮した有効ハミルトニアンの期待値を計算しているため、単純なHFよりも正確なエネルギーを与えることが期待される。</p>
+<p>※2. 上ではHF基底状態としたが、一般にはreference stateに対して、定義される。
+量子化学などで用いられるNatural Orbitals (NO)を用いる計算もあれば、multi-referenceを考える場合などもある。</p>
+<p>IM-SRGのflow方程式は、以下のように書ける:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dH(s)}{ds} = [\eta(s), H(s)]
+\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(\eta(s)\)</span>は、flowの生成子であり、</p>
+<div class="math notranslate nohighlight">
+\[
+H(s) = U(s) H(0) U^\dagger(s)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\eta(s) = \frac{dU(s)}{ds} U^\dagger(s) = -\eta^\dagger(s)
+\]</div>
+<p>を満たす、反エルミート行列である。この<span class="math notranslate nohighlight">\(\eta\)</span>についても幾らかの定義があるが、最もよく用いられるものはarctangent関数を用いたものである。
+さらに詳細が知りたい人はレビュー論文<a class="reference external" href="https://doi.org/10.1146/annurev-nucl-101917-021120">S.R. Stroberg et al., 	Ann. Rev. Nucl. and Part. Sci., 69 307-362 (2019)</a>を参照すると良い。</p>
+<div class="section" id="clubsuit-imsrgmagnus">
+<h3><span class="section-number">2.1.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> IMSRGのMagnus展開<a class="headerlink" href="#clubsuit-imsrgmagnus" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>以下はテクニカルなので、原子核の第一原理計算を専門にしようと思う人以外は飛ばしてもよい。</p>
+<p>実際のコードの実装では、Magnus展開を用いたIMSRGの定式化<a class="reference external" href="https://doi.org/10.1103/PhysRevC.92.034331">T.D. Morris et al., Phys. Rev. C 92, 034331 (2015)</a>を用いることで、演算子ごとのflow方程式を考えることなく系統的に計算を行うことができる。
+そのキモは、ユニタリ変換の生成子<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を明示的に導入することである。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+U(s) &amp; = e^{\Omega(s)},\\
+O(s) &amp; = e^{\Omega(s)}O(0)e^{-\Omega(s)}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{d\Omega}{ds} &amp; = \sum^\infty_{k=0} \frac{B_k}{k!} ad^{(k)}_{\Omega}(\eta), \label{eq:adjoint} \\
+ad^{(k)}_{\Omega}(\eta) &amp; = \left[ \Omega, ad^{(k-1)}_\Omega(\eta) \right],\\
+ad^{(0)}_{\Omega}(\eta) &amp; = \eta,
+\end{split}\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(B_k\)</span>はBernoulli数である。</p>
+<p>これにより、<span class="math notranslate nohighlight">\(\Omega(s)\)</span>さえ求まれば、Hamiltonianのflowだけでなく、任意の演算子のflowを計算することができる。
+演算子のflowはBaker-Campbell-Hausdorff (BCH)公式を用いて計算してやればよい。</p>
+</div>
+</div>
+<div class="section" id="normal-ordering">
+<h2><span class="section-number">2.2. </span>Normal ordering<a class="headerlink" href="#normal-ordering" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<div class="section" id="valence-space-imsrg-vs-imsrg">
+<h2><span class="section-number">2.3. </span>Valence-space IMSRG (VS-IMSRG)<a class="headerlink" href="#valence-space-imsrg-vs-imsrg" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>IMSRG法は、閉殻やsub-shell closedの核子系の基底状態の計算には非常に有効であるが、odd核など、開殻の計算には適さない。
+そのため、開殻系の計算には、Valence-space IMSRG (VS-IMSRG)法が用いられる。</p>
+<p>IMSRG法のユニタリ変換のdecouplingの対象が、particle-hole間であったのに対し、
+VS-IMSRG法は、valence spaceとcore space(ないし模型空間外の軌道)の間のdecouplingを行う。
+通常、この手続きは、IMSRG flowのあとにVS-IMSRG flowを行うことで実現される。</p>
+<p>こうして得られたVS-IMSRGのハミルトニアン<span class="math notranslate nohighlight">\(H(s)\)</span>の1体・2体の行列要素を、殻模型の有効相互作用として用いることができる。</p>
+<p>伝統的には、殻模型計算のインプットである有効相互作用は、現象論的なフィットの他、
+<span class="math notranslate nohighlight">\(G\)</span>-matrixを用いた方法や多体摂動論(MBPT)が用いられてきたが、VS-IMSRG法を用いた方法は、
+有効演算子の導出も可能であるという点で、従来の方法とは一線を画した性質を持つ。</p>
+<p>たとえば、β崩壊の遷移強度を計算する場合、エネルギースペクトルを系統的に記述する現象論的相互作用では、
+quenching factorといって、模型空間外の軌道の効果をパラメータ化する必要があるが、
+VS-IMSRG法を用いた方法では、模型空間外の軌道の効果をVS-IMSRGのユニタリ変換によって取り込むことができるため、
+そうしたパラメータ化を行う必要がないと期待されている。<br />
+P.Gysbers et al., <a class="reference external" href="https://doi.org/10.1038/s41567-019-0450-7">Nature Physics 15, 428–433 (2019)</a></p>
+</div>
+<div class="section" id="clubsuit-hf-mbpt">
+<h2><span class="section-number">2.4. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> HF-MBPT<a class="headerlink" href="#clubsuit-hf-mbpt" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">NuclearToolkit.jl</span></code>では、いくつかの多体計算手法が実装されているが、
+(sub-)shell-closedな原子核の場合、その基底状態のエネルギーと半径のみに興味がある場合、
+最もカンタンな方法は、HF-MBPT (Hartree-Fock Many-Body Perturbation Theory)と呼ばれる計算によるものである。</p>
+<p>Hartree-Fock (HF)の基底状態をゼロ次近似として、多体摂動論に基づいてスカラー演算子の期待値の補正項を計算する方法で、
+量子化学では、Møller–Plesset法とも呼ばている(完全に同一のものを指すのかは著者は理解していない)。</p>
+<p>Energyに対するfirst-orderの補正はby definitionでゼロとなり、高次の補正を考えることになる。
+NuclearToolkit.jlでは、2次と3次の補正を考えることができる。</p>
+<p>Many-Body Perturbation Theory (MBPT)やCoupled-Cluster法などの多体計算手法の詳細については、
+Isaiah Shavitt and Rodney J. Bartlettによる有名な黒い本を参照されたい:<br />
+<a class="reference external" href="https://doi.org/10.1017/CBO9780511596834">Many-Body Methods in Chemistry and Physics: MBPT and Coupled-Cluster Theory (Cambridge Molecular Science)</a></p>
+<p>核力とMBPTの性質上、相互作用や原子核によっては結果が上手く収束しない場合もあるが、
+十分にソフトな相互作用であれば、HF-MBPT(3)を用いれば
+Coupled-Cluster法のCCSDやIM-SRG(2)と<em>そう遠くない</em>エネルギーの推定値を得ることができる。</p>
+</div>
+<div class="section" id="nucleartoolkit-jlimsrg">
+<h2><span class="section-number">2.5. </span>NuclearToolkit.jlを用いたIMSRG計算<a class="headerlink" href="#nucleartoolkit-jlimsrg" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コード中のインターフェースはHF-MBPTとIMSRG法で共通になっており、<code class="docutils literal notranslate"><span class="pre">hf_main</span></code>関数が主な関数となる。
+(IMSRG法で計算する/しない場合のいずれでもHF-MBPTの計算を試みるようになっている)<br />
+<code class="docutils literal notranslate"><span class="pre">doIMSRG</span></code>というオプション変数を<code class="docutils literal notranslate"><span class="pre">true</span></code>にすることで、IMSRG法の計算を行うことができる。</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sntf</span> <span class="o">=</span> <span class="s">&quot;tbme_em500n3lo_srg2.0hw20emax4.snt.bin&quot;</span>
+<span class="n">hw</span> <span class="o">=</span> <span class="mf">20.0</span>
+<span class="n">emax</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span> <span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Since optional_parameters.jl is not found, the default parameters will be used.
+You can specify the parameters with optional argument, fn_params like make_chiEFTint(;fn_params=&quot;PATH_TO_YOUR_FILE&quot;).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>size of dWS (jmax 9 lmax 40 e2max 8 Nnmax 20):
+     dtri    4.46 MB    dcgm0    1.11 MB  d6j_int    1.11 MB   d6j_lj    0.28 MB
+  d9j_lsj    1.76 MB  dictHOB    0.44 MB
+target: O16 Ref. =&gt; Z=8 N=8 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E:    -132.7334  = E1b    363.65  + E2b   -496.38   (    -55.15  -367.06   -74.17)
+EMP2    -23.70205 1b    -0.000 pp    -1.437 pn   -20.810 nn    -1.455
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EMP3      0.37877 pp    -0.110 hh    -1.895 ph     2.384
+E_HF   -132.73341  E_MBPT(3) =    -156.0567  Eexp:     -127.619
+
+Since optional_parameters.jl is not found, the default parameters will be used.
+def-by-run d6j_lj done! 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4191
+ step:        s             E0   ||Omega_1||   ||Omega_2||     ||Eta_1||     ||Eta_2||    Ncomm.  nwritten
+     0    0.000  -132.73340718  0.000000e+00  0.000000e+00  6.611426e-17  1.410541e+00         0         0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     1    1.000  -155.45145030  6.611426e-17  1.410541e+00  8.506052e-02  2.621342e-01        11         0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     2    2.000  -156.38677129  8.506052e-02  2.621342e-01  5.130681e-02  9.390706e-02        19         1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     3    3.000  -156.52766754  5.130681e-02  9.390706e-02  2.717791e-02  4.018278e-02        26         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     4    4.000  -156.56178363  7.779262e-02  9.271402e-02  1.743331e-02  2.117043e-02        34         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     5    5.000  -156.57285078  9.518608e-02  1.111392e-01  9.841165e-03  1.420082e-02        42         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     6    6.000  -156.57780164  1.049882e-01  1.169982e-01  6.651799e-03  1.166568e-02        50         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     7    7.000  -156.58072939  1.115299e-01  1.246107e-01  4.486715e-03  1.020031e-02        58         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     8    8.000  -156.58278204  1.158455e-01  1.299520e-01  3.464443e-03  9.123063e-03        66         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     9    9.000  -156.58433495  1.190500e-01  1.353147e-01  2.775772e-03  8.164170e-03        74         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    10   10.000  -156.58554917  1.215140e-01  1.400320e-01  2.362487e-03  7.314644e-03        82         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    11   11.000  -156.58651050  1.235355e-01  1.444905e-01  2.047606e-03  6.545622e-03        90         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    12   12.000  -156.58727602  1.252390e-01  1.485714e-01  1.806604e-03  5.856645e-03        98         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    13   13.000  -156.58788692  1.267139e-01  1.523475e-01  1.602803e-03  5.237651e-03       106         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    14   14.000  -156.58837496  1.280066e-01  1.558058e-01  1.428376e-03  4.683480e-03       114         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    15   15.000  -156.58876500  1.291467e-01  1.589708e-01  1.275805e-03  4.187181e-03       121         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    16   16.000  -156.58907681  1.301625e-01  1.618539e-01  1.140382e-03  3.743041e-03       128         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    17   17.000  -156.58932608  1.310693e-01  1.644750e-01  1.019124e-03  3.345857e-03       135         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    18   18.000  -156.58952537  1.318798e-01  1.668513e-01  9.108716e-04  2.990644e-03       142         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    19   19.000  -156.58968469  1.326047e-01  1.690016e-01  8.140346e-04  2.673020e-03       149         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    20   20.000  -156.58981207  1.332532e-01  1.709440e-01  7.274655e-04  2.389029e-03       156         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    21   21.000  -156.58991391  1.338334e-01  1.726959e-01  6.500580e-04  2.135130e-03       163         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    22   22.000  -156.58999533  1.343527e-01  1.742741e-01  5.808607e-04  1.908149e-03       170         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    23   23.000  -156.59006044  1.348172e-01  1.756942e-01  5.190075e-04  1.705245e-03       177         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    24   24.000  -156.59011250  1.352329e-01  1.769709e-01  4.637267e-04  1.523873e-03       184         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    25   25.000  -156.59015413  1.356047e-01  1.781178e-01  4.143242e-04  1.361757e-03       191         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    26   26.000  -156.59018744  1.359373e-01  1.791474e-01  3.701783e-04  1.216860e-03       198         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    27   27.000  -156.59021408  1.362348e-01  1.800711e-01  3.307320e-04  1.087357e-03       205         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    28   28.000  -156.59023539  1.365008e-01  1.808994e-01  2.954864e-04  9.716185e-04       212         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    29   29.000  -156.59025245  1.367386e-01  1.816418e-01  2.639951e-04  8.681841e-04       219         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    30   30.000  -156.59026611  1.369513e-01  1.823070e-01  2.358589e-04  7.757489e-04       226         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    31   31.000  -156.59027704  1.371414e-01  1.829028e-01  2.107208e-04  6.931458e-04       233         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    32   32.000  -156.59028580  1.373114e-01  1.834363e-01  1.882615e-04  6.193307e-04       240         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    33   33.000  -156.59029281  1.374634e-01  1.839139e-01  1.681957e-04  5.533702e-04       247         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    34   34.000  -156.59029844  1.375992e-01  1.843413e-01  1.502685e-04  4.944298e-04       254         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    35   35.000  -156.59030295  1.377206e-01  1.847238e-01  1.342520e-04  4.417633e-04       261         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    36   36.000  -156.59030657  1.378291e-01  1.850660e-01  1.199425e-04  3.947037e-04       268         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    37   37.000  -156.59030947  1.379261e-01  1.853720e-01  1.071582e-04  3.526547e-04       275         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    38   38.000  -156.59031181  1.380127e-01  1.856458e-01  9.573655e-05  3.150833e-04       282         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    39   39.000  -156.59031368  1.380902e-01  1.858906e-01  8.553227e-05  2.815131e-04       289         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    40   40.000  -156.59031519  1.381594e-01  1.861095e-01  7.641563e-05  2.515183e-04       296         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    41   41.000  -156.59031641  1.382212e-01  1.863052e-01  6.827071e-05  2.247184e-04       303         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    42   42.000  -156.59031738  1.382765e-01  1.864802e-01  6.099393e-05  2.007733e-04       310         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    43   43.000  -156.59031817  1.383259e-01  1.866366e-01  5.449277e-05  1.793790e-04       317         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    44   44.000  -156.59031881  1.383700e-01  1.867764e-01  4.868454e-05  1.602640e-04       324         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    45   45.000  -156.59031933  1.384094e-01  1.869014e-01  4.349540e-05  1.431855e-04       331         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    46   46.000  -156.59031975  1.384447e-01  1.870131e-01  3.885936e-05  1.279266e-04       338         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    47   47.000  -156.59032008  1.384762e-01  1.871130e-01  3.471746e-05  1.142935e-04       345         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    48   48.000  -156.59032036  1.385043e-01  1.872022e-01  3.101703e-05  1.021131e-04       352         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    49   49.000  -156.59032058  1.385294e-01  1.872820e-01  2.771102e-05  9.123066e-05       359         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    50   50.000  -156.59032076  1.385519e-01  1.873532e-01  2.475739e-05  8.150782e-05       367         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    51   51.000  -156.59032091  1.385719e-01  1.874169e-01  2.211858e-05  7.282108e-05       375         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    52   52.000  -156.59032104  1.385899e-01  1.874738e-01  1.976103e-05  6.506004e-05       383         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    53   53.000  -156.59032114  1.386059e-01  1.875247e-01  1.765476e-05  5.812609e-05       391         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    54   54.000  -156.59032122  1.386202e-01  1.875701e-01  1.577300e-05  5.193108e-05       399         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    55   55.000  -156.59032129  1.386330e-01  1.876107e-01  1.409180e-05  4.639629e-05       407         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    56   56.000  -156.59032134  1.386444e-01  1.876470e-01  1.258980e-05  4.145135e-05       415         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    57   57.000  -156.59032139  1.386546e-01  1.876794e-01  1.124790e-05  3.703343e-05       423         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    58   58.000  -156.59032143  1.386637e-01  1.877084e-01  1.004902e-05  3.308634e-05       431         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    59   59.000  -156.59032146  1.386719e-01  1.877342e-01  8.977929e-06  2.955993e-05       439         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    60   60.000  -156.59032149  1.386791e-01  1.877574e-01  8.021001e-06  2.640935e-05       447         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    61   61.000  -156.59032151  1.386856e-01  1.877780e-01  7.166069e-06  2.359456e-05       455         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    62   62.000  -156.59032153  1.386915e-01  1.877965e-01  6.402261e-06  2.107977e-05       463         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    63   63.000  -156.59032154  1.386966e-01  1.878130e-01  5.719865e-06  1.883301e-05       471         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    64   64.000  -156.59032156  1.387013e-01  1.878277e-01  5.110203e-06  1.682571e-05       479         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    65   65.000  -156.59032157  1.387054e-01  1.878409e-01  4.565524e-06  1.503235e-05       487         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    66   66.000  -156.59032158  1.387091e-01  1.878527e-01  4.078900e-06  1.343014e-05       495         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    67   67.000  -156.59032159  1.387124e-01  1.878632e-01  3.644143e-06  1.199869e-05       503         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    68   68.000  -156.59032159  1.387154e-01  1.878726e-01  3.255726e-06  1.071981e-05       511         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    69   69.000  -156.59032160  1.387180e-01  1.878809e-01  2.908709e-06  9.577234e-06       519         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    70   70.000  -156.59032160  1.387204e-01  1.878884e-01  2.598679e-06  8.556441e-06       527         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    71   71.000  -156.59032161  1.387225e-01  1.878951e-01  2.321695e-06  7.644449e-06       535         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    72   72.000  -156.59032161  1.387244e-01  1.879011e-01  2.074233e-06  6.829661e-06       543         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    73   73.000  -156.59032162  1.387261e-01  1.879065e-01  1.853147e-06  6.101716e-06       551         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    74   74.000  -156.59032162  1.387276e-01  1.879112e-01  1.655627e-06  5.451360e-06       559         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    75   75.000  -156.59032162  1.387289e-01  1.879155e-01  1.479159e-06  4.870322e-06       567         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    76   76.000  -156.59032162  1.387301e-01  1.879193e-01  1.321500e-06  4.351214e-06       575         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    77   77.000  -156.59032163  1.387312e-01  1.879227e-01  1.180646e-06  3.887435e-06       583         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    78   78.000  -156.59032163  1.387321e-01  1.879258e-01  1.054805e-06  3.473088e-06       591         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    79   79.000  -156.59032163  1.387330e-01  1.879285e-01  9.423767e-07  3.102905e-06       599         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    80   80.000  -156.59032163  1.387337e-01  1.879309e-01  8.419319e-07  2.772178e-06       607         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    81   81.000  -156.59032163  1.387344e-01  1.879331e-01  7.521932e-07  2.476702e-06       615         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    82   82.000  -156.59032163  1.387350e-01  1.879350e-01  6.720195e-07  2.212719e-06       623         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    83   83.000  -156.59032163  1.387356e-01  1.879368e-01  6.003912e-07  1.976874e-06       631         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    84   84.000  -156.59032164  1.387361e-01  1.879383e-01  5.363975e-07  1.766166e-06       639         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    85   85.000  -156.59032164  1.387365e-01  1.879397e-01  4.792247e-07  1.577917e-06       647         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    86   86.000  -156.59032164  1.387369e-01  1.879409e-01  4.281457e-07  1.409732e-06       655         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    87   87.000  -156.59032164  1.387372e-01  1.879420e-01  3.825111e-07  1.259474e-06       663         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    88   88.000  -156.59032164  1.387376e-01  1.879430e-01  3.417405e-07  1.125231e-06       671         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    89   89.000  -156.59032164  1.387378e-01  1.879439e-01  3.053155e-07  1.005296e-06       679         2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    90   90.000  -156.59032164  1.387381e-01  1.879447e-01  2.727730e-07  8.981453e-07       687         2
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>true
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>HF: -132.951</p></li>
+<li><p>HF-MBPT(3): -156.057</p></li>
+<li><p>IMSRG(2): -156.590</p></li>
+</ul>
+<p>実験値は-127.619 MeVである。HFの方が実験値に近いじゃないか！と思うかもしれないが、今考えている相互作用はinduced&amp;genuine３体力の寄与を無視しているため、束縛エネルギーを過大評価するのが自然な相互作用になっている。
+実験値との比較を考えてもそう意味はない。</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "julia-1.10"
+        },
+        kernelOptions: {
+            kernelName: "julia-1.10",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'julia-1.10'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Chap_NuclearForce.html" title="前へ ページ">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">前へ</p>
+            <p class="prev-next-title"><span class="section-number">1. </span>核力</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Chap_shellmodel.html" title="次へ ページ">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>殻模型(配置間相互作用法)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
