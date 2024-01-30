@@ -1,5 +1,5 @@
 ###--- ChiralEFT ---
-n_mesh = 50
+n_mesh = 100
 emax = 4
 #chi_order = 4; pottype="emn500n4lo";calc_3N = true
 chi_order = 3; pottype="em500n3lo";calc_3N = false
