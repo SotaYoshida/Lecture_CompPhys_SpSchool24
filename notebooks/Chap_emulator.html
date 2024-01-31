@@ -402,7 +402,7 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 一言で簡単に言えば「誤差関数に系を支配する微分方程式(ODE/PDE)を入れてしまえば物理法則を満たすように学習してくれるのでは？」というアイデアである。</p>
 <p>幸い、IM-SRG法はflow方程式という形の常微分方程式(ODE)であるため、PINNsを適用して遊んでみるのは、わりと自明である。
 下に模式図を示した。</p>
-<img src="./pic/imsrgnet_sketch.png" width=60%>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/imsrgnet_sketch.png" width=60%>
 <p>まずニューラルネットワークの構造は、最も基本的な全結合のニューラルネットワークを用いる(もちろんもっと複雑な構造を用いてもよいはずだが)。
 入力は、IM-SRG法のflow parameterである<span class="math notranslate nohighlight">\(s\)</span>で、出力は、IM-SRG法(そのとくにMagnus展開を用いるforlmulation)のユニタリ変換を与えるMagnus operator <span class="math notranslate nohighlight">\(\Omega(s)\)</span>である。</p>
 <p>ニューラルネットワークが計算の各ステップ<span class="math notranslate nohighlight">\(s\)</span>で得られるデータ<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を幾つか与えるだけで、<span class="math notranslate nohighlight">\(s\to\infty\)</span>での<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を予測するように学習できればそんなに嬉しいことはないが、もちろんそう上手くは行かない。
