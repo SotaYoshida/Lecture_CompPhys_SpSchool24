@@ -5,3 +5,4 @@ notebooks/logfile.dat
 *~
 gitscripts.sh
 _build
+rm_julia_job.sh
