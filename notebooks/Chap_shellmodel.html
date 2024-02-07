@@ -280,7 +280,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
-   3.7. 参考文献
+   3.7. 参考文献&amp;謝辞
   </a>
  </li>
 </ul>
@@ -319,8 +319,19 @@ no-core shell model (NCSM)と呼ぶ。これは、ひろく計算物理分野で
 <p>核子が、平均的なポテンシャルの中で一粒子運動をしているという描像から、
 Mayer-Jensenは、スピン・軌道力(LS力)を導入することによって、
 安定な構造を示す核子の数、魔法数(2, 8, 20, 28, 50, 82, 126)を説明した。</p>
-<p>例えば3次元の等方調和振動子ポテンシャルで運動する粒子の場合、エネルギー準位は、
+<p>下に、魔法数の模式図を示す。</p>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/magic_numbers_sketch.png?raw=true" width="90%">
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>この図における、各一粒子軌道の並び順には、特に意味はない。
+実際の原子核では、変形の効果や、核力の機微によって、軌道の順位が変わることで、
+魔法数が消失したり、新たな魔法数が発現することがある。
+核力におけるペアリング相関の強さから、<span class="math notranslate nohighlight">\(j\)</span>の値が大きい軌道が、魔法数の形成に寄与することが多い。</p>
+</div>
+<p>例えば(図左側)3次元の等方調和振動子ポテンシャルで運動する粒子の場合、エネルギー準位は、
 主量子数<span class="math notranslate nohighlight">\(n\)</span>に対して、<span class="math notranslate nohighlight">\(E_n=(n+3/2)\hbar\omega\)</span>となる。
+零点振動エネルギーのことを一旦忘れて、<span class="math notranslate nohighlight">\(n=0,1,2,3,\cdots\)</span>となるエネルギー準位が、
+それぞれ<span class="math notranslate nohighlight">\(0\hbar\omega, 1\hbar\omega, 2\hbar\omega, 3\hbar\omega,\cdots\)</span>となる。
 このポテンシャルに、軌道角運動量<span class="math notranslate nohighlight">\(\ell\)</span>に依存する項<span class="math notranslate nohighlight">\(C \ell^2\)</span>を加えると、
 それぞれのエネルギー準位は<span class="math notranslate nohighlight">\(\ell\)</span>の値に応じて、分離する。
 また、<span class="math notranslate nohighlight">\(\ell\)</span>とスピン角運動量<span class="math notranslate nohighlight">\(s\)</span>の合成角運動量<span class="math notranslate nohighlight">\(j\)</span>に依存する項<span class="math notranslate nohighlight">\(C' \ell \cdot s\)</span>を加えると、
@@ -501,13 +512,18 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。</p>
 </div>
 <div class="section" id="id7">
-<h2><span class="section-number">3.7. </span>参考文献<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>shell-model計算に関するほぼ全ての必要な情報は、Alex Brown氏&#64;MSUのLecture Noteにまとめられている。
+<h2><span class="section-number">3.7. </span>参考文献&amp;謝辞<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p>Alex Brown, Lecture Note:<br />
+shell-model計算に関するほぼ全ての必要な情報は、Alex Brown氏&#64;MSUのLecture Noteにまとめられている。
 Webで見つかりやすいものは2005年版だが、より新しいバージョンとして、
-Nuclear Talent(スクール)用の2017年版資料がMorten Hjorth-Jensen氏&#64;MSUの<a class="reference external" href="https://github.com/NuclearTalent/NuclearStructure/blob/master/doc/Literature/brown.pdf">GitHubレポジトリ</a>内で公開されている。</p>
-<p>Lanczos法など行列の固有値計算や関連の話題については <a class="reference external" href="https://www.maruzen-publishing.co.jp/item/?book_no=303655">計算力学レクチャーコース: 固有値計算と特異値計算(丸善出版)</a>など、素晴らしい書籍があり、筆者も実装の際に参考にさせて頂いた。</p>
-<p>また、NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などの固有値計算アルゴリズムを実装しているが、
-その開発段階においては、KSHELLの作者である清水則孝氏に多大なる助言を頂きながら、KSHELLのソースコードも適宜参考にさせて頂いた。</p>
+Nuclear Talent(スクール)用の2017年版資料がMorten Hjorth-Jensen氏&#64;MSUの<a class="reference external" href="https://github.com/NuclearTalent/NuclearStructure/blob/master/doc/Literature/brown.pdf">GitHubレポジトリ</a>内で公開されている。</p></li>
+<li><p><a class="reference external" href="https://www.maruzen-publishing.co.jp/item/?book_no=303655">計算力学レクチャーコース: 固有値計算と特異値計算(丸善出版)</a>:<br />
+Lanczos法など行列の固有値計算や関連の話題については素晴らしい書籍があり、筆者も実装の際にこちらの本を参考にさせて頂いた。</p></li>
+<li><p>KSHELL code:<br />
+また、NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などのLanczos法の種々の拡張を実装しているが、
+その開発段階においては、KSHELLの作者である清水則孝氏に多大なる助言を頂きながら、KSHELLのソースコードも参考にさせて頂いた。</p></li>
+</ul>
 </div>
 </div>
 
