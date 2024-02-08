@@ -326,9 +326,16 @@
      1.4.1. 運動量空間におけるカイラル核力の2次元プロット
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   1.5. 3体力を含む核力計算コード
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#clubsuit-magic-interaction-em1-8-2-0">
-     1.4.2.
+     1.5.1.
      <span class="math notranslate nohighlight">
       \(\clubsuit\)
      </span>
@@ -769,8 +776,14 @@ deuteronのbinding energyが評価されている。
 <p>３体力についても、同様にSRG変換を考えることができるが、NuclearToolkit.jlでは未実装な上、
 かなり複雑な計算になるため、ここでは割愛する。</p>
 </div>
+</div>
+<div class="section" id="id11">
+<h2><span class="section-number">1.5. </span>3体力を含む核力計算コード<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>３体力を含む核力の計算コードとして、筆者の大学院時代の先輩にあたる宮城宇志氏による<a class="reference external" href="https://github.com/Takayuki-Miyagi/NuHamil-public">NuHamil</a>というコードがある。<br />
+現代的な３体力もカバーしているため、興味のある方は一度目を通してみると良いだろう。</p>
+<p>論文はこちら<a class="reference external" href="https://doi.org/10.1140/epja/s10050-023-01039-y">T. Miyagi, Eur. Phys. J. A 59, 150 (2023).</a></p>
 <div class="section" id="clubsuit-magic-interaction-em1-8-2-0">
-<h3><span class="section-number">1.4.2. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> 余談: Magic interaction: EM1.8/2.0<a class="headerlink" href="#clubsuit-magic-interaction-em1-8-2-0" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">1.5.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> 余談: Magic interaction: EM1.8/2.0<a class="headerlink" href="#clubsuit-magic-interaction-em1-8-2-0" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>とくにab initio計算のコミュニティにおいて、Magicと称されるカイラル核力が知られている。</p>
 <p>前述のmatterの計算を主に対象とするK.Hebeler et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.83.031301">PRC 83, 031301(R) (2011)</a>において、提案されたものだが、出版されしばらくして、中重核に適用すると、ab initio計算において、
 <span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>領域の基底状態エネルギーと荷電半径をよく再現することがわかった。</p>
@@ -780,6 +793,14 @@ deuteronのbinding energyが評価されている。
 2024年3月時点においても、この相互作用を超える高い精度で、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>の基底状態エネルギーと荷電半径を再現するカイラルの相互作用は存在しない。
 ab initio計算とはその性質上「<strong>真面目にやれば正しい結果が得られるだろう</strong>」と期待するものだが、
 この相互作用は、そのような期待を裏切るものであるともいえ、なんとも面白い相互作用である。</p>
+<p>その後の研究により、質量と半径やnuclear matterの計算には、non-local cutoffを用いた３体力が適していることが示唆されてきた。
+これを受けて提唱された、２体力と３体力をSRGも含めてconsistentに扱う相互作用として、
+<a class="reference external" href="https://doi.org/10.1103/PhysRevC.101.014318">V. Somà et al., Phys. Rev. C 101, 014318(2020)</a>がある。</p>
+<p>下に、<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>-<span class="math notranslate nohighlight">\({}^{68}\mathrm{Ni}\)</span>の核子あたりの束縛エネルギーを示している。</p>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/Soma_Fig22.png?raw=true" width = 90%>
+<p>NNLOsatとEM1.8/2.0に加えて、上の論文で提案された相互作用NN+3NF(lnl)の結果が示されている。
+なお、EM1.8/2.0はIMSRG法による結果で、ほかはADC(3)という、self-consistent Green’s function法の一種による結果である。
+A=2,3,4の系から決定したLECsを用いて、非常に精度良く中重核までを記述していることがわかる。</p>
 </div>
 </div>
 </div>
