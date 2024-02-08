@@ -27,7 +27,9 @@
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/ribf_report_fig3.png?raw=true">
 
 :::{margin}
-こちらは、2012年7月発行の[原子核研究 第56巻suppl.3](http://www.genshikaku.jp/backnumber.php?vol=56&issue=sp3)に掲載された図です。
+RIBFとは、理研のRadioactive Isotope Beam Factoryの略称です。
+RIBFの物理は、2012年7月発行の[原子核研究 第56巻suppl.3](http://www.genshikaku.jp/backnumber.php?vol=56&issue=sp3)に掲載されている他、[こちら](https://wwwnucl.ph.tsukuba.ac.jp/~nakatsukasa/RIBF_report.pdf)の、
+筑波大学の中務 孝氏のホームページからも入手可能(執筆時点)です。
 :::
 上に、RIBF理論研究推進会議によるレポート「RIBFの物理」から図を抜粋させて頂きました。
 核図表という、陽子と中性子の数を軸にした二次元の図において、様々な構造が発現することを示しています。

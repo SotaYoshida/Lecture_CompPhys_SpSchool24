@@ -442,8 +442,8 @@ IMSRG法では、出力が大次元のため、自動微分の計算が大変な
 <div class="section" id="id2">
 <h3><span class="section-number">4.3.2. </span>動的モード分解<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>動的モード分解は、2008年にP.J. Schmidらによって提唱された手法であり、
-時空間に依存するデータを用いて、そのデータを生成する力学系の特徴を抽出する手法である。</p>
-<p>Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numerical and experimental data
+時空間に依存するデータを用いて、そのデータを生成する力学系の特徴を抽出する手法である。
+Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numerical and experimental data
 <a class="reference external" href="https://doi.org/10.1017%2FS0022112010001217">リンク</a>は3000の引用を超える。</p>
 <p><strong>動的モード分解(DMD)の基本</strong></p>
 <div class="margin sidebar">
@@ -634,14 +634,17 @@ A \simeq \Phi \Lambda \Phi^{+}
 <p>固有値<span class="math notranslate nohighlight">\(\lambda_i\)</span>に対応する波形の<strong>周波数</strong>を、<span class="math notranslate nohighlight">\(f_i = \mathrm{Arg} \lambda_i / (2 \pi \Delta t)\)</span>と定義することができる。</p>
 <p>上の式をみるとそれぞれのモードに対する分解、例えば離散フーリエ変換(DFT)のような形となっていることがわかる。
 DFTと大きく異なるのは、固有モードが固定振動数(周期)を持つDFTに対して、DMDでは、周波数が(特異値の形で)重要な寄与を持つモードが動的に与えられている点である。</p>
-<p><code class="docutils literal notranslate"><span class="pre">NuclearToolkit.jl</span></code>には、DMDを用いて、IM-SRG法の代理モデルを構築するための関数が用意されている。
-DMDをIMSRG法に応用するアイデアは、MSU・FRIBグループで提案されたものである。
-今後、MSU・FRIBグループとの共同研究等も予定していることもあり、この資料では詳細については割愛する。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>2024年6月にFRIBでセミナーをする機会を頂いたので、現地で議論しながら関連する仕事を進めたい。乞うご期待。</p>
+</div>
+<p>DMDをIMSRG法に応用するアイデアは、ミシガン州立大&amp;FRIB(Facility for Rare Isotope Beams)グループで提案された。
+<code class="docutils literal notranslate"><span class="pre">NuclearToolkit.jl</span></code>には、DMDを用いて、IM-SRG法の代理モデルを構築するための関数が用意されている。</p>
 </div>
 </div>
 <div class="section" id="id3">
 <h2><span class="section-number">4.4. </span>核子系の量子計算<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>量子計算を代理モデルとよぶべきかどうかは議論の余地があるが、上の定義に従って、記載することにする。</p>
+<p>量子計算を代理モデルと呼ぶのは不適当とも思うが、関連の話題として言及しておくことにする。</p>
 <p>先の、殻模型/配置間相互作用法の章でも述べたように、微視的な核構造計算として強力なツールであるCI法だが、
 その計算コストは考えるべき自由度に対して指数関数的に増大する、という困難を抱えている。
 これは、核子系に限らず、電子系などにおいても同様である。</p>
