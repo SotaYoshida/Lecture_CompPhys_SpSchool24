@@ -48,6 +48,8 @@
 レポジトリのnotebookのダウンロードは[こちら](https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/)から、
 Code→Download ZIPを選択してダウンロードするなどしてください。
 
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/download_repo.png?raw=true" width=70%>
+
 筆者が提供しているコードを実行する方法は幾つかありますが、
 最も簡単なものは、レポジトリをダウンロードし、notebooksフォルダ内で実行(≒ipynbを実行)することです。
 inputファイルを読む場合、実行するノートブックと同じディレクトリにinputファイルを置く必要がありますが、
