@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>動的モード分解(Dynamic Mode Decomposition) &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="ja">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_full.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   講義の狙いと資料の概要
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  はじめに
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap1_Julia.html">
+   Julia入門&amp;導入
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part1
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_NuclearForce.html">
+   1. 核力
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_IMSRG.html">
+   2. 核子系の第一原理計算
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part2
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_shellmodel.html">
+   3. 殻模型(配置間相互作用法)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Chap_emulator.html">
+   4. Emulator/Surrogate model
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/Chap_DMD.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_DMD.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap_DMD.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#karman">
+   具体例: Kármán渦
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="dynamic-mode-decomposition">
+<h1>動的モード分解(Dynamic Mode Decomposition)<a class="headerlink" href="#dynamic-mode-decomposition" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>この章では、動的モード分解(Dynamic Mode Decomposition, DMD)を紹介する。</p>
+<p>DMDは、時空間データから、系のダイナミクスを解析するための手法である。
+元々、流体力学の分野で提唱された比較的新しい手法で、
+その後、複雑系のダイナミクスを解析するための手法として、様々な分野で応用されている。</p>
+<p>本章で使用するパッケージをインストールしておこう (1回実行すればよいため、コメントアウトしておいた)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># using Pkg </span>
+<span class="c"># Pkg.add(&quot;MAT&quot;)</span>
+<span class="c"># Pkg.add(&quot;Arpack&quot;)</span>
+<span class="c"># Pkg.add(&quot;KrylovKit&quot;)</span>
+<span class="c"># Pkg.add(&quot;Plots&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>※一般論は別のノートブックにまとめているので、省略した。</p>
+<div class="section" id="karman">
+<h2>具体例: Kármán渦<a class="headerlink" href="#karman" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>DMDの有名な教科書(Kutzら)にある、流体力学の例を紹介する。</p>
+<ul class="simple">
+<li><p>教科書: Data-Driven Modeling &amp; Scientific Computation: Methods for Complex Systems &amp; Big Data, J. Nathan Kutz, Cambridge University Press, 2013.</p></li>
+<li><p>URL: <a class="reference external" href="http://dmdbook.com/">http://dmdbook.com/</a></p></li>
+</ul>
+<p>こちらのページからは、DataとMATLABのコードがダウンロードできる。
+ここで提供されているデータは、Kármán(カルマン)渦と呼ばれる、円筒形の物体の周りに出来る流体の渦のシミュレーション結果である。
+カルマン渦が見られる状況としては、例えば水や雲の流れといった自然現象や建築物(煙突)や潜水艦の潜望鏡など多数の例がある。</p>
+<p>データの中身は、200×450のメッシュ領域における、199×449の速度場(流れ)が、時間方向に151ステップ記録されている。
+1ステップの時間間隔は、0.2で、<span class="math notranslate nohighlight">\(t=0 \sim 30.0\)</span>のデータがある。
+このデータは、199×449=89351次元のベクトルが151個ある状態とみなせる。</p>
+<p>このデータに対してDMDを適用してみよう。カレントディレクトリに、<code class="docutils literal notranslate"><span class="pre">DATA</span></code>をダウンロード・展開済と仮定して、まずはデータを可視化してみよう。</p>
+<p>実装においては、グローバルスコープで行列や行列演算を定義すると、実行時間が膨大になってしまうことをさけるため、
+関数の内部で行列の確保や演算を行うようにしているため、少々見づらいかもしれない。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">Plots</span>
+<span class="k">using</span> <span class="n">MAT</span>
+<span class="n">file</span> <span class="o">=</span> <span class="n">matopen</span><span class="p">(</span><span class="s">&quot;DATA/FLUIDS/CYLINDER_ALL.mat&quot;</span><span class="p">)</span>
+
+<span class="n">u_all</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s">&quot;UALL&quot;</span><span class="p">)</span>
+<span class="n">v_all</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s">&quot;VALL&quot;</span><span class="p">)</span>
+<span class="n">vorticity_all</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s">&quot;VORTALL&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;size(u_all) = &quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">u_all</span><span class="p">),</span> <span class="s">&quot; size(v_all) = &quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">v_all</span><span class="p">),</span> <span class="s">&quot; size(vorticity_all) = &quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">vorticity_all</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">nrow</span> <span class="o">=</span> <span class="mi">199</span>
+<span class="n">ncol</span> <span class="o">=</span> <span class="mi">449</span>
+
+<span class="k">function</span> <span class="n">make_vec_to_mat</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="s">&quot;r&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+            <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">end</span>
+    <span class="k">else</span> <span class="c">#update matrix by vec in colum order</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+            <span class="n">idx_i</span> <span class="o">=</span> <span class="n">div</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">idx_j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">idx_i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ncol</span>
+            <span class="n">mat</span><span class="p">[</span><span class="n">idx_i</span><span class="p">,</span> <span class="n">idx_j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">mat</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">anim</span> <span class="o">=</span> <span class="nd">@animate</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">u_all</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">make_vec_to_mat</span><span class="p">(</span><span class="n">u_all</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="n">tnow</span> <span class="o">=</span> <span class="n">round</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">heatmap</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="ss">:equal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="ss">:viridis</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="ss">:balance</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;t = </span><span class="si">$tnow</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">gif</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s">&quot;dmd_data_u.gif&quot;</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">anim</span> <span class="o">=</span> <span class="nd">@animate</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">v_all</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">make_vec_to_mat</span><span class="p">(</span><span class="n">v_all</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="n">tnow</span> <span class="o">=</span> <span class="n">round</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">heatmap</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="ss">:equal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="ss">:viridis</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="ss">:balance</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;t = </span><span class="si">$tnow</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">gif</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s">&quot;dmd_data_v.gif&quot;</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">anim</span> <span class="o">=</span> <span class="nd">@animate</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">vorticity_all</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">make_vec_to_mat</span><span class="p">(</span><span class="n">vorticity_all</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="n">tnow</span> <span class="o">=</span> <span class="n">round</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">heatmap</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="ss">:equal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="ss">:viridis</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="ss">:balance</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;t = </span><span class="si">$tnow</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">gif</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s">&quot;dmd_data_vorticity.gif&quot;</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>JuliaのPlotsでアニメ作るの簡単でびっくり</p>
+</div>
+<p>データを可視化出来た。では実際に、89351×151のデータについて、DMDを適用してみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> <span class="n">dmd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span><span class="n">verbose</span><span class="o">=</span><span class="nb">false</span><span class="p">)</span>
+    <span class="c"># 1.2. truncated SVD using Arpack.jl  </span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">svds</span><span class="p">(</span><span class="n">X</span><span class="p">;</span> <span class="n">nsv</span><span class="o">=</span><span class="n">r</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">U_r</span><span class="p">,</span> <span class="n">S_r</span><span class="p">,</span> <span class="n">Vt_r</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">Vt</span>
+
+    <span class="c"># 3. tilde(A)</span>
+    <span class="n">S_r_inv</span> <span class="o">=</span> <span class="n">diagm</span><span class="p">(</span> <span class="mf">1.0</span> <span class="o">./</span> <span class="n">S_r</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">BLAS</span><span class="o">.</span><span class="n">gemm</span><span class="p">(</span><span class="sc">&#39;T&#39;</span><span class="p">,</span> <span class="sc">&#39;N&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">Vt_r</span><span class="p">,</span> <span class="n">S_r_inv</span><span class="p">)</span>
+    <span class="n">YZ</span> <span class="o">=</span> <span class="n">BLAS</span><span class="o">.</span><span class="n">gemm</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">,</span><span class="sc">&#39;N&#39;</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+    <span class="n">Atilde</span> <span class="o">=</span> <span class="n">BLAS</span><span class="o">.</span><span class="n">gemm</span><span class="p">(</span><span class="sc">&#39;T&#39;</span><span class="p">,</span> <span class="sc">&#39;N&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">U_r</span><span class="p">,</span> <span class="n">YZ</span><span class="p">)</span>
+
+    <span class="c"># reconstruction of Y</span>
+    <span class="c"># method-A: multiplying Atilde k times</span>
+    <span class="n">Y_latent</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">Y</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">x1_r</span> <span class="o">=</span> <span class="n">BLAS</span><span class="o">.</span><span class="n">gemv</span><span class="p">(</span><span class="sc">&#39;T&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">U_r</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">x_new</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">r</span><span class="p">)</span> <span class="o">.+</span> <span class="n">x1_r</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">Y</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">x_k</span> <span class="o">.=</span> <span class="n">x_new</span>
+        <span class="n">BLAS</span><span class="o">.</span><span class="n">gemv!</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">Atilde</span><span class="p">,</span> <span class="n">x_k</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">x_new</span><span class="p">)</span>
+        <span class="n">Y_latent</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">.=</span> <span class="n">x_new</span>
+    <span class="k">end</span>
+    <span class="n">Yapprox</span> <span class="o">=</span> <span class="n">BLAS</span><span class="o">.</span><span class="n">gemm</span><span class="p">(</span><span class="sc">&#39;N&#39;</span><span class="p">,</span> <span class="sc">&#39;N&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">U_r</span><span class="p">,</span> <span class="n">Y_latent</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;norm(Y-Yapprox,Inf) = &quot;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Yapprox</span><span class="p">,</span><span class="nb">Inf</span><span class="p">),</span> <span class="s">&quot; Fro. &quot;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Yapprox</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="c"># method-B: adding DMD modes (verbose=trueにして、Aと一致するかチェックしておこう)</span>
+    <span class="k">if</span> <span class="n">verbose</span>
+        <span class="c"># 4. eigen(tilde(A))</span>
+        <span class="n">Lambda</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">Atilde</span><span class="p">)</span>
+
+        <span class="c"># 5. DMD modes</span>
+        <span class="n">Phi</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Vt_r</span><span class="o">&#39;</span> <span class="o">*</span> <span class="n">S_r_inv</span> <span class="o">*</span> <span class="n">W</span>
+        <span class="n">Phi_pinv</span> <span class="o">=</span> <span class="n">pinv</span><span class="p">(</span><span class="n">Phi</span><span class="p">)</span>
+
+        <span class="c"># Y approximation</span>
+        <span class="n">Yapprox_B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span>
+        <span class="n">Lambda</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">Atilde</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">Phi_pinv</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> 
+        <span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">Y</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>  
+            <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">r</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">Lambda</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">^</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">Phi</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">Yapprox_B</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">.+=</span> <span class="n">real</span><span class="o">.</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;norm(Y-Yapprox,Inf) = &quot;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Yapprox_B</span><span class="p">,</span><span class="nb">Inf</span><span class="p">),</span> <span class="s">&quot; Fro. &quot;</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Yapprox_B</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">Yapprox</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="n">main</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">nrow</span><span class="o">*</span><span class="n">ncol</span>
+    <span class="n">num_t</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">target</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">num_t</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">num_t</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">num_t</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">vec</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">X</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">.=</span> <span class="n">vec</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="n">Y</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">.=</span> <span class="n">vec</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">Y</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="k">end</span><span class="p">]</span> <span class="o">.=</span> <span class="n">target</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="k">end</span><span class="p">]</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;fullrank </span><span class="si">$</span><span class="p">(</span><span class="n">rank</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="c">## DMD</span>
+    <span class="n">trank</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">Yapprox</span> <span class="o">=</span> <span class="n">dmd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">trank</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Yapprox</span>
+<span class="k">end</span>
+
+<span class="n">Y</span><span class="p">,</span> <span class="n">Yapprox</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">u_all</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">anim</span> <span class="o">=</span> <span class="nd">@animate</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">size</span><span class="p">(</span><span class="n">Y</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">make_vec_to_mat</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="n">mat_approx</span> <span class="o">=</span> <span class="n">make_vec_to_mat</span><span class="p">(</span><span class="n">Yapprox</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span><span class="p">)</span>
+    <span class="n">hm1</span> <span class="o">=</span> <span class="n">heatmap</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="ss">:equal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="ss">:viridis</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="ss">:balance</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Exact&quot;</span><span class="p">)</span>
+    <span class="n">hm2</span> <span class="o">=</span> <span class="n">heatmap</span><span class="p">(</span><span class="n">mat_approx</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="ss">:equal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="ss">:viridis</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="ss">:balance</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;DMD&quot;</span><span class="p">)</span>    
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">mat</span><span class="o">-</span><span class="n">mat_approx</span>
+    <span class="n">hm3</span> <span class="o">=</span> <span class="n">heatmap</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=</span><span class="ss">:equal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="ss">:viridis</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="ss">:balance</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.e-2</span><span class="p">,</span> <span class="mf">1.e-2</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Diff.:=Exact-DMD&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">hm1</span><span class="p">,</span> <span class="n">hm2</span><span class="p">,</span> <span class="n">hm3</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">800</span><span class="p">))</span>
+<span class="k">end</span>
+<span class="n">gif</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s">&quot;dmd_data_compare.gif&quot;</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>上から、元データ、DMDによる近似(<span class="math notranslate nohighlight">\(r=15 &lt; 150\)</span>)、両者の差分をプロットした。<br />
+少なくとも目に見えて分かるような差分はなく、データの再構成がうまくいっていることがわかる。</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "julia-1.9"
+        },
+        kernelOptions: {
+            kernelName: "julia-1.9",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'julia-1.9'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

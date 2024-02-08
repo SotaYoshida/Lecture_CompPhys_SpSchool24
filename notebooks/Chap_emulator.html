@@ -474,7 +474,7 @@ Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numeri
 \[
 \mathbf{Y}=\mathbf{F}(\mathbf{X})
 \]</div>
-<p>ここで、<span class="math notranslate nohighlight">\(\mathbf{F}\)</span>は、<span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>から<span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>への写像(時間発展の操作とみなせる)で、非線形な関数の場合が多い。
+<p>ここで、<span class="math notranslate nohighlight">\(\mathbf{F}\)</span>は、<span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>から<span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>への写像(時間発展１ステップの操作とみなせる)で、非線形な関数の場合が多い。
 最もよくある場合としては、偏微分方程式に従う系だろうか。</p>
 <p>一般に大次元の系では、偏微分方程式を数値的に解くのがかなり大変で、何らかの方法で、系の時間発展を近似することも必要になる。</p>
 <p>DMDでは、この1ステップの時間発展を、線形写像<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>を用いて近似する事を考える:</p>
@@ -542,8 +542,8 @@ Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numeri
 </ol>
 <p>まず1.で元のダイナミクスの低次元表現を得た後、
 3.では、その射影空間における時間発展(ユニタリ変換)の形となっている。
-4.の固有値解析においては、元の<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{N\times N}\)</span>に対する近似として、
-<span class="math notranslate nohighlight">\(\tilde{A}\in \mathbb{R}^{r\times r}\)</span>の固有値解析を行っており、<span class="math notranslate nohighlight">\(r \ll N\)</span>の場合に大幅な計算コストの削減が見込める。</p>
+4.の固有値解析においては、元の<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{d\times d}\)</span>に対する近似として、
+<span class="math notranslate nohighlight">\(\tilde{A}\in \mathbb{R}^{r\times r}\)</span>の固有値解析を行っており、<span class="math notranslate nohighlight">\(r \ll d\)</span>の場合に大幅な計算コストの削減が見込める。</p>
 <p>このとき、重要な性質が幾つかある:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\tilde{A}\)</span>の非ゼロ固有値は、<span class="math notranslate nohighlight">\(A'\)</span>の固有値に一致する</p></li>
@@ -640,6 +640,8 @@ DFTと大きく異なるのは、固有モードが固定振動数(周期)を持
 </div>
 <p>DMDをIMSRG法に応用するアイデアは、ミシガン州立大&amp;FRIB(Facility for Rare Isotope Beams)グループで提案された。
 <code class="docutils literal notranslate"><span class="pre">NuclearToolkit.jl</span></code>には、DMDを用いて、IM-SRG法の代理モデルを構築するための関数が用意されている。</p>
+<p>DMDの有名な教科書(Kutzら)にある、流体力学(Kármán渦)の例を扱うサンプルJuliaコードを用意しておいた。
+気になる方は<span class="xref myst">こちら</span>からどうぞ。</p>
 </div>
 </div>
 <div class="section" id="id3">
