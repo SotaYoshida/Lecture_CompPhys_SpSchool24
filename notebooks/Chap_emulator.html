@@ -387,13 +387,13 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 このような多次元空間においても、25-50点程度のサンプル点で、数%以下の誤差で波動関数を再現できることを示した。
 また、近似波動関数を構成できれば、それをLanczos法の初期ベクトルとして使うことで、収束性を向上させる前処理的な用途にも使えることを示している。</p>
 <p align="center">    
-<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/SYoshida_EC_fig2.png?raw=true" width=80%>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/SYoshida_EC_fig2.png?raw=true" width=60%>
 </p>
 <p>上に、sd殻の殻模型におけるEC法による予測結果を示した。横軸が厳密解、縦軸がEC法による予測値で、ほとんど対角線上に乗っていることがわかる。
 ここで対象としている核は<span class="math notranslate nohighlight">\({}^{28}\mathrm{Si}\)</span>で、この核はsd殻においては、最も大次元<span class="math notranslate nohighlight">\(\approx 90,000\)</span>次元の行列に対応する。
-角運動量の異なる<span class="math notranslate nohighlight">\(J=0,1,2,3,4\)</span>5つの状態について、50点ほどで波動関数をサンプルしてやれば、
-図のように、任意のパラメータ点における波動関数を励起状態含め、平均して1%以下の誤差で予測できることが示された。</p>
-<p>CI計算は、解くべき問題は大変なものの、Lanczos法の性質上、基底状態とともに励起状態の波動関数も特段の違いなく得ることができるため、
+角運動量の異なる<span class="math notranslate nohighlight">\(J=0,1,2,3,4\)</span>の5つの状態について、50点ほどで波動関数をサンプルしてやれば、
+図のように、任意のパラメータ(100)点における波動関数を、励起状態も含めて、平均して1%以下の誤差で予測できることが示された。</p>
+<p>CI計算は、解くべき問題は一般に大変なものの、Lanczos法の性質上、基底状態とともに励起状態の波動関数も特段の違いなく得ることができるため、
 一度サンプル波動関数を構築してしまえば、様々な状態・物理量(電磁遷移行列要素など)を系統的に調べることができる。</p>
 <p>有名な殻模型相互作用の波動関数のデータベースを用意しておいて、そこからユーザーは必要な波動関数を取り出して近似波動関数を用いる、
 といった方法も将来的にありえるかもしれない。</p>
@@ -403,18 +403,23 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 <h2><span class="section-number">4.3. </span>データ駆動型アプローチ (機械学習・DMD)<a class="headerlink" href="#dmd" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="imsrg-net-pinnsim-srg">
 <h3><span class="section-number">4.3.1. </span>IMSRG-Net: PINNsを用いたIM-SRG法の代理モデル<a class="headerlink" href="#imsrg-net-pinnsim-srg" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>IM-SRG法は、前章でも説明したように、核子多体系の構造計算において、近年最も注目されている手法の一つである。<br />
+<p>IM-SRG法は、前章でも説明したように、核子多体系の構造計算において、近年最も注目されている手法の一つである。
 (sub-)closed-shell系における基底状態の第一原理的な計算として、Coupled-Clusterとならび非常によく用いられるだけでなく、
-やMagnus展開を用いた定式化の特性から、模型空間の殻模型相互作用を含む任意の有効演算子を系統的に導出できるという利点を有している。</p>
+Magnus展開を用いた定式化の特性から、模型空間の殻模型相互作用を含む任意の有効演算子を系統的に導出できるという利点を有している。</p>
 <p>当然このIM-SRG法についても、パラメータを変えたときの計算結果を得るためには、
 何度も大変な計算を繰り返す必要があるため、代理モデルの構築が喫緊の課題となっている。</p>
-<p>ここでは、筆者が提案した、IMSRG-Netと呼ばれる手法について説明する。論文は下記の通り:<a class="reference external" href="https://doi.org/10.1103/PhysRevC.108.044303">S. Yoshida Phys. Rev. C 108, 044303 (2023)</a></p>
-<p>IMSRG-Netは、PINNs(Physics Informed Neural Networks)と呼ばれる機械学習の手法を用いて、IM-SRG法の代理モデルを構築するものである。</p>
-<p>PINNsとは、物理法則を満たすようにニューラルネットワークのパラメータを学習する手法であり、
-一言で簡単に言えば「誤差関数に系を支配する微分方程式(ODE/PDE)を入れてしまえば物理法則を満たすように学習してくれるのでは？」というアイデアである。</p>
+<p>ここでは、筆者が提案した、IMSRG-Netと呼ばれる手法について説明する。
+論文は下記の通り:<a class="reference external" href="https://doi.org/10.1103/PhysRevC.108.044303">S. Yoshida Phys. Rev. C 108, 044303 (2023)</a></p>
+<p>IMSRG-Netは、PINNs(Physics Informed Neural Networks)と呼ばれる機械学習の手法を用いて、IM-SRG法の代理モデルを構築するものである。
+PINNsとは、物理法則を満たすようにニューラルネットワークのパラメータを学習する手法であり、
+一言で簡単に言えば「誤差関数に系を支配する微分方程式(ODE/PDE)を入れてしまえば物理法則を満たすように学習してくれるのでは？」というアイデアである。
+「物理法則を満たすように」というのはやや言い過ぎで、実際に誤差関数として入れるのは、
+データ点で対象とする値が、微分方程式の解であることを要求するようなソフトなconstraintである。</p>
 <p>幸い、IM-SRG法はflow方程式という形の常微分方程式(ODE)であるため、PINNsを適用して遊んでみるのは、わりと自明である。
 下に模式図を示した。</p>
-<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/imsrgnet_sketch.png" width=60%>
+<p align="center">    
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/imsrgnet_sketch.png?raw=true" width=70%>
+</p>
 <p>まずニューラルネットワークの構造は、最も基本的な全結合のニューラルネットワークを用いる(もちろんもっと複雑な構造を用いてもよいはずだが)。
 入力は、IM-SRG法のflow parameterである<span class="math notranslate nohighlight">\(s\)</span>で、出力は、IM-SRG法(そのとくにMagnus展開を用いるforlmulation)のユニタリ変換を与えるMagnus operator <span class="math notranslate nohighlight">\(\Omega(s)\)</span>である。</p>
 <p>ニューラルネットワークが計算の各ステップ<span class="math notranslate nohighlight">\(s\)</span>で得られるデータ<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を幾つか与えるだけで、<span class="math notranslate nohighlight">\(s\to\infty\)</span>での<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を予測するように学習できればそんなに嬉しいことはないが、もちろんそう上手くは行かない。
