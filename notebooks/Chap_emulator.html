@@ -317,7 +317,7 @@ Eigenvector Continuation(EC)法と呼ばれる方法を用いて、パラメー�
 <p align="center">
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/Frame_fig3.png?raw=true" width=60%>
 </p>
-<p>上に示したのは、３次元Bose-Hubbard模型における基底状態と励起状態のエネルギーを、ポテンシャル項<span class="math notranslate nohighlight">\(U\)</span>とホッピング項<span class="math notranslate nohighlight">\(t\)</span>の比に対してプロットした図である。
+<p>上に示したのは、上記の論文で示された、３次元Bose-Hubbard模型における基底状態と励起状態のエネルギーを、ポテンシャル項<span class="math notranslate nohighlight">\(U\)</span>とホッピング項<span class="math notranslate nohighlight">\(t\)</span>の比に対してプロットした図である。
 図中のバツ印は厳密解を示し、各線はEC法による予測値を示している。
 線の違いは、ひし形で示されているサンプル点の数を示していて、
 例えば異なる(最大たったの５点)パラメータ点で得られた２状態の波動関数の情報から、
@@ -340,7 +340,7 @@ Rev. Mod. Phys.に投稿中とみられるレビュー論文<a class="reference 
 \[
 H(c) | \psi(c) \rangle = E(c) | \psi(c) \rangle
 \]</div>
-<p>ここで、<span class="math notranslate nohighlight">\(c\)</span>はパラメータである。例えば、<span class="math notranslate nohighlight">\(c\)</span>はサイトのホッピング項vsポテンシャル項の係数比であるとか、カイラル核力のLow-Energy Constantであるとかをイメージするとよい。</p>
+<p>ここで、<span class="math notranslate nohighlight">\(c\)</span>はパラメータである。例えば、<span class="math notranslate nohighlight">\(c\)</span>は上のホッピング項vsポテンシャル項の係数比であるとか、カイラル核力のLow-Energy Constantであるとかをイメージするとよい。</p>
 <p>EC法では、この元々の問題をすでに数点解いた結果を用いて、<span class="math notranslate nohighlight">\(H(c_\odot)\)</span>の固有値・固有ベクトルを予測することを考える。
 サンプル(ないしsnapshot)の数を<span class="math notranslate nohighlight">\(N_s\)</span>とすると、</p>
 <div class="math notranslate nohighlight">
@@ -372,7 +372,8 @@ N_{ij} = \langle \psi(c_i) | \psi(c_j) \rangle
 肝心なのは、そうして得られた波動関数がどれほどの精度で元の問題の波動関数を再現できるか、ということであるが、
 (問題にもよるが)十程度のサンプル点をえることで、数%以下の誤差で波動関数を再現できることがFull-CI/valence-CI法やCoupled-Cluster法などの計算で報告されている。</p>
 <p>なぜこのようなことができるのか、単純化して説明すると、いま考えているHamiltonianのもとで固有値ベクトルすべてが張る空間は、
-naiiveには、サンプル点で得た固有ベクトルが張る低次元空間に十分<strong>近い</strong>ことが予想されるためである。</p>
+naiiveには、サンプル点で得た固有ベクトルが張る低次元空間に十分<strong>近い</strong>ことが予想されるためである。
+その低次元空間における固有値ベクトルは、元の問題の固有値ベクトルと近いものであると期待される。</p>
 <p>実際、EC法は相転移のような特異な領域では、相を跨ぐようなサンプル点を予め用意する必要がある。
 順位交差のように、パラメータ領域によって基底状態と励起状態がクロスするような場合にも、
 サンプル波動関数のなかに、基底状態と励起状態の両方が含まれるようにすることが必要になる。</p>
@@ -381,11 +382,17 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 <p>配置間相互作用法においてEC法をいち早く検証したのは、S.König et al., <a class="reference external" href="https://doi.org/10.1016/j.physletb.2020.135814">Phys. Lett. B 810, 10, 135814 (2020)</a>で、Full CI法を用いて得られた<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>の基底状態波動関数について、カイラル核力のlow-energy constants (LECs)に対する不定性評価(感度分析)をやってのけた。
 これは、EC法なしではとても実現できない計算である。
 上記の仕事では、16個のLECのうち3個のLECに対する不定性の評価を行っている。</p>
-<p>その後、筆者らは、より多くのパラメータを含む系(現象論的な相互作用を用いた殻模型計算)でEC法の有用性を検証した。<br />
-<a class="reference external" href="https://doi.org/10.1093/ptep/ptac057">S. Yoshida and Noritaka Shimizu, PTEP 2022 053D02</a></p>
+<p>その後、筆者らは、より多くのパラメータを含む系(現象論的な相互作用を用いた殻模型計算)でEC法の有用性を検証した→<a class="reference external" href="https://doi.org/10.1093/ptep/ptac057">S. Yoshida and Noritaka Shimizu, PTEP 2022 053D02</a></p>
 <p>現象論的な相互作用は、アイソスピン対称性を陽に仮定しても<span class="math notranslate nohighlight">\(sd\)</span>殻で66個、<span class="math notranslate nohighlight">\(pf\)</span>殻で199の1体・2体の行列要素を持つ
 このような多次元空間においても、25-50点程度のサンプル点で、数%以下の誤差で波動関数を再現できることを示した。
 また、近似波動関数を構成できれば、それをLanczos法の初期ベクトルとして使うことで、収束性を向上させる前処理的な用途にも使えることを示している。</p>
+<p align="center">    
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/SYoshida_EC_fig2.png?raw=true" width=80%>
+</p>
+<p>上に、sd殻の殻模型におけるEC法による予測結果を示した。横軸が厳密解、縦軸がEC法による予測値で、ほとんど対角線上に乗っていることがわかる。
+ここで対象としている核は<span class="math notranslate nohighlight">\({}^{28}\mathrm{Si}\)</span>で、この核はsd殻においては、最も大次元<span class="math notranslate nohighlight">\(\approx 90,000\)</span>次元の行列に対応する。
+角運動量の異なる<span class="math notranslate nohighlight">\(J=0,1,2,3,4\)</span>5つの状態について、50点ほどで波動関数をサンプルしてやれば、
+図のように、任意のパラメータ点における波動関数を励起状態含め、平均して1%以下の誤差で予測できることが示された。</p>
 <p>CI計算は、解くべき問題は大変なものの、Lanczos法の性質上、基底状態とともに励起状態の波動関数も特段の違いなく得ることができるため、
 一度サンプル波動関数を構築してしまえば、様々な状態・物理量(電磁遷移行列要素など)を系統的に調べることができる。</p>
 <p>有名な殻模型相互作用の波動関数のデータベースを用意しておいて、そこからユーザーは必要な波動関数を取り出して近似波動関数を用いる、
