@@ -314,13 +314,20 @@ Full-CI法やPost-HF法などのhigh-fidelityな計算を何度も行うこと�
 <p>この論文では、3次元のBose-Hubbard模型及びneutron matterの量子モンテカルロ計算について
 Eigenvector Continuation(EC)法と呼ばれる方法を用いて、パラメータを幾つか変更して実施した数点の計算結果から、
 所与のパラメータ点における波動関数やエネルギーを予測する方法を提案したものである。</p>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/Frame_fig3.png?raw=true" width=80%>
+<p>上に示したのは、３次元Bose-Hubbard模型における基底状態と励起状態のエネルギーを、ポテンシャル項<span class="math notranslate nohighlight">\(U\)</span>とホッピング項<span class="math notranslate nohighlight">\(t\)</span>の比に対してプロットした図である。
+図中のバツ印は厳密解を示し、各線はEC法による予測値を示している。
+線の違いは、ひし形で示されているサンプル点の数を示していて、
+例えば異なる(最大たったの５点)パラメータ点で得られた２状態の波動関数の情報から、
+他の任意のパラメータ点における波動関数を非常に精度良く予測(しかも外挿)できることが示されている。</p>
 <p>上記の論文はその後、爆発的に引用され、とくに原子核物理の理論計算コミュニティで、
 筆者を含めて構造計算、反応計算の両方において代理モデルの構築が一挙に進む契機となった。</p>
 <p>その実、背景にある数学としては特段新しいものではなく、計算物理や応用数学の本に載っている(こともある)Rayleigh-Ritz法や、
 Reduced basis methodとして他分野で理解されてきた手法の一種、あるいは再発明とみなすことができる。
 とはいえ、流体力学の文脈で提唱された動的モード分解(後述)についても、内部で行う数学的な操作は特異値分解など既知の手法であるが、その提案は2008年であり、歴史は浅い。<br />
 ある分野では既知とされるような概念でも、他分野で革新的になりえるという好例とも言える。</p>
-<p>その後、EC法は原子核物理コミュニティにおいても、Reduced basis methodsというより広い文脈から理解されるようになり、関連する研究が進められている。最近の動向としては、Rev. Mod. Phys.に投稿中とみられるレビュー論文<a class="reference external" href="https://arxiv.org/abs/2310.19419">T.Duguet et al., arXiv:2310.19419</a>などが詳しい。</p>
+<p>その後、EC法は原子核物理コミュニティにおいても、Reduced basis methodsというより広い文脈から理解されるようになり、関連する研究が進められている。最近の動向としては、</p>
+<p>Rev. Mod. Phys.に投稿中とみられるレビュー論文<a class="reference external" href="https://arxiv.org/abs/2310.19419">T.Duguet et al., arXiv:2310.19419</a>などが詳しい。</p>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>関連事項に興味があれば、ぜひスクールの際でも構わないが声をかけてもらえると嬉しい。</p>
