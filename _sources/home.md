@@ -23,14 +23,15 @@
 特に顕著な例としては、クラスター構造やハロー核など、一つの原子核の一つの状態であっても、
 複数の手法・視点が不可欠となることが多いです。
 
-:::{margin}
-こちらは、2012年7月発行の[原子核研究 第56巻suppl.3](http://www.genshikaku.jp/backnumber.php?vol=56&issue=sp3)に掲載されたもので、既に10年以上が経過しています。その後の、研究成果によって、この図に新たに追記するべき、面白い研究結果が多数あることと思います。
-:::
+
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/ribf_report_fig3.png?raw=true">
 
+:::{margin}
+こちらは、2012年7月発行の[原子核研究 第56巻suppl.3](http://www.genshikaku.jp/backnumber.php?vol=56&issue=sp3)に掲載された図です。
+:::
 上に、RIBF理論研究推進会議によるレポート「RIBFの物理」から図を抜粋させて頂きました。
-核図表という、陽子と中性子の数を軸にした二次元の図においても、様々な構造が発現していることがわかります。
-残念ながらすべての原子核(すべての状態)を記述することは現状不可能ですが、
+核図表という、陽子と中性子の数を軸にした二次元の図において、様々な構造が発現することを示しています。
+残念ながらすべての原子核(すべての状態)を統一的に記述することは現状不可能ですが、
 理論・実験の両輪によって、日々新たな発見がなされています。
 
 日本にも、それぞれの手法(や質量領域)に特化した世界的な専門家が多数いる一方で、テンソルネットワーク・機械学習などの代理モデル・量子計算など、分野の垣根を超えた新しいアイデアを用いて原子核という泥臭い系を考え直す人材については、
@@ -48,7 +49,7 @@
 レポジトリのnotebookのダウンロードは[こちら](https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/)から、
 Code→Download ZIPを選択してダウンロードするなどしてください。
 
-<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/download_repo.png?raw=true" width=70%>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/download_repo.png?raw=true" width=40%>
 
 筆者が提供しているコードを実行する方法は幾つかありますが、
 最も簡単なものは、レポジトリをダウンロードし、notebooksフォルダ内で実行(≒ipynbを実行)することです。
