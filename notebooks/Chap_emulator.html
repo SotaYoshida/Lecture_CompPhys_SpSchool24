@@ -314,7 +314,9 @@ Full-CI法やPost-HF法などのhigh-fidelityな計算を何度も行うこと�
 <p>この論文では、3次元のBose-Hubbard模型及びneutron matterの量子モンテカルロ計算について
 Eigenvector Continuation(EC)法と呼ばれる方法を用いて、パラメータを幾つか変更して実施した数点の計算結果から、
 所与のパラメータ点における波動関数やエネルギーを予測する方法を提案したものである。</p>
-<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/Frame_fig3.png?raw=true" width=80%>
+<p align="center">
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/Frame_fig3.png?raw=true" width=60%>
+</p>
 <p>上に示したのは、３次元Bose-Hubbard模型における基底状態と励起状態のエネルギーを、ポテンシャル項<span class="math notranslate nohighlight">\(U\)</span>とホッピング項<span class="math notranslate nohighlight">\(t\)</span>の比に対してプロットした図である。
 図中のバツ印は厳密解を示し、各線はEC法による予測値を示している。
 線の違いは、ひし形で示されているサンプル点の数を示していて、
@@ -326,13 +328,9 @@ Eigenvector Continuation(EC)法と呼ばれる方法を用いて、パラメー�
 Reduced basis methodとして他分野で理解されてきた手法の一種、あるいは再発明とみなすことができる。
 とはいえ、流体力学の文脈で提唱された動的モード分解(後述)についても、内部で行う数学的な操作は特異値分解など既知の手法であるが、その提案は2008年であり、歴史は浅い。<br />
 ある分野では既知とされるような概念でも、他分野で革新的になりえるという好例とも言える。</p>
-<p>その後、EC法は原子核物理コミュニティにおいても、Reduced basis methodsというより広い文脈から理解されるようになり、関連する研究が進められている。最近の動向としては、</p>
-<p>Rev. Mod. Phys.に投稿中とみられるレビュー論文<a class="reference external" href="https://arxiv.org/abs/2310.19419">T.Duguet et al., arXiv:2310.19419</a>などが詳しい。</p>
-<div class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>関連事項に興味があれば、ぜひスクールの際でも構わないが声をかけてもらえると嬉しい。</p>
-</div>
-<p>筆者も、CEA-Saclayで2023年6月に行われた国際会議<a class="reference external" href="https://esnt.cea.fr/Phocea/Page/index.php?id=109">Eigenvector continuation method in nuclear structure and reaction theory</a>にて招待講演を行うなど、日本国内では少しはこのあたりの動向について理解をしているつもりである。</p>
+<p>その後、EC法は原子核物理コミュニティにおいても、Reduced basis methodsというより広い文脈から理解されるようになり、関連する研究が進められている。最近の動向としては、
+Rev. Mod. Phys.に投稿中とみられるレビュー論文<a class="reference external" href="https://arxiv.org/abs/2310.19419">T.Duguet et al., arXiv:2310.19419</a>などが詳しい。
+筆者も、CEA-Saclayで2023年6月に行われた国際会議<a class="reference external" href="https://esnt.cea.fr/Phocea/Page/index.php?id=109">Eigenvector continuation method in nuclear structure and reaction theory</a>にて招待講演を行うなど、日本国内では少しはこのあたりの動向について理解をしているつもりである。</p>
 </div>
 <div class="section" id="eigenvector-continuation-ec">
 <h2><span class="section-number">4.2. </span>Eigenvector Continuation (EC)<a class="headerlink" href="#eigenvector-continuation-ec" title="このヘッドラインへのパーマリンク">¶</a></h2>
