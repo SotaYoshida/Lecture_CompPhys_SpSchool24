@@ -496,7 +496,7 @@ Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numeri
 <p><strong>DMDのアルゴリズム</strong></p>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>実数行列を仮定して転置で書いてあるが、複素行列の場合は随伴に置き換えれば良い。</p>
+<p>データが実数であることを仮定して転置で書いてあるが、複素行列の場合は随伴に置き換えれば良い。</p>
 </div>
 <p>DMDの基本的なアルゴリズムは以下の通りである:</p>
 <ol>
@@ -549,10 +549,10 @@ Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numeri
 3.では、その射影空間における時間発展(ユニタリ変換)の形となっている。
 4.の固有値解析においては、元の<span class="math notranslate nohighlight">\(A \in \mathbb{R}^{d\times d}\)</span>に対する近似として、
 <span class="math notranslate nohighlight">\(\tilde{A}\in \mathbb{R}^{r\times r}\)</span>の固有値解析を行っており、<span class="math notranslate nohighlight">\(r \ll d\)</span>の場合に大幅な計算コストの削減が見込める。</p>
-<p>このとき、重要な性質が幾つかある:</p>
+<p>このとき、重要な性質として、以下のようなものがある:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\tilde{A}\)</span>の非ゼロ固有値は、<span class="math notranslate nohighlight">\(A'\)</span>の固有値に一致する</p></li>
-<li><p>exact DMD modesが<span class="math notranslate nohighlight">\(A'\)</span>の固有ベクトルとなる</p></li>
+<li><p>exact DMD modes<span class="math notranslate nohighlight">\(\{ \phi_j \}\)</span>が<span class="math notranslate nohighlight">\(A'\)</span>の固有ベクトルとなる</p></li>
 </ul>
 <p>1.において、データ行列<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>の特異値分解を行うが、full rank SVDが大変な場合は、
 truncated SVDと呼ばれるような、主要な特異値を取り出す方法を考えると良い。</p>
@@ -593,52 +593,19 @@ truncated SVDについては、<code class="docutils literal notranslate"><span 
 <p>まず、時刻<span class="math notranslate nohighlight">\(k\)</span>における推定値<span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span>は、以下のように計算される:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{x}_k = \mathbf{A}^{k-1} \mathbf{x}_1
+\mathbf{x}_k = A \mathbf{x}_{k-1} = \mathbf{A}^{k-1} \mathbf{x}_1
 \]</div>
-<p>このとき、<span class="math notranslate nohighlight">\(A\)</span>の固有値・固有ベクトルが<span class="math notranslate nohighlight">\(\{ \lambda_i, \phi_i \}^r_{i=1}\)</span>とかける。
-<span class="math notranslate nohighlight">\(\mathrm{rank}(A) \le r\)</span>から</p>
+<p>これを、元の<span class="math notranslate nohighlight">\(d\)</span>次元の問題から、<span class="math notranslate nohighlight">\(r &lt;&lt; d\)</span>次元の問題に変換するために、</p>
 <div class="math notranslate nohighlight">
 \[
-A\Phi = \Phi \Lambda
+\mathbf{z}_k \equiv U^t \mathbf{x}_k
 \]</div>
-<p>とかける。ここで、下記のように<span class="math notranslate nohighlight">\(\phi,\lambda\)</span>を行列化した。</p>
+<p>を導入すると、<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>の時間発展は、潜在空間での表現<span class="math notranslate nohighlight">\(\mathbf{z}\)</span>の時間発展に書き直すことができる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\Phi = 
-\begin{pmatrix}
-| &amp; &amp; | \\
-\phi_1 &amp; \ldots &amp; \phi_r \\ 
-| &amp; &amp; | \\
-\end{pmatrix}
-,\hspace{0.5cm} \Lambda = diag(\lambda_1, \ldots, \lambda_r)
+U_r \mathbf{z}_{k+1} = A U_r \mathbf{z}_k = (U_r \tilde{A} U^t_r)^k U^t_r \mathbf{z}_k = U_r \tilde{\Lambda}^k \mathbf{z}_k\\
+\mathbf{z}_{k+1} = \tilde{A}^k \mathbf{z}_1
 \end{split}\]</div>
-<p>ここで<span class="math notranslate nohighlight">\(A\)</span>を</p>
-<div class="math notranslate nohighlight">
-\[
-A \simeq \Phi \Lambda \Phi^{+}
-\]</div>
-<p>と近似すると、</p>
-<div class="math notranslate nohighlight">
-\[
-\mathbf{x}_k \approx A^{k-1} x_1 \simeq \Phi \Lambda^{k-1} \Phi^{+} x_1.
-\]</div>
-<p>として、DMD modeを用いて、時刻<span class="math notranslate nohighlight">\(k\)</span>における推定をすることができる。</p>
-<p>ここで、<span class="math notranslate nohighlight">\(z := \Phi^{+} x_1  \in \mathbb{R}^{}\)</span> と整理すると、</p>
-<div class="math notranslate nohighlight">
-\[
-\mathbf{x}_k \approx \sum_{j=1}^r \lambda_j^{k-1} z_j \phi_j
-\]</div>
-<p>これを、一定の時間間隔<span class="math notranslate nohighlight">\(\Delta t\)</span>ごとの式として解釈するために書き直すと、</p>
-<div class="math notranslate nohighlight">
-\[
-\mathbf{x}_{k+1} \approx \sum_{j=1}^r \exp ( \omega_j t) z_j \phi_j,
-\hspace{0.5cm} t\equiv (k-1) \Delta  t
-\hspace{0.5cm} \omega_j \equiv \frac{\log \lambda_j}{\Delta t}
-\]</div>
-<p>となる。</p>
-<p>固有値<span class="math notranslate nohighlight">\(\lambda_i\)</span>に対応する波形の<strong>周波数</strong>を、<span class="math notranslate nohighlight">\(f_i = \mathrm{Arg} \lambda_i / (2 \pi \Delta t)\)</span>と定義することができる。</p>
-<p>上の式をみるとそれぞれのモードに対する分解、例えば離散フーリエ変換(DFT)のような形となっていることがわかる。
-DFTと大きく異なるのは、固有モードが固定振動数(周期)を持つDFTに対して、DMDでは、周波数が(特異値の形で)重要な寄与を持つモードが動的に与えられている点である。</p>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>2024年6月にFRIBでセミナーをする機会を頂いたので、現地で議論しながら関連する仕事を進めたい。乞うご期待。</p>
