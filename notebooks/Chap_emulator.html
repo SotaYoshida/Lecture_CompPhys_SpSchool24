@@ -489,7 +489,7 @@ Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numeri
 \[
 \mathrm{min}_{\mathbf{A}}\|\mathbf{Y}-\mathbf{A}\mathbf{X}\|_F^2
 \]</div>
-<p>もちろん、Moore-Penroseの擬似逆行列<span class="math notranslate nohighlight">\(X^+=V\Sigma^{-1}U\)</span>を用いて、<span class="math notranslate nohighlight">\(A=YX^+\)</span>として理論上は求めることができるが、
+<p>もちろん、Moore-Penroseの擬似逆行列<span class="math notranslate nohighlight">\(X^+=V\Sigma^{-1}U^\dagger\)</span>を用いて、<span class="math notranslate nohighlight">\(A=YX^+\)</span>として理論上は求めることができるが、
 注目するダイナミクスが大次元である場合、計算コストが高くなると予想される。</p>
 <p>DMDでは、データの次元<span class="math notranslate nohighlight">\(d\)</span>に比べて小さい<span class="math notranslate nohighlight">\(r\)</span>次元に射影したダイナミクスを考えることで、
 <span class="math notranslate nohighlight">\(A\)</span>の推定問題を少ない計算量で置き換え、系のダイナミクスを詳細に解析しやすくする、というのが基本的な発想となる。</p>
@@ -499,9 +499,10 @@ Journal of Fluid Mechanicsに出版されたDynamic mode decomposition of numeri
 <li><p>データ行列<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>を特異値分解する:</p>
 <div class="math notranslate nohighlight">
 \[
-    X = U\Sigma V^t
+    X = U\Sigma V^\dagger
     \]</div>
-<p>この際のSVDはいわゆるeconomy-size SVDと呼ばれるもので、<span class="math notranslate nohighlight">\(U\in\mathbb{R}^{d\times N}\)</span>, <span class="math notranslate nohighlight">\(\Sigma\in\mathbb{R}^{N\times N}\)</span>, <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{N \times N}\)</span>となる。</p>
+<p>ここで、<span class="math notranslate nohighlight">\(U\in\mathbb{R}^{d\times k}\)</span>, <span class="math notranslate nohighlight">\(\Sigma\in\mathbb{R}^{k\times k}\)</span>, <span class="math notranslate nohighlight">\(V\in\mathbb{R}^{k \times N}\)</span>で、
+<span class="math notranslate nohighlight">\(k \leq \mathrm{rank}(X) \leq \mathrm{min}(d,N)\)</span>である。</p>
 </li>
 <li><p><span class="math notranslate nohighlight">\(U,\Sigma,V\)</span>の低ランク近似 <span class="math notranslate nohighlight">\(r \ll \mathrm{min}(d,N) \)</span>を考える:</p>
 <div class="math notranslate nohighlight">
