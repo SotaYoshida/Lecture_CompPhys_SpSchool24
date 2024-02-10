@@ -816,23 +816,23 @@ H(s) = U(s) H(s=0) U(s)^\dagger
 \end{split}\]</div>
 <p>と書くことができる。<span class="math notranslate nohighlight">\(H(s=0)\)</span>がbareな核力に対応する。
 generatorの選び方によって、核力のソフト化の程度や性質を調整することができる。<br />
-SRG変換とgeneratorの関係についての一般論としては、<span class="math notranslate nohighlight">\(H_\mathrm{SRG}\)</span>はgeneratorと<strong>似た</strong>構造を持つよう変換を受けることになる。</p>
-<p>Wigner, White, など様々なgeneratorが提案されているが、
-Hamiltonianの(partial wave p-p'平面の意味で)対角成分を採用する事が多い。</p>
+SRG変換とgeneratorの関係についての一般論としては、<span class="math notranslate nohighlight">\(H(s)\)</span>はgeneratorと<strong>似た</strong>構造を持つよう変換を受けることが重要である。
+Wigner, White, など様々なgeneratorが提案されているが、Hamiltonianの(partial wave p-p'平面の意味で)対角成分を採用する事が多い。</p>
 <p>bareなHamiltonianは、高運動量と低運動量成分をcoupleするような寄与(座標空間でいうと、近距離≒斥力芯に対応する成分)が大きく、
 これが計算を困難にする原因となっているわけだが、SRG変換によって、この成分をdecoupleした有効核力を得ることができる。</p>
-<p>ユニタリ変換の性質上、&quot;SRG変換によってHamiltonianの固有値は変化しない&quot;。
+<p>ユニタリ変換の性質上、<strong>SRG変換によってHamiltonianの固有値は変化しない</strong>。
 ただし、ここにはトリックがあり、SRG変換によって生成(induce)される多体力を全て考慮すれば上の主張は正しいが、
-実際の多体計算においては、SRG変換によって生成される多体力を無視したり、induced-3NFまでのみを考慮したりすることが多く、
-上の主張は厳密には成り立たない。</p>
+実際の多体計算においては、SRG変換によって生成される多体力を無視したり、
+induced-3NFまでのみを考慮したりすることが多く、上の主張は厳密には成り立たない。</p>
 <p>少なくとも2体のレベルで正しい操作をしているかどうかは、SRG変換の前後で、２体系の物理量(e.g. deuteronのbinding energy)が一致するかどうかを確認すればよい。実際、後で見るように、SRG変換によってdeuteronのbinding energyは変更を受けない。</p>
 </div>
 <div class="section" id="id9">
 <h2><span class="section-number">1.4. </span>相互作用ファイルの作成<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>NuclearToolkit.jlでは、相互作用ファイルを作成するためのインターフェースとして<code class="docutils literal notranslate"><span class="pre">make_chiEFTint</span></code>関数が用意されている。</p>
+<p>次に、NuclearToolkit.jlを用いて、カイラル核力(2体力のみ)の相互作用を計算してみよう。
+NuclearToolkit.jlでは、相互作用ファイルを作成するためのインターフェースとして<code class="docutils literal notranslate"><span class="pre">make_chiEFTint</span></code>関数が用意されている。</p>
 <p>ファイルを読んでオプションを指定する方式を採用している都合上、少々JupyterNotebook上での実行と馴染まないところがあるが、
 実行ディレクトリに<code class="docutils literal notranslate"><span class="pre">optional_parameters.jl</span></code>というファイルを用意してオプションを書き換えるか、
-make_chiEFTint関数のoptional argumentとしてファイルを指定して実行すればよい:</p>
+make_chiEFTint関数のoptional argumentとして異オプションを指定するファイルを与えてやって実行すればよい:</p>
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">make_chiEFTint</span><span class="p">(;</span><span class="n">fn_params</span><span class="o">=</span><span class="s">&quot;path_to_your_file&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
@@ -841,7 +841,7 @@ make_chiEFTint関数のoptional argumentとしてファイルを指定して実�
 <p>オプションのうち、以下の議論で重要になるのが、single-particle HO基底のサイズを決める<span class="math notranslate nohighlight">\(e_\mathrm{max}\)</span>と、
 HOのパラメータ<span class="math notranslate nohighlight">\(\hbar\omega\)</span>である。
 <span class="math notranslate nohighlight">\(\hbar\omega\)</span>は、基底を構成する調和振動子のエネルギー間隔に対応する量で、
-十分大きな模型空間を取れば、計算結果は<span class="math notranslate nohighlight">\(\hbar\omega\)</span>に依存しなくなる。</p>
+十分大きな模型空間を取れば、計算結果は<span class="math notranslate nohighlight">\(\hbar\omega\)</span>に依存しなくなると期待される。</p>
 <p>以下では、デフォルト値を使って、カイラル核力の相互作用ファイルを作ってみよう.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
