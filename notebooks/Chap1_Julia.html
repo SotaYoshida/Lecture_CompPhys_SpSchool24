@@ -454,11 +454,11 @@ PythonやR、MATLABなどの言語の良いところを取り入れて開発さ�
 <p>Pythonは0-based indexだが、Juliaは1-based indexで、配列<code class="docutils literal notranslate"><span class="pre">arr</span></code>の先頭の要素は<code class="docutils literal notranslate"><span class="pre">arr[1]</span></code>となる。<br />
 その意味では、PythonはC言語に近く、JuliaはMATLABやFortranに近いと言える。</p>
 <p>Pythonの場合は、インデントを使ってブロックを表現するが、Juliaの場合は、<code class="docutils literal notranslate"><span class="pre">begin</span></code>と<code class="docutils literal notranslate"><span class="pre">end</span></code>を使ってブロックを表現する。<br />
-また、<code class="docutils literal notranslate"><span class="pre">for</span></code>文や<code class="docutils literal notranslate"><span class="pre">if</span></code>文の条件式の後には、明示的に<code class="docutils literal notranslate"><span class="pre">end</span></code>を書く必要がある。<br />
+また、<code class="docutils literal notranslate"><span class="pre">for</span></code>文や<code class="docutils literal notranslate"><span class="pre">if</span></code>文の後には、明示的に<code class="docutils literal notranslate"><span class="pre">end</span></code>を書く必要がある。<br />
 なお、Pythonで関数や条件式などを書く際に必要だったコロン<code class="docutils literal notranslate"><span class="pre">:</span></code>は不要になる。</p>
-<p>個人的には、インデントを文法とするPythonの方が、コードの見た目が綺麗になると思うが、
+<p>個人的には、インデントを文法とするPythonの方が、コードの見た目がスッキリしやすいようにも思うが、
 エディタの設定によっては、インデントがタブとスペースが混在してしまったり、
-編集の過程でインデントが崩れてしまったりすることがあるので、
+編集の過程でインデントが崩れてしまい、バグの温床になったりすることがあるので、
 Juliaの方が、ブロックに対してambiguityが少ないというメリットがあるように思う。</p>
 <p>またNumpyで言うところのブロードキャストをdefaultで有していて、<code class="docutils literal notranslate"><span class="pre">v</span></code>がFloat64の一次元配列とすると</p>
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">v</span><span class="w"></span>
@@ -526,8 +526,12 @@ Juliaの方が、ブロックに対してambiguityが少ないというメリッ
 <td><p><code class="docutils literal notranslate"><span class="pre">np.dot(A,B)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>関数の定義</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">function</span> <span class="pre">myfunc(引数1,引数2,...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">function</span> <span class="pre">myfunc(引数1,引数2,...);</span> <span class="pre">...;</span> <span class="pre">end</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">myfunc(引数1,引数2,...):</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>値なし</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nothing</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -730,7 +734,7 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
 本資料の執筆時点で筆者が使用している、Julia v1.10.0及びNuclearToolkit.jlのv0.3.7以降での実行を推奨とする。</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
-<p>ぜひ、Juliaの導入, NuclearToolkit.jlの導入ののち、JuliaのREPLでとして、パッケージを読み込むところまでを事前に試して板で蹴ると、スムーズに受講できるかと思います。もし、エラーが出たり、環境構築でわからないことがあれば、講義の前など、気軽に声をかけてください。</p>
+<p>ぜひ、Juliaの導入, NuclearToolkit.jlの導入ののち、JuliaのREPLで<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">NuclearToolkit</span></code>として、パッケージを読み込むところまでを事前に試してください。もし、エラーが出たり、環境構築でわからないことがあれば、講義の前など、気軽に声をかけてください。</p>
 </div>
 </div>
 </div>
