@@ -52,7 +52,6 @@ RIBFの物理は、2012年7月発行の[原子核研究 第56巻suppl.3](http://
 Code→Download ZIPを選択してダウンロードするなどしてください。
 
 
-
 <p align="center">
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/download_repo.png?raw=true" width=40%>
 </p>
@@ -65,6 +64,8 @@ inputファイルを読む場合、実行するノートブックと同じディ
 :::{note}
 Juliaの環境構築や使用するパッケージの導入については、[Julia入門&導入]の章を参照してください。
 :::
+
+また、見出しに付与された$\clubsuit$マークは、時間の都合上スキップすると思われる発展的な注などを表しています。
 
 ### ライセンス
 
