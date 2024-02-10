@@ -4,6 +4,9 @@
 format: jb-book
 root: home
 
+defaults:  # The defaults key will be applied to all chapters and sub-sections
+  titlesonly: True
+
 parts: 
 - caption: はじめに
   chapters:
