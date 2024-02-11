@@ -582,6 +582,7 @@ Juliaをインストールしてターミナル(VS code経由など含む)ない
 </li>
 <li><p>ターミナルで<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code>などを行い変更を反映したのち、<code class="docutils literal notranslate"><span class="pre">julia</span></code>と入力して、JuliaのREPL(対話環境)が起動することを確認する。</p></li>
 </ol>
+<p>Dockerを使う方法もあるが、その場合は(とくにApple Siliconの場合は)適切なLinuxイメージを用いれば、以降のLinuxの場合の手順に従えばよい。</p>
 </div>
 <div class="section" id="windows">
 <h4>Windowsの場合<a class="headerlink" href="#windows" title="このヘッドラインへのパーマリンク">¶</a></h4>
@@ -619,7 +620,8 @@ Juliaをインストールしてターミナル(VS code経由など含む)ない
 <p>Juliaには、独自のパッケージマネージャが組み込まれており、それ自体が<code class="docutils literal notranslate"><span class="pre">Pkg</span></code>というパッケージになっている。
 Juliaでパッケージを使用する際は、<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">パッケージ名</span></code>としてやればよい。これが、Pythonでいう<code class="docutils literal notranslate"><span class="pre">import</span></code>に相当する。</p>
 <p>Juliaパッケージのインストールは、<code class="docutils literal notranslate"><span class="pre">Pkg.add(&quot;パッケージ名&quot;)</span></code>とする。
-相当複雑な依存関係を含むものでない限り、これで問題なくインストールできる。</p>
+相当複雑な依存関係を含むものでない限り、これで問題なくインストールできる。
+<code class="docutils literal notranslate"><span class="pre">PyCall</span></code>や<code class="docutils literal notranslate"><span class="pre">PyPlot</span></code>など、Pythonとの連携を行うためのパッケージを導入する場合は、環境によっては、少し手間がかかることもある。</p>
 <p>また、Juliaの対話環境REPLで<code class="docutils literal notranslate"><span class="pre">]</span></code>キーを打鍵すると、パッケージマネージャの対話環境に入ることができる。
 そこでは単に<code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">package_name</span></code>とするだけで、パッケージをインストールできる。
 package_nameの部分はもちろん、自分の使いたいパッケージ名に置き換えること。</p>
