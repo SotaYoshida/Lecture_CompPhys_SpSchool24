@@ -274,6 +274,17 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id5">
    3.5. 殻模型計算の実際
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mathrm-mg">
+     3.5.1.
+     <span class="math notranslate nohighlight">
+      \({}^{24}\mathrm{Mg}\)
+     </span>
+     の計算例
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
@@ -329,6 +340,17 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id5">
    3.5. 殻模型計算の実際
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mathrm-mg">
+     3.5.1.
+     <span class="math notranslate nohighlight">
+      \({}^{24}\mathrm{Mg}\)
+     </span>
+     の計算例
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
@@ -395,8 +417,7 @@ Mayer-Jensenは、スピン・軌道力(LS力)を導入することによって�
 <p>また、近年の理論・実験研究によって、中性子過剰(あるいは陽子過剰)な不安定原子核領域においては、
 従来の魔法数が消失したり、新たな魔法数が発現することが明らかになってきている。
 このことは、Nilsonダイアグラムからは、変形の効果として理解することもできるし、
-現代的な大規模殻模型計算によって、実際に微視的な機構(テンソル力や有効核力の各成分の機微)からの
-理解も進んでいる。
+現代的な大規模殻模型計算によって、実際に微視的な機構(テンソル力や有効核力の各成分の機微)からの理解も進んでいる。
 例えば、筆者も(文字通り末席に)参画している研究で言うと、下記のものなどがある。</p>
 <ul class="simple">
 <li><p>N.Tsunoda et al., <a class="reference external" href="https://doi.org/10.1038/s41586-020-2848-x">Nature 587, 66 (2020)</a>.</p></li>
@@ -423,7 +444,7 @@ Mayer-Jensenは、スピン・軌道力(LS力)を導入することによって�
 <p>殻模型の基本的な考え方は、対象とする原子核が、閉殻芯と少数のバレンス核子からなる系であると仮定し、それらの自由度のみからその構造を記述することを目的とするものである。</p>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>もちろん、全ての原子核でこのような仮定が成り立つ訳では無いが、70年代来から今日に至るまで、原子核の構造を記述するための基本的な手法として、殻模型が用いられてきたという背景がある。なかでも特に顕著な例が安定核近傍の原子核である。</p>
+<p>もちろん、全ての原子核でこのような仮定が成り立つ訳では無いが、70年代来から今日に至るまで、原子核の構造を記述するための基本的な手法として、殻模型が用いられてきたという背景がある。なかでも特に顕著な成功事例が安定核近傍の原子核である。</p>
 </div>
 <p>例えば、sd shellと呼ばれる<span class="math notranslate nohighlight">\(1s_{1/2},0d_{3/2},0d_{5/2}\)</span>の3つの軌道をバレンス空間として用いた計算は、
 <span class="math notranslate nohighlight">\(^{16}\mathrm{O}\)</span>
@@ -496,8 +517,8 @@ proton-neutronの2体系である<span class="math notranslate nohighlight">\({}
 \[
 | 000001 \rangle_p \otimes | 000001 \rangle_n 
 \]</div>
-<p>のように、陽子・中性子のそれぞれの配位を表す状態ベクトル(bit列)を用意してやれば良い。<br />
-0が非占有, 1が占有を表し、軌道の数だけビット列を用意すれば良い。</p>
+<p>のように、陽子・中性子のそれぞれの軌道の数だけビット列を用意し、配位を表す状態ベクトル(bit列)を用意してやれば良い。
+0が非占有, 1が占有を表す。</p>
 <p>今、弱い相互作用は考えず、陽子・中性子の数は変化しないとすると、
 <span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の陽子・中性子それぞれの状態を表すビット列は必ず、どれか一つだけがbitが立っていて、それ以外は0であるような状態になる。
 当然、許される配位の数は<span class="math notranslate nohighlight">\(6^2=36\)</span>個となる。</p>
@@ -548,6 +569,42 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 比較的少数の反復で、固有値・固有ベクトルを得ることができる。
 また、励起状態の計算についても、直交化のコストや収束判定に必要な反復回数の増加はあるものの、
 基底状態の計算と特段変わらない手順で自然に計算することができる。</p>
+<div class="section" id="mathrm-mg">
+<h3><span class="section-number">3.5.1. </span><span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の計算例<a class="headerlink" href="#mathrm-mg" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>先程VS-IMSRGの節で計算した、有効相互作用を用いて、<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の殻模型計算をしてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
+
+<span class="n">vs_sntf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="w"></span>
+<span class="n">n_eigen</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">targetJ</span><span class="o">=</span><span class="p">[]</span><span class="w">                                                                                                        </span>
+<span class="n">res_nn</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="n">vs_sntf</span><span class="p">,</span><span class="s">&quot;Mg24&quot;</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w">      </span>
+<span class="n">res_usdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="s">&quot;Mg24&quot;</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w"> </span>
+<span class="s">&quot;&quot;</span><span class="w"> </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Mg24    Z,N=(12,12)     c(8,8)     v(4,4)  mdim:        28503 (  4.45 ) 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J [0.0, 2.0, 2.0, 3.0, 4.0, 4.0, 5.0, 1.0, 6.0, 2.0]
+En.  -109.0654  -107.7170  -106.0557  -104.8003  -104.7485  -103.2378  -101.1769  -100.7040  -100.1376  -100.1193 
+Ex.     0.0000     1.3484     3.0097     4.2651     4.3170     5.8276     7.8886     8.3615     8.9278     8.9461 
+  Mg24    Z,N=(12,12)     c(8,8)     v(4,4)  mdim:        28503 (  4.45 ) 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J [0.0, 2.0, 2.0, 4.0, 3.0, 4.0, 0.0, 2.0, 5.0, 1.0]
+En.   -87.1044   -85.6021   -82.9883   -82.7320   -82.0341   -81.2219   -79.7662   -79.6227   -79.3076   -79.2863 
+Ex.     0.0000     1.5023     4.1161     4.3724     5.0704     5.8826     7.3383     7.4817     7.7969     7.8182 
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="id6">
 <h2><span class="section-number">3.6. </span>殻模型計算コード<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -590,16 +647,16 @@ Lanczos法など行列の固有値計算や関連の話題については素晴�
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "julia-1.9"
+            mode: "julia-1.10"
         },
         kernelOptions: {
-            kernelName: "julia-1.9",
+            kernelName: "julia-1.10",
             path: "./notebooks"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'julia-1.9'</script>
+    <script>kernelName = 'julia-1.10'</script>
 
               </div>
               
