@@ -571,16 +571,24 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 基底状態の計算と特段変わらない手順で自然に計算することができる。</p>
 <div class="section" id="mathrm-mg">
 <h3><span class="section-number">3.5.1. </span><span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の計算例<a class="headerlink" href="#mathrm-mg" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>先程VS-IMSRGの節で計算した有効相互作用と、現象論的相互作用のひとつ、USDBを用いて、<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の殻模型計算をしてみよう。</p>
+<p>NuclearToolkit.jlには、殻模型関数のメインAPIとして、<code class="docutils literal notranslate"><span class="pre">main_sm</span></code>関数が用意されていて、
+相互作用ファイルのパス, 対象とする核(文字列か、<code class="docutils literal notranslate"><span class="pre">[Z,N]</span></code>の配列)、固有値の数、対象とする<span class="math notranslate nohighlight">\(J\)</span>の値などを指定することで、
+殻模型計算を行うことができる。</p>
+<p>ここで、幾つかの相互作用を用いて、<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の計算を行ってみよう。</p>
+<ul class="simple">
+<li><p>USDB: 現象論的な相互作用</p></li>
+<li><p>NN-only: 先程の章で計算した２体力から導出された相互作用</p></li>
+<li><p>NN+3NF(lnl): 2体力&amp;３体力からVS-IMSRGで計算した相互作用</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
 
-<span class="n">vs_sntf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="w"></span>
+<span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Mg24&quot;</span><span class="w"></span>
 <span class="n">n_eigen</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">targetJ</span><span class="o">=</span><span class="p">[]</span><span class="w">                                                                                                        </span>
-<span class="n">res_nn</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="n">vs_sntf</span><span class="p">,</span><span class="s">&quot;Mg24&quot;</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w">      </span>
-<span class="n">res_usdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="s">&quot;Mg24&quot;</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w"> </span>
-<span class="s">&quot;&quot;</span><span class="w"> </span>
+<span class="n">res_usdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w"> </span>
+<span class="n">res_nn</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w">      </span>
+<span class="s">&quot;&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -588,15 +596,15 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Mg24    Z,N=(12,12)     c(8,8)     v(4,4)  mdim:        28503 (  4.45 ) 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J [0.0, 2.0, 2.0, 3.0, 4.0, 4.0, 5.0, 1.0, 6.0, 2.0]
-En.  -109.0654  -107.7170  -106.0557  -104.8003  -104.7485  -103.2378  -101.1769  -100.7040  -100.1376  -100.1193 
-Ex.     0.0000     1.3484     3.0097     4.2651     4.3170     5.8276     7.8886     8.3615     8.9278     8.9461 
-  Mg24    Z,N=(12,12)     c(8,8)     v(4,4)  mdim:        28503 (  4.45 ) 
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J [0.0, 2.0, 2.0, 4.0, 3.0, 4.0, 0.0, 2.0, 5.0, 1.0]
 En.   -87.1044   -85.6021   -82.9883   -82.7320   -82.0341   -81.2219   -79.7662   -79.6227   -79.3076   -79.2863 
 Ex.     0.0000     1.5023     4.1161     4.3724     5.0704     5.8826     7.3383     7.4817     7.7969     7.8182 
+  Mg24    Z,N=(12,12)     c(8,8)     v(4,4)  mdim:        28503 (  4.45 ) 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>J [0.0, 2.0, 2.0, 3.0, 4.0, 4.0, 5.0, 1.0, 6.0, 2.0]
+En.  -109.0654  -107.7170  -106.0557  -104.8003  -104.7485  -103.2378  -101.1769  -100.7040  -100.1376  -100.1193 
+Ex.     0.0000     1.3484     3.0097     4.2651     4.3170     5.8276     7.8886     8.3615     8.9278     8.9461 
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;&quot;
@@ -604,6 +612,10 @@ Ex.     0.0000     1.5023     4.1161     4.3724     5.0704     5.8826     7.3383
 </div>
 </div>
 </div>
+<p>２体力レベルでも現象論的相互作用と(そこそこ)似通ったスペクトルが得られている。<br />
+binding energyについては、現象論的相互作用の場合は、コア(今の場合、<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>)やCoulomb相互作用は現象論的に与えるのに対し、
+VS-IMSRG法では、coreとvalence空間のdecouplingの際に、reference state(≒コア)のエネルギーも計算しているため、
+バレンス核子が稼ぐエネルギーとあわせて勘定してやればよい。</p>
 </div>
 </div>
 <div class="section" id="id6">
