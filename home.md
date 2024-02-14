@@ -42,7 +42,7 @@ RIBFの物理は、2012年7月発行の[原子核研究 第56巻suppl.3](http://
 (特に低エネルギーの原子核分野において)まだまだ少ない、という印象を筆者は抱いています。
 
 皆さんの分野では既に当たり前の手法・アイデアが、原子核物理においてはまだまだ新しいものとして受け入れられることも十分ありえるでしょう。
-その一例についても、時間が許せば、4章の[Emulator/Surrogate Model](../Chap_emulator.html)で触れる予定です。
+その一例についても、時間が許せば[Emulator/Surrogate Model](https://sotayoshida.github.io/Lecture_CompPhys_SpSchool24/notebooks/Chap_emulator.html)の章で触れる予定です。
 本講義に来て頂いた方々が、新たに原子核分野の計算に参入してくださったり、分野間の新たな繋がりや共同研究のきっかけ等になれば幸いです。
 
 
