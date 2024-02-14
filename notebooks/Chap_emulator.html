@@ -452,9 +452,9 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/SYoshida_EC_fig2.png?raw=true" width=60%>
 </p>
 <p>上に、sd殻の殻模型におけるEC法による予測結果を示した。横軸が厳密解、縦軸がEC法による予測値で、ほとんど対角線上に乗っていることがわかる。
-ここで対象としている核は<span class="math notranslate nohighlight">\({}^{28}\mathrm{Si}\)</span>で、この核はsd殻においては、最も大次元<span class="math notranslate nohighlight">\(\approx 90,000\)</span>次元の行列に対応する。
+ここで対象としている核は<span class="math notranslate nohighlight">\({}^{28}\mathrm{Si}\)</span>で、この核はsd殻において最も大次元<span class="math notranslate nohighlight">\(\approx 90,000\)</span>次元の行列の対角化に対応する。
 角運動量の異なる<span class="math notranslate nohighlight">\(J=0,1,2,3,4\)</span>の5つの状態について、50点ほどで波動関数をサンプルしてやれば、
-図のように、任意のパラメータ(100)点における波動関数を、励起状態も含めて、平均して1%以下の誤差で予測できることが示された。</p>
+図のように(正規分布やラテン超方格子で生成した)ランダムパラメータ(100)点における波動関数を、励起状態も含めて、平均して1%以下の誤差で予測できることが示された。</p>
 <p>CI計算は、解くべき問題は一般に大変なものの、Lanczos法の性質上、基底状態とともに励起状態の波動関数も特段の違いなく得ることができるため、
 一度サンプル波動関数を構築してしまえば、様々な状態・物理量(電磁遷移行列要素など)を系統的に調べることができる。</p>
 <p>有名な殻模型相互作用の波動関数のデータベースを用意しておいて、そこからユーザーは必要な波動関数を取り出して近似波動関数を用いる、
