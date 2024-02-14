@@ -454,7 +454,7 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 <p>上に、sd殻の殻模型におけるEC法による予測結果を示した。横軸が厳密解、縦軸がEC法による予測値で、ほとんど対角線上に乗っていることがわかる。
 ここで対象としている核は<span class="math notranslate nohighlight">\({}^{28}\mathrm{Si}\)</span>で、この核はsd殻において最も大次元<span class="math notranslate nohighlight">\(\approx 90,000\)</span>次元の行列の対角化に対応する。
 角運動量の異なる<span class="math notranslate nohighlight">\(J=0,1,2,3,4\)</span>の5つの状態について、50点ほどで波動関数をサンプルしてやれば、
-図のように(正規分布やラテン超方格子で生成した)ランダムパラメータ(100)点における波動関数を、励起状態も含めて、平均して1%以下の誤差で予測できることが示された。</p>
+図のように(正規分布やラテン超方格で生成した)ランダムパラメータ(100)点における波動関数を、励起状態も含めて、平均して1%以下の誤差で予測できることが示された。</p>
 <p>CI計算は、解くべき問題は一般に大変なものの、Lanczos法の性質上、基底状態とともに励起状態の波動関数も特段の違いなく得ることができるため、
 一度サンプル波動関数を構築してしまえば、様々な状態・物理量(電磁遷移行列要素など)を系統的に調べることができる。</p>
 <p>有名な殻模型相互作用の波動関数のデータベースを用意しておいて、そこからユーザーは必要な波動関数を取り出して近似波動関数を用いる、
@@ -483,7 +483,7 @@ PINNsとは、物理法則を満たすようにニューラルネットワーク
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/imsrgnet_sketch.png?raw=true" width=70%>
 </p>
 <p>まずニューラルネットワークの構造は、最も基本的な全結合のニューラルネットワークを用いる(もちろんもっと複雑な構造を用いてもよいはずだが)。
-入力は、IM-SRG法のflow parameterである<span class="math notranslate nohighlight">\(s\)</span>で、出力は、IM-SRG法(そのとくにMagnus展開を用いるforlmulation)のユニタリ変換を与えるMagnus operator <span class="math notranslate nohighlight">\(\Omega(s)\)</span>である。</p>
+入力は、IM-SRG法のflow parameterである<span class="math notranslate nohighlight">\(s\)</span>で、出力は、IM-SRG法(そのとくにMagnus展開を用いるformulation)のユニタリ変換を与えるMagnus operator <span class="math notranslate nohighlight">\(\Omega(s)\)</span>である。</p>
 <p>ニューラルネットワークが計算の各ステップ<span class="math notranslate nohighlight">\(s\)</span>で得られるデータ<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を幾つか与えるだけで、<span class="math notranslate nohighlight">\(s\to\infty\)</span>での<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を予測するように学習できればそんなに嬉しいことはないが、もちろんそう上手くは行かない。
 そこで、IM-SRG法のflow方程式を、ニューラルネットワークの誤差関数に入れて、
 <span class="math notranslate nohighlight">\(\Omega(s)\)</span>の<span class="math notranslate nohighlight">\(s\)</span>に関する微分方程式(の第１近似)を誤差関数に入れることで、
