@@ -360,8 +360,8 @@ const thebe_selector_output = ".output, .cell_output"
 <h1><span class="section-number">4. </span>Emulator/Surrogate model<a class="headerlink" href="#emulator-surrogate-model" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>代理モデルの構築は、(他の分野と同様)原子核物理における喫緊の課題である。</p>
 <p>原子核物理(とくに理論計算)においては、2010年代になりようやく不定性評価の重要性が認識されるようになり、ベイズ推定などを用いた不定性評価が行われるようになった。
-当然ながら、不定性評価を行うためには、計算コストが高い計算を何度も行う(サンプリング)必要があり、
-Full-CI法やPost-HF法などのhigh-fidelityな計算を何度も行うことは現実的ではない。</p>
+当然ながら、不定性評価を行うためには、計算コストが高い計算を何度も行う(サンプリングする)必要があり、
+Full-CI法やPost-HF法などのhigh-fidelityな計算を繰り返し行うことは殆どの場合、現実的ではない。</p>
 <p>そこで重要なのが、代理モデルの構築である。
 代理モデルは分野によって呼び方は様々だが、emulatorやsurrogate modelなどと呼ばれるのが一般的で、
 もう少しクラスを限定して、Reduced order modelやReduced basis modelなどとも呼ばれたりする。</p>
