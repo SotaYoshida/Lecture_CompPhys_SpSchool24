@@ -438,7 +438,7 @@ IMSRG法では、出力が大次元のため、自動微分の計算が大変な
 一方で、PINNsは誤差関数に物理のドメイン知識を入れることで、探索すべきパラメータ空間を制限している方法と言える。</p>
 <p><span class="math notranslate nohighlight">\(s\)</span>が比較的小さい領域では、flow方程式はかなり非線形性が強いため、<span class="math notranslate nohighlight">\(s \to \infty \)</span>での値を予測する外挿の精度は、
 当然悪くなってしまうが、ある一定の<span class="math notranslate nohighlight">\(s\)</span>までをデータ(snapshot)として与えることで、その後の計算をPINNsで省略できることがわかった。</p>
-<p>高速化としては、たかだか数10%程度であるが、それでも、PINNsを用いてIM-SRG法の計算コストを大幅に削減できることがわかった。
+<p>高速化としては、たかだか数10%程度であるが、それでも、PINNsを用いてIM-SRG法の計算コストを削減できることがわかった。
 また、<span class="math notranslate nohighlight">\(\eta(s=\infty) \to 0\)</span>という、IMSRG flow方程式の漸近的な振る舞いが学習の過程で自然に満たされるため、
 外挿の安定性が高いのもこの提案手法の特徴である。</p>
 </div>
