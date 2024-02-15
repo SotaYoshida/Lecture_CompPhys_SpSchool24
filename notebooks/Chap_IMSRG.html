@@ -399,28 +399,32 @@ H = E + \sum_{pq} f_{pq} :a^\dagger_p a_q:
 <p>それぞれ(0,1,2,3-body)の寄与は、</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-E = (1- \frac{1}{A}) \sum_a \langle a | T | a \rangle n_a 
+\begin{align}
+E &amp; = (1- \frac{1}{A}) \sum_a \langle a | T | a \rangle n_a 
 + \frac{1}{2} \sum_{ab} \langle ab | T^{(2)}+ V^{(2)} | ab \rangle n_a n_b 
-+ \frac{1}{6} \sum_{abc} \langle abc | V^{(3)} | abc \rangle n_a n_b n_c \\
-f_{pq} = \langle p | T | q \rangle + \sum_{a} \langle pa | V^{(2)} | qa \rangle n_a
-+ \frac{1}{2} \sum_{ab} \langle pab | V^{(3)} | qab \rangle n_a n_b \\
-\Gamma_{pqrs} = \langle pq | T^{(2)} + V^{(2)} | rs \rangle + \sum_{a} \langle pqa | V^{(3)} | rsa \rangle n_a \\
-W_{pqrstu} = \langle pqr | V^{(3)} | stu \rangle
++ \frac{1}{6} \sum_{abc} \langle abc | V^{(3)} | abc \rangle n_a n_b n_c \nonumber \\
+f_{pq} &amp;= \langle p | T | q \rangle + \sum_{a} \langle pa | V^{(2)} | qa \rangle n_a
++ \frac{1}{2} \sum_{ab} \langle pab | V^{(3)} | qab \rangle n_a n_b \nonumber  \\
+\Gamma_{pqrs} &amp;= \langle pq | T^{(2)} + V^{(2)} | rs \rangle + \sum_{a} \langle pqa | V^{(3)} | rsa \rangle n_a \nonumber \\
+W_{pqrstu}&amp;  = \langle pqr | V^{(3)} | stu \rangle \nonumber 
+\end{align}
 \end{split}\]</div>
 <p>上記のIMSRG計算においても、明示的に3体項<span class="math notranslate nohighlight">\(W\)</span>を扱うことは通常せず、2体項のみを扱うことが多い。これをIMSRG(2)と呼ぶ。</p>
 <p>IMSRG-flowにおいては、normal orderingを行ったハミルトニアンを用いて、flow方程式を解くことになる。
 それぞれの項に関するflow方程式は、<span class="math notranslate nohighlight">\(W\)</span>を無視すれば、以下のようになる:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\frac{dE}{ds} = \sum_{ab} (n_a-n_b) \eta^{(1)}_{ab} f_{ba} 
-+ \frac{1}{2} \sum_{abcd} \eta^{(2)}_{abcd} \Gamma_{cdab} n_an_b \bar{n}_c \bar{n}_d \\
-\frac{df_{pq}}{ds} = \sum_{a} (1+P_{pq}) \eta^{(1)}_{pa} f_{aq} 
-+ \sum_{ab} (n_a-n_b) (\eta^{(1)}_{ab} \Gamma_{bpaq} - f_{ab} \eta^{(2)}_{bpaq})  \\
-+ \frac{1}{2} \sum_{abc} (n_an_b\bar{n}_c + \bar{n}_a \bar{n}_b n_c) (1+P_{pq}) \eta^{(2)}_{cpab} \Gamma_{abcq} \\
-\frac{d\Gamma_{pqrs}}{ds} = \sum_{a} 
-\left\{ (1-P_{pq}) (\eta^{(1)}_{pa} \Gamma_{aqrs} - f_{pa} \eta^{(2)}_{aqrs}) -(1-P_{rs}) (\eta^{(1)}_{ar} \Gamma_{pqas} - f_{ar} \eta^{(2)}_{pqas}) \right\} \\ 
-+ \frac{1}{2} \sum_{ab} (1-n_a-n_b) (\eta^{(2)}_{pqab} \Gamma_{abrs} - \Gamma_{pqab} \eta^{(2)}_{abrs}) \\
-- \sum_{ab} (n_a - n_b) (1-P_{pq})(1-P_{rs}) \eta^{(2)}_{bqas} \Gamma_{apbr} 
+\begin{align}
+\frac{dE}{ds} &amp;= \sum_{ab} (n_a-n_b) \eta^{(1)}_{ab} f_{ba} 
++ \frac{1}{2} \sum_{abcd} \eta^{(2)}_{abcd} \Gamma_{cdab} n_an_b \bar{n}_c \bar{n}_d \nonumber \\
+\frac{df_{pq}}{ds} &amp;= \sum_{a} (1+P_{pq}) \eta^{(1)}_{pa} f_{aq} 
++ \sum_{ab} (n_a-n_b) (\eta^{(1)}_{ab} \Gamma_{bpaq} - f_{ab} \eta^{(2)}_{bpaq})  \nonumber \\
+&amp; + \frac{1}{2} \sum_{abc} (n_an_b\bar{n}_c + \bar{n}_a \bar{n}_b n_c) (1+P_{pq}) \eta^{(2)}_{cpab} \Gamma_{abcq} \nonumber \\
+\frac{d\Gamma_{pqrs}}{ds} &amp;= \sum_{a} 
+\left\{ (1-P_{pq}) (\eta^{(1)}_{pa} \Gamma_{aqrs} - f_{pa} \eta^{(2)}_{aqrs}) -(1-P_{rs}) (\eta^{(1)}_{ar} \Gamma_{pqas} - f_{ar} \eta^{(2)}_{pqas}) \right\} \nonumber \\ 
+&amp; + \frac{1}{2} \sum_{ab} (1-n_a-n_b) (\eta^{(2)}_{pqab} \Gamma_{abrs} - \Gamma_{pqab} \eta^{(2)}_{abrs})\nonumber  \\
+&amp; - \sum_{ab} (n_a - n_b) (1-P_{pq})(1-P_{rs}) \eta^{(2)}_{bqas} \Gamma_{apbr} \nonumber 
+\end{align}
 \end{split}\]</div>
 <p>flowの各ステップで必要な演算が全て行列・行列積などで書ければ、IMSRG flowの計算はBLASを用いるだけであり、
 GPUなどを用いた高速化も期待できるが、実際には、全ての演算を行列・行列積で書き下せず、実際の計算はそれほど簡単ではない。</p>
