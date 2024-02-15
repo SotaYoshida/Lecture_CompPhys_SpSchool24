@@ -37,23 +37,21 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="1. 核力" href="Chap_NuclearForce.html" />
@@ -192,7 +190,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -243,7 +241,7 @@ const thebe_selector_output = ".output, .cell_output"
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+        <div class="d-none d-md-block col-md-2 bd-toc show">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> 目次
@@ -348,115 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Julia入門&導入</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> 目次 </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Juliaとは
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python">
-   Pythonとの基本文法の違い
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     対応早見表
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tips">
-   高速化のtips
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   Juliaの実行環境
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Juliaのインストール
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#mac">
-       Macの場合
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#windows">
-       Windowsの場合
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#linux-wsl">
-       Linux(WSL)の場合
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     Juliaパッケージ
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#jupyter-notebook">
-   Jupyter Notebookの実行
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     小話
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       プロジェクト
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     Juliaのバージョン管理
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#python-vs-julia">
-     サンプルコード: Python vs Julia
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nucleartoolkit-jl">
-   NuclearToolkit.jlの導入
-  </a>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
+        
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="julia">
@@ -485,24 +375,24 @@ PythonやR、MATLABなどの言語の良いところを取り入れて開発さ�
 編集の過程でインデントが崩れてしまい、バグの温床になったりすることがあるので、
 Juliaの方が、ブロックに対してambiguityが少ないというメリットがあるように思う。</p>
 <p>またNumpyで言うところのブロードキャストをdefaultで有していて、<code class="docutils literal notranslate"><span class="pre">v</span></code>がFloat64の一次元配列とすると</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">v</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">a</span> <span class="o">.*</span> <span class="n">v</span>
 </pre></div>
 </div>
 <p>でスカラー倍をしたベクトル<code class="docutils literal notranslate"><span class="pre">u</span></code>を作ることができる。</p>
 <p>また、</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="w"> </span><span class="o">.=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">u</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">.=</span> <span class="n">a</span> <span class="o">.*</span> <span class="n">u</span>
 </pre></div>
 </div>
 <p>と書くと、<code class="docutils literal notranslate"><span class="pre">v</span></code>(が既に定義されていれば)の各要素に<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">.*</span> <span class="pre">u</span></code>の各要素を代入してくれる。<br />
 単に</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">u</span><span class="w"></span>
-<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">.*</span> <span class="n">u</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">a</span> <span class="o">.*</span> <span class="n">B</span>
 </pre></div>
 </div>
 <p>などと書くと、<code class="docutils literal notranslate"><span class="pre">v</span></code>や<code class="docutils literal notranslate"><span class="pre">A</span></code>を新たに定義してしまい、メモリ確保が発生する。
 ブロードキャストは、特に大次元のベクトルや行列を操作する際、メモリを節約したり更新操作を速く行うために有用である。</p>
 <p>また、<code class="docutils literal notranslate"><span class="pre">&#64;.</span></code>というマクロをつけることで、ブロードキャストを明示的に書く必要がなくなり、</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@.</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">C</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@.</span> <span class="n">A</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">B</span> <span class="o">*</span> <span class="n">C</span>
 </pre></div>
 </div>
 <p>などとしても<span class="math notranslate nohighlight">\(A .= a .* (B .* C)\)</span>と同じ意味になるが、
@@ -576,8 +466,8 @@ Juliaでは明示的に型を指定することは必須ではなく、きちん
 ただし、演算の途中で型の不一致などがあると、<em>勝手に速いコードを生成する</em>妨げになり、コードが遅くなるため、
 そうした想定外の型の不一致を避けるために、関数の引数や返り値の型を明示的に指定することが有用となる。</p>
 <p>特に、行列やベクトルを定義するときは、その型(とサイズ)を明示的に指定して定義するのが良い。</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="c"># 倍精度floatを要素に持つn×m行列を0行列で定義</span><span class="w"></span>
-<span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="c"># 単精度floatを要素に持つn×m行列を正規乱数をつかって定義</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="c"># 倍精度floatを要素に持つn×m行列を0行列で定義</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="c"># 単精度floatを要素に持つn×m行列を正規乱数をつかって定義</span>
 </pre></div>
 </div>
 <p>その他、高速化のtipsについては公式ドキュメントの<a class="reference external" href="https://docs.julialang.org/en/v1/manual/performance-tips/">Performance Tips</a>が詳しい。</p>
@@ -657,9 +547,9 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 ランダム行列を作って、行列のdeterminant(行列式)を求めてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"></span>
-<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
-<span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">LinearAlgebra</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -678,7 +568,7 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 <div class="section" id="jupyter-notebook">
 <h2>Jupyter Notebookの実行<a class="headerlink" href="#jupyter-notebook" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>この講義の資料のように、ipynb形式のファイルを実行する場合、JuliaのREPLで</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="p">]</span><span class="n">add</span><span class="w"> </span><span class="n">IJulia</span><span class="w"> </span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="p">]</span><span class="n">add</span> <span class="n">IJulia</span> 
 </pre></div>
 </div>
 <p>などとして、IJuliaパッケージをインストールする。<br />
@@ -722,23 +612,23 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#ランダム行列を生成し特異値分解するJuliaコード</span><span class="w"></span>
-<span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#ランダム行列を生成し特異値分解するJuliaコード</span>
+<span class="k">using</span> <span class="n">LinearAlgebra</span>
 
-<span class="k">function</span><span class="w"> </span><span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="n">dim</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"></span>
-<span class="k">end</span><span class="w"></span>
+<span class="k">function</span> <span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="n">dim</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">V</span>
+<span class="k">end</span>
 
-<span class="k">function</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">dim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
-<span class="w">    </span><span class="n">itnum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">itnum</span><span class="w"></span>
-<span class="w">        </span><span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="w">    </span>
-<span class="w">    </span><span class="k">end</span><span class="w"></span>
-<span class="k">end</span><span class="w"></span>
-<span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="k">function</span> <span class="n">main</span><span class="p">()</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="mi">500</span>
+    <span class="n">itnum</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="k">for</span> <span class="n">it</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="n">itnum</span>
+        <span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>    
+    <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -767,8 +657,8 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
 <p>パッケージのインストールは簡単で、</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span><span class="w"></span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;NuclearToolkit&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">Pkg</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;NuclearToolkit&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -806,8 +696,8 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+        
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="../home.html" title="前へ ページ">
         <i class="fas fa-angle-left"></i>
@@ -824,18 +714,20 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+        
         </div>
     </div>
     <footer class="footer">
-  <p>
-    
-      <div class="extra_footer">
-        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
 
-      </div>
-  </p>
-</footer>
+          </div>
+      </p>
+    </div>
+  </footer>
 </main>
 
 

@@ -59,7 +59,7 @@ Code→Download ZIPを選択してダウンロードするなどしてくださ�
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/download_repo.png?raw=true" width=40%>
 </p>
 
-筆者が提供しているコードを実行する方法は幾つかありますが、
+講義資料内で提供しているコードを実行する方法は幾つかありますが、
 最も簡単なものは、レポジトリをダウンロードし、notebooksフォルダ内で実行(≒ipynbを実行)することです。
 inputファイルを読む場合、実行するノートブックと同じディレクトリにinputファイルを置く必要がありますが、
 予め`notebooks`以下に、必要なファイルを配置してあります。
