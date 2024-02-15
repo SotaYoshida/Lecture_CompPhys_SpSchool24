@@ -313,18 +313,11 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     小話
+     プロジェクト
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       プロジェクト
-      </a>
-     </li>
-    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id7">
      Juliaのバージョン管理
     </a>
    </li>
@@ -423,18 +416,11 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     小話
+     プロジェクト
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       プロジェクト
-      </a>
-     </li>
-    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id7">
      Juliaのバージョン管理
     </a>
    </li>
@@ -683,13 +669,12 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 </div>
 <p>などとして、IJuliaパッケージをインストールする。<br />
 その後、コードの実行時などにJuliaカーネルを選択することで、Juliaのコードを実行することができる。</p>
-<div class="section" id="id6">
-<h3>小話<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>筆者の環境でJupyter環境でJuliaコードを実行すると、たまに停止やカーネルの再起動といった操作を受け付けず、プロセスが残り続けることがある。
+<p><strong>小話</strong></p>
+<p>筆者の環境(VS Code)でJupyter環境でJuliaコードを実行すると、たまに停止やカーネルの再起動といった操作を受け付けず、プロセスが残り続けることがある。
 講義では、資料の配布のしやすさからipynb形式を採用しているが、実際のコード開発や実行において筆者がJupyter環境を使うことはまず無い。</p>
-<p><a class="reference external" href="https://github.com/JuliaLang/IJulia.jl/issues/977">関連する？issue</a></p>
-<div class="section" id="id7">
-<h4>プロジェクト<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><a class="reference external" href="https://github.com/JuliaLang/IJulia.jl/issues/1052">関連する？issue</a></p>
+<div class="section" id="id6">
+<h3>プロジェクト<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Juliaでは、複数のパッケージを含むプロジェクトを作成することができる。<br />
 自作パッケージなどのプロジェクトフォルダ内に<code class="docutils literal notranslate"><span class="pre">Project.toml</span></code>と<code class="docutils literal notranslate"><span class="pre">Manifest.toml</span></code>というファイルを作成することで、
 複雑な依存関係を含むパッケージの管理を行いながら、開発・実行することができる。<br />
@@ -697,9 +682,8 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 <p>とくに自作パッケージを作成する場合は必須事項となるので、<a class="reference external" href="https://pkgdocs.julialang.org/v1/toml-files/">Pkg.jlのドキュメント</a>や<br />
 日本語の書籍であれば<a class="reference external" href="https://www.kspub.co.jp/book/detail/5318195.html">Juliaプログラミング大全</a>や<a class="reference external" href="https://gihyo.jp/book/2023/978-4-297-13350-4">実践Julia入門</a>を参照してほしい。</p>
 </div>
-</div>
-<div class="section" id="id8">
-<h3>Juliaのバージョン管理<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id7">
+<h3>Juliaのバージョン管理<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">juliaup</span></code>というJuliaのバージョンを管理するためのツールが便利で、Juliaのバージョンを切り替えることができる。juliaupの<a class="reference external" href="https://github.com/JuliaLang/juliaup">レポジトリ</a>に従ってインストールしておこう。</p>
 </div>
 <div class="section" id="python-vs-julia">
