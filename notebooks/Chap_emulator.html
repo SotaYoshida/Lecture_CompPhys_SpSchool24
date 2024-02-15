@@ -605,8 +605,10 @@ truncated SVDについては、<code class="docutils literal notranslate"><span 
 <p>を導入すると、<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>の時間発展は、潜在空間での表現<span class="math notranslate nohighlight">\(\mathbf{z}\)</span>の時間発展に書き直すことができる。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-U_r \mathbf{z}_{k+1} = A U_r \mathbf{z}_k = (U_r \tilde{A} U^t_r)^k U^t_r \mathbf{z}_k = U_r \tilde{\Lambda}^k \mathbf{z}_k\\
-\mathbf{z}_{k+1} = \tilde{A}^k \mathbf{z}_1
+\begin{align}
+U_r \mathbf{z}_{k+1} &amp;= A U_r \mathbf{z}_k = (U_r \tilde{A} U^t_r)^k U^t_r \mathbf{z}_k = U_r \tilde{\Lambda}^k \mathbf{z}_k \nonumber \\
+\mathbf{z}_{k+1} &amp;= \tilde{A}^k \mathbf{z}_1 \nonumber 
+\end{align}
 \end{split}\]</div>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
