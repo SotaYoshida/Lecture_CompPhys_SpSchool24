@@ -37,23 +37,21 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="3. 殻模型(配置間相互作用法)" href="Chap_shellmodel.html" />
@@ -192,7 +190,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -243,7 +241,7 @@ const thebe_selector_output = ".output, .cell_output"
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+        <div class="d-none d-md-block col-md-2 bd-toc show">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> 目次
@@ -298,82 +296,33 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>核子系の第一原理計算</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> 目次 </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-medium-similarity-renormalization-group-im-srg">
-   2.1. In-medium Similarity Renormalization Group (IM-SRG)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#clubsuit-imsrgmagnus">
-     2.1.1.
-     <span class="math notranslate nohighlight">
-      \(\clubsuit\)
-     </span>
-     IMSRGのMagnus展開
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#normal-ordering">
-   2.2. Normal ordering
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#valence-space-imsrg-vs-imsrg">
-   2.3. Valence-space IMSRG (VS-IMSRG)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#clubsuit-hf-mbpt">
-   2.4.
-   <span class="math notranslate nohighlight">
-    \(\clubsuit\)
-   </span>
-   HF-MBPT
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nucleartoolkit-jlimsrg">
-   2.5. NuclearToolkit.jlを用いたIMSRG計算
-  </a>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
+        
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1><span class="section-number">2. </span>核子系の第一原理計算<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>この章では、核子系の第一原理計算についてとくにpost-HF法に着目して解説する。</p>
-<p>少数系の方法(Faddeev-Yakubovsky方程式、Green's function Monte Carlo法など)や、Full-CI法などについてはカバーしない(できない)。</p>
-<p>post-HF法のうちとくにIn-medium Similarity Renormalization Group(IM-SRG)法は、
+<p>核子系の&quot;第一原理計算&quot;の定義はまちまちだが、一般的には</p>
+<ul class="simple">
+<li><p>核子の自由度を陽に扱う</p></li>
+<li><p>寄与の次数(≒精度)を系統的に改善することができる</p></li>
+</ul>
+<p>ものを指す。前述のカイラル核力など、核子間相互作用を出発点とする計算がこれに該当する。
+以下でも、この定義に従って、第一原理計算、と呼ぶことにする。</p>
+<img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/Hergert_landscape.png?raw=true" width="90%">
+<p>上に、H. Hergert <a class="reference external" href="https://doi.org/10.3389/fphy.2020.00379">Front. Phys. 8:379 (2020)</a>から図を引用した。</p>
+<p>より軽い核は、少数系の方法(Faddeev-Yakubovsky, Green's function Monte Carlo, etc.)やFull-CI(No-core shell model)が中心で、
+閉殻近傍の原子核が、Coupled-Cluster法やIn-medium SRG法の発展を表している。
+また、2010年代後半からは、CCやIM-SRGを応用して、殻模型有効相互作用を導出できるようになってきたため、
+開殻やドリップライン近傍にまで適用範囲が広がっている様子が示されている。
+もちろん、バレンス核子の殻模型計算は、すべての核子の自由度を陽には扱っていないが、
+それでも、核子間相互作用を出発点とする・高次の寄与を原理的には系統的に取り込める、という意味で第一原理計算と呼ぶ場合もある。
+(筆者は、明示的に区別して呼ぶようにしている)</p>
+<p>最新の状況としては、Sn(<span class="math notranslate nohighlight">\(Z=50\)</span>)やPb(<span class="math notranslate nohighlight">\(Z=82\)</span>)領域にも一部アクセスできるようになりつつある。</p>
+<p>この章では、核子系の第一原理計算についてとくにpost-HF法に着目して解説する。<br />
+post-HF法のうちとくにIn-medium Similarity Renormalization Group(IM-SRG)法は、
 原子核の基底状態の第一原理計算手法としてだけでなく、
-殻模型の有効相互作用(バレンス空間の有効核力)の導出にも用いられるなど、応用上非常に重要な手法である。</p>
-<p>この章では、NuclearToolkit.jlを用いて、IMSRG法による核子系の第一原理計算を行う。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
+殻模型の有効相互作用(バレンス空間の有効核力)の導出にも用いられるなど、応用上非常に重要な手法である。
+NuclearToolkit.jlを用いて、IMSRG法による核子系の第一原理計算も体験してみよう。</p>
 <div class="section" id="in-medium-similarity-renormalization-group-im-srg">
 <h2><span class="section-number">2.1. </span>In-medium Similarity Renormalization Group (IM-SRG)<a class="headerlink" href="#in-medium-similarity-renormalization-group-im-srg" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>核力のソフト化の議論で登場した相似変換くりこみ群(SRG)は、核力をソフト化する方法として考案された後、
@@ -529,10 +478,10 @@ Coupled-Cluster法のCCSDやIM-SRG(2)と<em>そう遠くない</em>エネルギ�
 <code class="docutils literal notranslate"><span class="pre">doIMSRG</span></code>というオプション変数を<code class="docutils literal notranslate"><span class="pre">true</span></code>にすることで、IMSRG法の計算を行うことができる。</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sntf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tbme_em500n3lo_srg2.0hw20emax4.snt.bin&quot;</span><span class="w"></span>
-<span class="n">hw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="w"></span>
-<span class="n">emax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
-<span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span><span class="w"> </span><span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sntf</span> <span class="o">=</span> <span class="s">&quot;tbme_em500n3lo_srg2.0hw20emax4.snt.bin&quot;</span>
+<span class="n">hw</span> <span class="o">=</span> <span class="mf">20.0</span>
+<span class="n">emax</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span> <span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1134,7 +1083,7 @@ def-by-run d6j_lj done!
 <p>また、模型空間を<span class="math notranslate nohighlight">\(sd\)</span>殻として、<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span> 用に有効相互作用を計算してみよう。</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span><span class="w"> </span><span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">corenuc</span><span class="o">=</span><span class="s">&quot;O16&quot;</span><span class="p">,</span><span class="n">ref</span><span class="o">=</span><span class="s">&quot;nuc&quot;</span><span class="p">,</span><span class="n">valencespace</span><span class="o">=</span><span class="s">&quot;sd-shell&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span> <span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">corenuc</span><span class="o">=</span><span class="s">&quot;O16&quot;</span><span class="p">,</span><span class="n">ref</span><span class="o">=</span><span class="s">&quot;nuc&quot;</span><span class="p">,</span><span class="n">valencespace</span><span class="o">=</span><span class="s">&quot;sd-shell&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1968,7 +1917,7 @@ Starting VS-IMSRG flow
 <p>この結果、殻模型計算コードのインプットとして用いることのできる相互作用ファイルが生成される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">(</span><span class="sb">`head -n 20 vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt`</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">(</span><span class="sb">`head -n 20 vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt`</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2025,8 +1974,8 @@ Starting VS-IMSRG flow
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+        
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="Chap_NuclearForce.html" title="前へ ページ">
         <i class="fas fa-angle-left"></i>
@@ -2043,18 +1992,20 @@ Starting VS-IMSRG flow
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+        
         </div>
     </div>
     <footer class="footer">
-  <p>
-    
-      <div class="extra_footer">
-        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
 
-      </div>
-  </p>
-</footer>
+          </div>
+      </p>
+    </div>
+  </footer>
 </main>
 
 
