@@ -901,15 +901,15 @@ deuteronのbinding energyが評価されている。
 <div class="section" id="clubsuit-magic-interaction-em1-8-2-0">
 <h3><span class="section-number">1.5.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> 余談: Magic interaction: EM1.8/2.0<a class="headerlink" href="#clubsuit-magic-interaction-em1-8-2-0" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>とくにab initio計算のコミュニティにおいて、Magicと称されるカイラル核力が知られている。</p>
-<p>前述のmatterの計算を主に対象とするK.Hebeler et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.83.031301">PRC 83, 031301(R) (2011)</a>において、提案されたものだが、出版されしばらくして、中重核に適用すると、ab initio計算において、
-<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>領域の基底状態エネルギーと荷電半径をよく再現することがわかった。</p>
+<p>前述のmatterの計算を主に対象とするK.Hebeler et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.83.031301">PRC 83, 031301(R) (2011)</a>において、提案されたものだが、出版されしばらくして、中重核に適用すると、IM-SRG計算において、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>領域の基底状態エネルギーと荷電半径をよく再現することがわかった。
+→ J. Simonis et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.96.014303">Phys. Rev. C 96, 014303 (2017)</a>.</p>
 <p>この相互作用はもともと、カイラル核力のEM500(N3LO)相互作用を、SRG変換によって<span class="math notranslate nohighlight">\(\lambda=1.8\)</span> <span class="math notranslate nohighlight">\(\mathrm{fm}^{-1}\)</span> までソフト化した2体力に、3-4体系の物理量を再現するようgenuine3体力を加えたものである。</p>
 <p>この相互作用は、3体力のSRGなどを考えない上、2体力のSRGによりinduceされる3体力についても無視しているため、２体力と3体力のconsistentな取り扱いとは言えないものの、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>の基底状態エネルギーと荷電半径をよく再現することが知られており、その理由が非自明なことも含めて、magicと称されている。</p>
 <p>カットオフやinduce多体力の寄与が、genuineな3体力のfitで(意図せず)補われて、高い精度が得られていることが示唆されるが、まだまだ議論は続いている。
-2024年3月時点においても、この相互作用を超える高い精度で、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>の基底状態エネルギーと荷電半径を再現するカイラルの相互作用は存在しない。
-ab initio計算とはその性質上「<strong>真面目にやれば正しい結果が得られるだろう</strong>」と期待するものだが、
-この相互作用は、そのような期待を裏切るものであるともいえ、なんとも面白い相互作用である。</p>
-<p>その後の研究により、質量と半径やnuclear matterの計算には、non-local cutoffを用いた３体力が適していることが示唆されてきた。
+また、この仕事をきっかけに、中重核をよく記述する核力の条件として、対称核物質の飽和性を再現することが重要であることが示唆され、関連する研究が進められた。
+2024年3月時点においても、この相互作用を劇的に超える高い精度で、<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>から<span class="math notranslate nohighlight">\({}^{78}\mathrm{Ni}\)</span>の基底状態エネルギーと荷電半径を再現するカイラルの相互作用は存在しない。
+ab initio計算とはその性質上「<strong>真面目にやれば正しい結果が得られるだろう</strong>」と期待するものだが、この相互作用は、そのような期待を裏切るものであるともいえ、なんとも面白い相互作用である。</p>
+<p>その後の研究により、質量と半径やnuclear matterの計算には、non-local cutoffを用いた３体力が適していることが示唆されるようになった。
 これを受けて提唱された、２体力と３体力をSRGも含めてconsistentに扱う相互作用として、
 <a class="reference external" href="https://doi.org/10.1103/PhysRevC.101.014318">V. Somà et al., Phys. Rev. C 101, 014318(2020)</a>がある。
 下に、<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>-<span class="math notranslate nohighlight">\({}^{68}\mathrm{Ni}\)</span>の核子あたりの束縛エネルギーを示した。</p>
