@@ -817,7 +817,7 @@ H(s) = U(s) H(s=0) U(s)^\dagger
 <p>と書くことができる。<span class="math notranslate nohighlight">\(H(s=0)\)</span>がbareな核力に対応する。
 generatorの選び方によって、核力のソフト化の程度や性質を調整することができる。<br />
 SRG変換とgeneratorの関係についての一般論としては、<span class="math notranslate nohighlight">\(H(s)\)</span>はgeneratorと<strong>似た</strong>構造を持つよう変換を受けることが重要である。
-Wigner, White, など様々なgeneratorが提案されているが、Hamiltonianの(partial wave p-p'平面の意味で)対角成分を採用する事が多い。</p>
+Wigner, White, など様々なgeneratorが提案されているが、２体力レベルではHamiltonianの(partial wave p-p'平面の意味で)対角成分を採用する事が多い。</p>
 <p>bareなHamiltonianは、高運動量と低運動量成分をcoupleするような寄与(座標空間でいうと、近距離≒斥力芯に対応する成分)が大きく、
 これが計算を困難にする原因となっているわけだが、SRG変換によって、この成分をdecoupleした有効核力を得ることができる。</p>
 <p>ユニタリ変換の性質上、<strong>SRG変換によってHamiltonianの固有値は変化しない</strong>。
@@ -899,8 +899,9 @@ deuteronのbinding energyが評価されている。
 <div class="section" id="id11">
 <h2><span class="section-number">1.5. </span>3体力を含む核力計算コード<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>３体力を含む核力の計算コードとして、筆者の大学院時代の先輩にあたる宮城宇志氏による<a class="reference external" href="https://github.com/Takayuki-Miyagi/NuHamil-public">NuHamil</a>というコードがある。
-現代的な３体力もカバーしているため、興味のある方は一度目を通してみると良いだろう。</p>
-<p>論文はこちら<a class="reference external" href="https://doi.org/10.1140/epja/s10050-023-01039-y">T. Miyagi, Eur. Phys. J. A 59, 150 (2023).</a></p>
+現代的な３体力もカバーしているため、興味のある方は一度目を通してみると良いだろう。<br />
+論文はこちら<a class="reference external" href="https://doi.org/10.1140/epja/s10050-023-01039-y">T. Miyagi, Eur. Phys. J. A 59, 150 (2023).</a></p>
+<p>NuclearToolkit.jlでも、NuHamilが与える３体行列要素を扱えるよう拡張を行っており、v.0.4.0以降のリリースで利用可能になる(予定)。</p>
 <div class="section" id="clubsuit-magic-interaction-em1-8-2-0">
 <h3><span class="section-number">1.5.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> 余談: Magic interaction: EM1.8/2.0<a class="headerlink" href="#clubsuit-magic-interaction-em1-8-2-0" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>とくにab initio計算のコミュニティにおいて、Magicと称されるカイラル核力が知られている。</p>
