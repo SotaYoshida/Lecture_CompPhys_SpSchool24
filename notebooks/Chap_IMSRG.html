@@ -452,7 +452,7 @@ ad^{(0)}_{\Omega}(\eta) &amp; = \eta,
 <h2><span class="section-number">2.2. </span>Normal ordering<a class="headerlink" href="#normal-ordering" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>３体力の効果を含めた多体計算手法では、実用上、通常、3体項を顕わに扱うことはできない。
 そこで、３体力の効果を可能な限り取り込むために、通常、normal orderingと呼ばれる手法が用いられる。
-つまり、適当なreference stateを用いて、ハミルトニアンをnormal orderingすることで、3体項の効果を2体項に取り込む。</p>
+つまり、適当なreference stateを用いて、ハミルトニアンをnormal orderingすることで、3体項の効果をできるだけ2体項に取り込む。</p>
 <p>一般的な形で、ハミルトニアンは以下のように書ける:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -497,7 +497,7 @@ W_{pqrstu}&amp;  = \langle pqr | V^{(3)} | stu \rangle \nonumber
 \end{align}
 \end{split}\]</div>
 <p>flowの各ステップで必要な演算が全て行列・行列積などで書ければ、IMSRG flowの計算はBLASを用いるだけであり、
-GPUなどを用いた高速化も期待できるが、実際には、全ての演算を行列・行列積で書き下せず、実際の計算はそれほど簡単ではない。</p>
+GPUなどを用いた高速化も期待できるが、実際には、全ての演算を単純に行列・行列積で書き下すことは難しく、実際の計算はそれほど簡単ではない。</p>
 </div>
 <div class="section" id="valence-space-imsrg-vs-imsrg">
 <h2><span class="section-number">2.3. </span>Valence-space IMSRG (VS-IMSRG)<a class="headerlink" href="#valence-space-imsrg-vs-imsrg" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -522,9 +522,9 @@ P.Gysbers et al., <a class="reference external" href="https://doi.org/10.1038/s4
 (sub-)shell-closedな原子核の場合、その基底状態のエネルギーと半径のみに興味がある場合、
 最もカンタンな方法は、HF-MBPT (Hartree-Fock Many-Body Perturbation Theory)と呼ばれる計算によるものである。</p>
 <p>Hartree-Fock (HF)の基底状態をゼロ次近似として、多体摂動論に基づいてスカラー演算子の期待値の補正項を計算する方法で、
-量子化学では、Møller–Plesset法とも呼ばている(完全に同一のものを指すのかは著者は理解していない)。</p>
+量子化学では、Møller–Plesset法とも呼ばれている(完全に同一のものを指すのかは著者は理解していない)。</p>
 <p>Energyに対するfirst-orderの補正はby definitionでゼロとなり、高次の補正を考えることになる。
-NuclearToolkit.jlでは、2次と3次の補正を考えることができる。</p>
+NuclearToolkit.jlでは、2次と3次までの補正を考えることができる。</p>
 <p>Many-Body Perturbation Theory (MBPT)やCoupled-Cluster法などの多体計算手法の詳細については、
 Isaiah Shavitt and Rodney J. Bartlettによる有名な黒い本を参照されたい:<br />
 <a class="reference external" href="https://doi.org/10.1017/CBO9780511596834">Many-Body Methods in Chemistry and Physics: MBPT and Coupled-Cluster Theory (Cambridge Molecular Science)</a></p>
