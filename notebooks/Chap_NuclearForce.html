@@ -798,7 +798,9 @@ Wigner, White, など様々なgeneratorが提案されているが、２体力�
 ただし、ここにはトリックがあり、SRG変換によって生成(induce)される多体力を全て考慮すれば上の主張は正しいが、
 実際の多体計算においては、SRG変換によって生成される多体力を無視したり、
 induced-3NFまでのみを考慮したりすることが多く、上の主張は厳密には成り立たない。</p>
-<p>少なくとも2体のレベルで正しい操作をしているかどうかは、SRG変換の前後で、２体系の物理量(e.g. deuteronのbinding energy)が一致するかどうかを確認すればよい。実際、後で見るように、SRG変換によってdeuteronのbinding energyは変更を受けない。</p>
+<p>少なくとも2体のレベルで正しい操作をしているかどうかは、SRG変換の前後で、２体系の物理量(e.g. deuteronのbinding energy)が一致するかどうかを確認すればよい。実際、後で見るように、SRG変換によってdeuteronのbinding energyは変更を受けない。
+また、2体力と同様に、3体力のSRG変換も提案され、実際に多体計算に用いられている。
+詳細については割愛するが、R. Roth <a class="reference external" href="https://doi.org/10.1103/PhysRevC.90.024325">Phys. Rev. C 90, 024325 (2014)</a>のほか、Angelo Calci氏の<a class="reference external" href="https://tuprints.ulb.tu-darmstadt.de/4069/">博士論文</a>が最も詳しい。</p>
 </div>
 <div class="section" id="id9">
 <h2><span class="section-number">1.4. </span>相互作用ファイルの作成<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -816,7 +818,7 @@ make_chiEFTint関数のoptional argumentとしてオプションを指定する�
 HOのパラメータ<span class="math notranslate nohighlight">\(\hbar\omega\)</span>である。
 <span class="math notranslate nohighlight">\(\hbar\omega\)</span>は、基底を構成する調和振動子のエネルギー間隔に対応する量で、
 十分大きな模型空間を取れば、計算結果は<span class="math notranslate nohighlight">\(\hbar\omega\)</span>に依存しなくなると期待される。</p>
-<p>以下では、デフォルト値を使って、カイラル核力の相互作用ファイルを作ってみよう.</p>
+<p>以下では、デフォルト値を使って、カイラル核力(２体力のみ)の相互作用ファイルを作ってみよう.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
@@ -865,17 +867,15 @@ deuteronのbinding energyが評価されている。
 <p><span class="math notranslate nohighlight">\(^3S_1\)</span>成分:</p>
 <img src="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/blob/main/notebooks/pic/vmom_bare_vs_SRG_chiEFT_3S1_pn.png?raw=true" width = 90%>
 <p>partial-waveで見た2対角力核力の成分は、どれを見ても3.5fm程度の距離で0になる。<br />
-これは、カイラル核力において、カットオフを500MeVとしたことに由来する。</p>
+これは、カイラル核力において、500MeVのカットオフが入っているためである。</p>
 <p>SRG変換によって、とくに非対角成分(低運動量と高運動量のカップリング)が小さくなっている傾向が見て取れる。<br />
 カイラルの相互作用は元々カットオフが入っており従来の現実的核力よりも比較的ソフトな相互作用であるが、
 それでもなお、有限の模型空間で計算を行う際には、SRG変換などのソフト化を行わないと、基底状態エネルギーが発散してしまうこともある。</p>
-<p>３体力についても、同様にSRG変換を考えることができるが、NuclearToolkit.jlでは未実装な上、
-かなり複雑な計算になるため、ここでは割愛する。</p>
 </div>
 </div>
 <div class="section" id="id11">
 <h2><span class="section-number">1.5. </span>3体力を含む核力計算コード<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>３体力を含む核力の計算コードとして、筆者の大学院時代の先輩にあたる宮城宇志氏による<a class="reference external" href="https://github.com/Takayuki-Miyagi/NuHamil-public">NuHamil</a>というコードがある。
+<p>３体力を含む核力の計算コードとして、筆者の大学院時代の先輩にあたる氏による<a class="reference external" href="https://github.com/Takayuki-Miyagi/NuHamil-public">NuHamil</a>というコードがある。
 現代的な３体力もカバーしているため、興味のある方は一度目を通してみると良いだろう。<br />
 論文はこちら<a class="reference external" href="https://doi.org/10.1140/epja/s10050-023-01039-y">T. Miyagi, Eur. Phys. J. A 59, 150 (2023).</a></p>
 <p>NuclearToolkit.jlでも、NuHamilが与える３体行列要素を扱えるよう拡張を行っており、v.0.4.0(2024/2/25)から利用可能となっている。</p>
