@@ -37,21 +37,23 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="2. 核子系の第一原理計算" href="Chap_IMSRG.html" />
@@ -190,7 +192,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -241,7 +243,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> 目次
@@ -297,17 +299,6 @@
     <a class="reference internal nav-link" href="#single-particle-space-single-particle-harmoic-oscillator-basis">
      1.2.2. single-particle space (single-particle Harmoic oscillator basis)
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#clubsuit">
-       1.2.2.1.
-       <span class="math notranslate nohighlight">
-        \(\clubsuit\)
-       </span>
-       こまか〜い注
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
@@ -352,7 +343,110 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>核力</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> 目次 </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   1.1. 核力の基本的性質
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     1.1.1. アイソスピン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     1.1.2. 核力の持つ基本的対称性
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     1.1.3. 現実的核力
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     1.1.4. カイラル有効場の理論
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     1.1.5. 3体力
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#momentum-space">
+   1.2. 核力の表示: momentum space
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#partial-wave-momentum-space-langle-p-l-s-j-t-z-v-p-lsjt-z-rangle">
+     1.2.1. partial-wave momentum space:
+     <span class="math notranslate nohighlight">
+      \(\langle p';L'S'J'T_z |V|p;LSJT_z\rangle\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#single-particle-space-single-particle-harmoic-oscillator-basis">
+     1.2.2. single-particle space (single-particle Harmoic oscillator basis)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   1.3. 核力のソフト化
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   1.4. 相互作用ファイルの作成
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     1.4.1. 運動量空間におけるカイラル核力の2次元プロット
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   1.5. 3体力を含む核力計算コード
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#clubsuit-magic-interaction-em1-8-2-0">
+     1.5.1.
+     <span class="math notranslate nohighlight">
+      \(\clubsuit\)
+     </span>
+     余談: Magic interaction: EM1.8/2.0
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
@@ -627,6 +721,11 @@ V(\vec{p},\vec{p}')= V_C + \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_C +
 </div>
 <div class="section" id="single-particle-space-single-particle-harmoic-oscillator-basis">
 <h3><span class="section-number">1.2.2. </span>single-particle space (single-particle Harmoic oscillator basis)<a class="headerlink" href="#single-particle-space-single-particle-harmoic-oscillator-basis" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>HO基底という際には、single-particle HO basisと、two-body HO basisの２つがあることに注意が必要であり、
+そこを抑えておかなければ、ab initio計算や核力のレビューなどを読むときに混乱することになる。</p>
+</div>
 <p>実際の核構造計算手法では、核力を<span class="math notranslate nohighlight">\(\{n,\ell,j,t_z\}\)</span>の足を持った調和振動子基底(Harmonic oscillator basis)で展開して使う場合が多い。
 これは、閉殻芯に対応する占有軌道や、非占有軌道をバレンス空間とそれ以外に分類しやすく、
 conventionalな殻模型計算のように分かりやすい解釈を与えてくれる、という理由もあるように思う。</p>
@@ -636,46 +735,37 @@ conventionalな殻模型計算のように分かりやすい解釈を与えて�
 \langle a b | V | c d \rangle_J
 \]</div>
 <p>ここで、<span class="math notranslate nohighlight">\(a,b,c,d\)</span>は、<span class="math notranslate nohighlight">\(n, \ell, j, t_z \rangle\)</span>の量子数に対応するラベルである。</p>
-<div class="section" id="clubsuit">
-<h4><span class="section-number">1.2.2.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> こまか〜い注<a class="headerlink" href="#clubsuit" title="このヘッドラインへのパーマリンク">¶</a></h4>
-<p>殆どの方に関係がないかもしれないが、細かい注を書いておく。
-執筆時点で、核力に基づいた構造計算をテーマにしている若い人が筆者の知る限りほぼ国内に居ないため、新規参入を考えている人が居れば...という願いも込めて書いておく。</p>
-<p>HO基底という際には、single-particle HO basisと、two-body HO basisの２つがあることに注意が必要であり、
-そこを抑えておかなければ、ab initio計算や核力のレビューなどを読むときに混乱することになる。</p>
 <p>上のpartial-wave momentum spaceでの表示を、single-particle spaceでの表示に変換する際、
 通常、２つのステップを踏むことになる。
 1つが、(2体)HO基底での表示に変換すること、もう１つが、(1体)HO基底での表示に変換することである。</p>
-<ol>
-<li><p>一般的なmomentum-spaceの行列要素<span class="math notranslate nohighlight">\(\langle p' \alpha | V | p \alpha \rangle\)</span>を、
+<p>一般的なmomentum-spaceの行列要素<span class="math notranslate nohighlight">\(\langle p' \alpha | V | p \alpha \rangle\)</span>を、
 調和振動子基底の行列要素に変換する<br />
 ここで、<span class="math notranslate nohighlight">\(\alpha\)</span>は上でも登場した<span class="math notranslate nohighlight">\(L, S, J, T_z\)</span>の組み合わせなどをまとめて表すラベルである。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    \langle N' \alpha' | V | N \alpha \rangle = \int dp' p'^2 \int dp p^2 \langle p' \alpha | V | p \alpha \rangle 
-    R_{N'L'}(p',b) R_{NL}(p,b) \\
-    R_{n\ell} (p,b) = \sqrt{\frac{2 n! b^3}{\Gamma(n+\ell+3/2)}} (pb)^\ell e^{-p^2b^2/2}
-    L^{\ell+1/2}_{n}(p^2b^2)
-    \end{split}\]</div>
+\langle N' \alpha' | V | N \alpha \rangle = \int dp' p'^2 \int dp p^2 \langle p' \alpha | V | p \alpha \rangle 
+R_{N'L'}(p',b) R_{NL}(p,b) \\
+R_{n\ell} (p,b) = \sqrt{\frac{2 n! b^3}{\Gamma(n+\ell+3/2)}} (pb)^\ell e^{-p^2b^2/2}
+L^{\ell+1/2}_{n}(p^2b^2)
+\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(b\)</span>はoscillator parameterで、<span class="math notranslate nohighlight">\(b^{-1} = \sqrt{m\Omega}\)</span>, <span class="math notranslate nohighlight">\(L^k_n\)</span>は一般化Laguerre多項式である。</p>
 <p>two-body HO basisでは、「２核子の相対運動を調和振動子基底で展開しただけの数学的処理」と解釈すると良いかもしれない。
 Jacobi座標(運動量)を導入することで、この操作は自然に３体力に拡張することができる。あるいは、重心運動を陽に扱う場合にも、<span class="math notranslate nohighlight">\(N\)</span>は<span class="math notranslate nohighlight">\(n_\mathrm{rel},N_\mathrm{CM}\)</span>、<span class="math notranslate nohighlight">\(L\)</span>は<span class="math notranslate nohighlight">\(\ell_\mathrm{rel},L_\mathrm{CM}\)</span>など重心・相対運動の量子数を区別して別々に計算する必要がある。</p>
-</li>
-<li><p>(two-bodyの)HO基底をsingle-particle HOに変換する操作は、有名なTalmi-Moshinsky変換である。</p>
+<ol class="simple">
+<li><p>(two-bodyの)HO基底をsingle-particle HOに変換する操作は、有名なTalmi-Moshinsky変換である。</p></li>
+</ol>
 <p>CM&amp;relativeの２体調和振動子の量子数をそれぞれ<span class="math notranslate nohighlight">\(N,L\)</span>, <span class="math notranslate nohighlight">\(n, \ell\)</span>とすると、
 single-particle HOへの変換は以下のような形で与えられる:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-    | n_a \ell_a j_a n_b \ell_b j_b : J \rangle 
-      = \sum_{\Lambda S}\sum_{NLn\ell} \hat{\Lambda} \hat{S} \hat{j}_a \hat{j}_b 
-     \begin{Bmatrix} \ell_a &amp; \ell_b &amp; \Lambda \\ 1/2 &amp; 1/2 &amp; S \\ j_a &amp; j_b &amp; J \end{Bmatrix}
-     \langle n N [(\ell L) \Lambda S]J |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle_{d=1}
-     |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle
-    \end{split}\]</div>
+| n_a \ell_a j_a n_b \ell_b j_b : J \rangle 
+    = \sum_{\Lambda S}\sum_{NLn\ell} \hat{\Lambda} \hat{S} \hat{j}_a \hat{j}_b 
+    \begin{Bmatrix} \ell_a &amp; \ell_b &amp; \Lambda \\ 1/2 &amp; 1/2 &amp; S \\ j_a &amp; j_b &amp; J \end{Bmatrix}
+    \langle n N [(\ell L) \Lambda S]J |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle_{d=1}
+    |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle
+\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(\langle n N [(\ell L) \Lambda S]J |  n_a  n_b [(\ell_a \ell_b)\Lambda (\tfrac{1}{2}\tfrac{1}{2})S] J \rangle_{d=1}\)</span>部分が、いわゆるMoshinsky bracketやHO bracketなどと呼ばれるものであり、実装においては、<a class="reference external" href="https://doi.org/10.1016/S0375-9474(01)01101-0">G.P. Kamuntavičius et al., Nucl. Phys. A 695, 1 (2001)</a>が最もよく引用されている。</p>
 <p>single-particle HOは、jj-couplingの意味での調和振動子なので、物理的な解釈がしやすい。</p>
-</li>
-</ol>
-</div>
 </div>
 </div>
 <div class="section" id="id8">
@@ -719,7 +809,7 @@ NuclearToolkit.jlでは、相互作用ファイルを作成するためのイン
 <p>ファイルを読んでオプションを指定する方式を採用している都合上、少々JupyterNotebook上での実行と馴染まないところがあるが、
 実行ディレクトリに<code class="docutils literal notranslate"><span class="pre">optional_parameters.jl</span></code>というファイルを用意してオプションを書き換えるか、
 make_chiEFTint関数のoptional argumentとしてオプションを指定するファイルを与えてやればよい:</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">make_chiEFTint</span><span class="p">(;</span><span class="n">fn_params</span><span class="o">=</span><span class="s">&quot;path_to_your_file&quot;</span><span class="p">)</span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">make_chiEFTint</span><span class="p">(;</span><span class="n">fn_params</span><span class="o">=</span><span class="s">&quot;path_to_your_file&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>細かなオプションの指定は、Document中の<a class="reference external" href="https://sotayoshida.github.io/NuclearToolkit.jl/dev/parameters/">こちらのページ</a>
@@ -731,8 +821,8 @@ HOのパラメータ<span class="math notranslate nohighlight">\(\hbar\omega\)</
 <p>以下では、デフォルト値を使って、カイラル核力の相互作用ファイルを作ってみよう.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">NuclearToolkit</span>
-<span class="n">make_chiEFTint</span><span class="p">()</span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
+<span class="n">make_chiEFTint</span><span class="p">()</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -836,8 +926,8 @@ A=2,3,4の系から決定したLECsを用いて、非常に精度良く中重核
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="Chap1_Julia.html" title="前へ ページ">
         <i class="fas fa-angle-left"></i>
@@ -854,20 +944,18 @@ A=2,3,4の系から決定したLECsを用いて、非常に精度良く中重核
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          <div class="extra_footer">
-            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+  <p>
+    
+      <div class="extra_footer">
+        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
 
-          </div>
-      </p>
-    </div>
-  </footer>
+      </div>
+  </p>
+</footer>
 </main>
 
 
