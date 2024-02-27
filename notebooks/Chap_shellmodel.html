@@ -37,23 +37,21 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="4. Emulator/Surrogate model" href="Chap_emulator.html" />
@@ -192,7 +190,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -243,7 +241,7 @@ const thebe_selector_output = ".output, .cell_output"
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+        <div class="d-none d-md-block col-md-2 bd-toc show">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> 目次
@@ -276,8 +274,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     3.5.1. 行列要素の詳細
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mathrm-mg">
-     3.5.1.
+     3.5.2.
      <span class="math notranslate nohighlight">
       \({}^{24}\mathrm{Mg}\)
      </span>
@@ -287,12 +290,12 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
+  <a class="reference internal nav-link" href="#id7">
    3.6. 殻模型計算コード
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
+  <a class="reference internal nav-link" href="#id8">
    3.7. 参考文献&amp;謝辞
   </a>
  </li>
@@ -304,71 +307,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>殻模型(配置間相互作用法)</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> 目次 </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   3.1. 用語の説明
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#jj-coupling">
-   3.2. jj-coupling軌道と魔法数
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   3.3. 殻模型の概要
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   3.4. 有効相互作用理論
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   3.5. 殻模型計算の実際
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mathrm-mg">
-     3.5.1.
-     <span class="math notranslate nohighlight">
-      \({}^{24}\mathrm{Mg}\)
-     </span>
-     の計算例
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id6">
-   3.6. 殻模型計算コード
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   3.7. 参考文献&amp;謝辞
-  </a>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
+        
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
@@ -556,7 +495,7 @@ proton-neutronの項の場合は、proton側の状態とneutron側の状態の�
 <p>また、実際の計算では、行列を対角化するのではなく、
 比較的少数のlow-lyingな(＝エネルギーが低い)固有値・固有ベクトルを求めることが多い。
 その際にはLanczos法をはじめ、Krylov部分空間を用いた反復対角化法による計算が主流となる。</p>
-<p>Lanczos法は、「20世紀のトップ１０アルゴリズム」の一つ、Krylov部分空間法に属するアルゴリズムであり、
+<p>Lanczos法は、「20世紀のトップ10アルゴリズム」の一つ、Krylov部分空間法に属するアルゴリズムであり、
 実対称行列の最大(最小)固有値・固有ベクトルを求めるためのアルゴリズムである。
 Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span>に対して、Hamiltonianを順次作用させて得られるベクトルを用いて、</p>
 <div class="math notranslate nohighlight">
@@ -569,8 +508,72 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 比較的少数の反復で、固有値・固有ベクトルを得ることができる。
 また、励起状態の計算についても、直交化のコストや収束判定に必要な反復回数の増加はあるものの、
 基底状態の計算と特段変わらない手順で自然に計算することができる。</p>
+<div class="section" id="id6">
+<h3><span class="section-number">3.5.1. </span>行列要素の詳細<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>殻模型コードのインプットファイルには、SPEとTBMEの情報が含まれているが、ここでのTBMEは、</p>
+<div class="math notranslate nohighlight">
+\[
+\langle a b | v | c d \rangle_J
+\]</div>
+<p>のように、4つの一粒子軌道に対応したラベル<span class="math notranslate nohighlight">\(a,b,c,d\)</span>と、合成角運動量<span class="math notranslate nohighlight">\(J\)</span>、対応する行列要素の値を含んでいる。</p>
+<p>この行列要素と、一般的な2体相互作用を持つHamitonianの表式(前述)との対応関係を示しておこう。</p>
+<p>適当な量子数を持つ2粒子の状態を
+$<span class="math notranslate nohighlight">\(
+| \alpha \beta \rangle = a^\dagger_\alpha a^\dagger_\beta | 0 \rangle
+\)</span>$</p>
+<p>と書いたとすると、ハミルトニアンは前述のように</p>
+<div class="math notranslate nohighlight">
+\[
+H = \sum_{\alpha} \langle h_\alpha \rangle a^\dagger_\alpha a_\alpha + \frac{1}{4} \sum_{\alpha\beta\gamma\delta} \langle \alpha \beta | v | \gamma \delta \rangle a^\dagger_\alpha a^\dagger_\beta a_\delta a_\gamma
+\]</div>
+<p>とかける。これらの一粒子軌道が、<span class="math notranslate nohighlight">\(jj\)</span>-couplingの意味での調和振動子に対応するとしよう。つまり<span class="math notranslate nohighlight">\(\{n, \ell, j\}\)</span>でラベル付けできる(<span class="math notranslate nohighlight">\(t_z\)</span>を含めても良い)。
+２核子対の状態は、合成の角運動量<span class="math notranslate nohighlight">\(J\)</span>とその<span class="math notranslate nohighlight">\(z\)</span>成分<span class="math notranslate nohighlight">\(M\)</span>によって展開することができ、</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+|\alpha \beta \rangle = a^\dagger_\alpha a^\dagger_\beta | 0 \rangle &amp;= \sum_{JM} (j_a m_a j_b m_b | J M ) [ a^\dagger_a a^\dagger_b]_{JM} |0 \rangle \nonumber \\
+N_{ab}(J) &amp;= \frac{\sqrt{1+\delta_{ab}(-1)^J}}{1+\delta_{ab}} \nonumber 
+\end{align}
+\end{split}\]</div>
+<p>とかける。ただし、デルタ関数は<span class="math notranslate nohighlight">\(\{ n,l,j, t_z\}\)</span>に対して取る。</p>
+<div class="math notranslate nohighlight">
+\[
+| ab; JM \rangle \equiv N_{ab}(J) [ a^\dagger_a a^\dagger_b]_{JM} |0 \rangle
+\]</div>
+<p>とすると、</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+|\alpha \beta \rangle = 
+a^\dagger_\alpha a^\dagger_\beta | 0 \rangle &amp;= \sum_{JM} (j_a m_a j_b m_b | J M ) [ a^\dagger_a a^\dagger_b]_{JM} |0 \rangle \nonumber \\
+N_{ab}(J) &amp;= \frac{\sqrt{1+\delta_{ab}(-1)^J}}{1+\delta_{ab}} \nonumber 
+\end{align}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+| \alpha \beta \rangle = \sum_{JM} (j_a m_a j_b m_b | J M ) [ a^\dagger_a a^\dagger_b]_{JM} |0 \rangle = \sum_{JM}  (j_a m_a j_b m_b | J M )  N^{-1}_{ab}(J) | ab; JM \rangle
+\]</div>
+<p>2体相互作用部分を整理すると</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{\alpha \beta \gamma \delta} \langle \alpha \beta | V | \gamma \delta \rangle
+= \sum_{abcd} \sum_{JMJ'M'} (j_a m_a j_b m_b | J M ) (j_c m_c j_d m_d | J' M' ) N^{-1}_{ab}(J) N^{-1}_{cd}(J') \langle ab; JM | V | cd; J'M' \rangle
+\]</div>
+<p>さらにいうと、核子間の相互作用は、既約テンソルの言葉でスカラーであるため、</p>
+<div class="math notranslate nohighlight">
+\[
+\langle ab; JM | V | cd; J'M' \rangle = \delta_{JJ'} \delta_{MM'} ( ab; JM || V || cd; JM )
+\]</div>
+<p>となる。殻模型の相互作用ファイルには、右辺の換算行列要素に対応する値が記録されていると考えると良い。
+実際には、コード内で、<span class="math notranslate nohighlight">\(m_a, m_b\)</span>の足を陽に持つ行列要素を保持したり、on the flyで計算しようして使う。</p>
+<p><span class="math notranslate nohighlight">\(M\)</span>-schemeでのpp/nnやproton-neutron相互作用の実装などについては、例えば下記の文献が詳しい。</p>
+<ul class="simple">
+<li><p>N. Shimizu et al., <a class="reference external" href="https://doi.org/10.1016/j.cpc.2019.06.011">Comput. Phys. Commun. 244, 372 (2019)</a></p></li>
+<li><p>C.W. Johnson et al., <a class="reference external" href="http://dx.doi.org/10.1016/j.cpc.2013.07.022">Comput. Phys. Commun. 184, 2761 (2013)</a></p></li>
+</ul>
+</div>
 <div class="section" id="mathrm-mg">
-<h3><span class="section-number">3.5.1. </span><span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の計算例<a class="headerlink" href="#mathrm-mg" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">3.5.2. </span><span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span>の計算例<a class="headerlink" href="#mathrm-mg" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>NuclearToolkit.jlには、殻模型関数のメインAPIとして、<code class="docutils literal notranslate"><span class="pre">main_sm</span></code>関数が用意されていて、
 相互作用ファイルのパス, 対象とする核(文字列か、<code class="docutils literal notranslate"><span class="pre">[Z,N]</span></code>の配列)、固有値の数、対象とする<span class="math notranslate nohighlight">\(J\)</span>の値などを指定することで、
 殻模型計算を行うことができる。</p>
@@ -582,13 +585,13 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">NuclearToolkit</span>
 
-<span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Mg24&quot;</span><span class="w"></span>
-<span class="n">n_eigen</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">targetJ</span><span class="o">=</span><span class="p">[]</span><span class="w">                                                                                                        </span>
-<span class="n">res_usdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w"> </span>
-<span class="n">res_nn</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w">      </span>
-<span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="n">target</span> <span class="o">=</span> <span class="s">&quot;Mg24&quot;</span>
+<span class="n">n_eigen</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">targetJ</span><span class="o">=</span><span class="p">[]</span>                                                                                                        
+<span class="n">res_usdb</span> <span class="o">=</span> <span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span> 
+<span class="n">res_nn</span>  <span class="o">=</span> <span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span>      
+<span class="s">&quot;&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -622,8 +625,8 @@ VS-IMSRG法では、coreとvalence空間のdecouplingの際に、reference state
 バレンス核子が稼ぐエネルギーとあわせて勘定してやればよい。</p>
 </div>
 </div>
-<div class="section" id="id6">
-<h2><span class="section-number">3.6. </span>殻模型計算コード<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2><span class="section-number">3.6. </span>殻模型計算コード<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>コミュニティ内においては、古くからshell-model計算を行うコードが開発・公開されており、</p>
 <ul class="simple">
 <li><p>OXBASH</p></li>
@@ -638,8 +641,8 @@ VS-IMSRG法では、coreとvalence空間のdecouplingの際に、reference state
 <p>筆者のNuclearToolkit.jlにもshell-model計算を行うためのコード群としてShellModel.jlというものを内部に
 含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。</p>
 </div>
-<div class="section" id="id7">
-<h2><span class="section-number">3.7. </span>参考文献&amp;謝辞<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id8">
+<h2><span class="section-number">3.7. </span>参考文献&amp;謝辞<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li><p>Alex Brown, Lecture Note:<br />
 shell-model計算に関するほぼ全ての必要な情報は、Alex Brown氏&#64;MSUのLecture Noteにまとめられている。
@@ -676,8 +679,8 @@ NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などのLa
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+        
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="Chap_IMSRG.html" title="前へ ページ">
         <i class="fas fa-angle-left"></i>
@@ -694,18 +697,20 @@ NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などのLa
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+        
         </div>
     </div>
     <footer class="footer">
-  <p>
-    
-      <div class="extra_footer">
-        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+    <div class="container">
+      <p>
+        
+          <div class="extra_footer">
+            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
 
-      </div>
-  </p>
-</footer>
+          </div>
+      </p>
+    </div>
+  </footer>
 </main>
 
 
