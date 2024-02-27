@@ -567,8 +567,7 @@ N_{ab}(J) &amp;= \frac{\sqrt{1+\delta_{ab}(-1)^J}}{1+\delta_{ab}} \nonumber
 \]</div>
 <p>となる。殻模型の相互作用ファイルには、右辺の換算行列要素に対応する値が記録されている。
 実際には、コード内で、<span class="math notranslate nohighlight">\(H|\psi\rangle\)</span>などの演算を行う際には、<span class="math notranslate nohighlight">\(m_a, m_b\)</span>の足を陽に持つ行列要素をあらかじめ保持したり、
-on the flyで計算して使ったりと、具体的な実装は様々である。
-殻模型コードの実装については例えば下記の文献が詳しい。</p>
+on the flyで計算して使ったりと、実装は様々である。殻模型コードの実装のより詳細については例えば下記の文献が詳しい。</p>
 <ul class="simple">
 <li><p>N. Shimizu et al., <a class="reference external" href="https://doi.org/10.1016/j.cpc.2019.06.011">Comput. Phys. Commun. 244, 372 (2019)</a></p></li>
 <li><p>C.W. Johnson et al., <a class="reference external" href="http://dx.doi.org/10.1016/j.cpc.2013.07.022">Comput. Phys. Commun. 184, 2761 (2013)</a></p></li>
@@ -638,11 +637,8 @@ VS-IMSRG法では、coreとvalence空間のdecouplingの際に、reference state
 <li><p><a class="reference external" href="https://github.com/cwjsdsu/BigstickPublick">BIGSTICK</a></p></li>
 <li><p><a class="reference external" href="https://sites.google.com/alumni.tsukuba.ac.jp/kshell-nuclear/home">KSHELL</a></p></li>
 </ul>
-<p>などが(もちろん他にも)ある。
-2024年現在においても精力的に開発が行われているものとしては、清水 則孝 氏(現: 筑波大学 計算科学研究センター)によるKSHELLが
-その機能の豊富さ・性能のいずれの面においても抜きん出ており、事実上これ一択、という状況にある。</p>
-<p>筆者のNuclearToolkit.jlにもshell-model計算を行うためのコード群としてShellModel.jlというものを内部に
-含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。</p>
+<p>などが(もちろん他にも)ある。2024年現在においても精力的に開発が行われているものとしては、清水則孝氏(現: 筑波大学 計算科学研究センター)によるKSHELLが、その機能の豊富さ・性能のいずれの面においても抜きん出ており、事実上これ一択、という状況にある。</p>
+<p>筆者のNuclearToolkit.jlにもshell-model計算を行うためのコード群としてShellModel.jlというものを内部に含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。</p>
 </div>
 <div class="section" id="id8">
 <h2><span class="section-number">3.7. </span>参考文献&amp;謝辞<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -652,7 +648,7 @@ shell-model計算に関するほぼ全ての必要な情報は、Alex Brown氏&#
 Webで見つかりやすいものは2005年版だが、より新しいバージョンとして、
 Nuclear Talent(スクール)用の2017年版資料がMorten Hjorth-Jensen氏&#64;MSUの<a class="reference external" href="https://github.com/NuclearTalent/NuclearStructure/blob/master/doc/Literature/brown.pdf">GitHubレポジトリ</a>内で公開されている。</p></li>
 <li><p><a class="reference external" href="https://www.maruzen-publishing.co.jp/item/?book_no=303655">計算力学レクチャーコース: 固有値計算と特異値計算(丸善出版)</a>:<br />
-Lanczos法など行列の固有値計算や関連の話題については素晴らしい書籍があり、筆者も実装の際にこちらの本を参考にさせて頂いた。</p></li>
+Lanczos法など行列の固有値計算や関連の話題については素晴らしい書籍が多数ある。筆者は実装の際にこちらの本を参考にさせて頂いた。</p></li>
 <li><p><a class="reference external" href="https://sites.google.com/alumni.tsukuba.ac.jp/kshell-nuclear/home">KSHELL code</a>:<br />
 NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などのLanczos法の種々の拡張を実装しているが、
 その開発段階においては、KSHELLの作者である清水則孝氏に多大なる助言を頂きながら、KSHELLのソースコードも参考にさせて頂いた。</p></li>
