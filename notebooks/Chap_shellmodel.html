@@ -515,23 +515,24 @@ Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\ps
 \[
 \langle a b | v | c d \rangle_J
 \]</div>
-<p>のように、4つの一粒子軌道に対応したラベル<span class="math notranslate nohighlight">\(a,b,c,d\)</span>と、合成角運動量<span class="math notranslate nohighlight">\(J\)</span>、対応する行列要素の値を含んでいる。</p>
-<p>この行列要素と、一般的な2体相互作用を持つHamitonianの表式(前述)との対応関係を示しておこう。</p>
-<p>適当な量子数を持つ2粒子の状態を
-$<span class="math notranslate nohighlight">\(
+<p>のように、4つの一粒子軌道に対応したラベル<span class="math notranslate nohighlight">\(a,b,c,d\)</span>と、合成角運動量<span class="math notranslate nohighlight">\(J\)</span>、対応する行列要素の値を含んでいる。
+この行列要素と、一般的な2体相互作用を持つHamitonianの表式との対応関係を示しておこう。
+適当な量子数を持つ2粒子の状態を</p>
+<div class="math notranslate nohighlight">
+\[
 | \alpha \beta \rangle = a^\dagger_\alpha a^\dagger_\beta | 0 \rangle
-\)</span>$</p>
+\]</div>
 <p>と書いたとすると、ハミルトニアンは前述のように</p>
 <div class="math notranslate nohighlight">
 \[
 H = \sum_{\alpha} \langle h_\alpha \rangle a^\dagger_\alpha a_\alpha + \frac{1}{4} \sum_{\alpha\beta\gamma\delta} \langle \alpha \beta | v | \gamma \delta \rangle a^\dagger_\alpha a^\dagger_\beta a_\delta a_\gamma
 \]</div>
-<p>とかける。これらの一粒子軌道が、<span class="math notranslate nohighlight">\(jj\)</span>-couplingの意味での調和振動子に対応するとしよう。つまり<span class="math notranslate nohighlight">\(\{n, \ell, j\}\)</span>でラベル付けできる(<span class="math notranslate nohighlight">\(t_z\)</span>を含めても良い)。
+<p>とかける。これらの一粒子軌道が、<span class="math notranslate nohighlight">\(jj\)</span>-couplingの意味での調和振動子に対応するとしよう。つまり<span class="math notranslate nohighlight">\(\{n, \ell, j, t_z\}\)</span>でラベル付けできる。
 ２核子対の状態は、合成の角運動量<span class="math notranslate nohighlight">\(J\)</span>とその<span class="math notranslate nohighlight">\(z\)</span>成分<span class="math notranslate nohighlight">\(M\)</span>によって展開することができ、</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-|\alpha \beta \rangle = a^\dagger_\alpha a^\dagger_\beta | 0 \rangle &amp;= \sum_{JM} (j_a m_a j_b m_b | J M ) [ a^\dagger_a a^\dagger_b]_{JM} |0 \rangle \nonumber \\
+|\alpha \beta \rangle = a^\dagger_\alpha a^\dagger_\beta | 0 \rangle &amp;= \sum_{JM} (j_a m_\alpha j_b m_\beta | J M ) [ a^\dagger_a a^\dagger_b]_{JM} |0 \rangle \nonumber \\
 N_{ab}(J) &amp;= \frac{\sqrt{1+\delta_{ab}(-1)^J}}{1+\delta_{ab}} \nonumber 
 \end{align}
 \end{split}\]</div>
@@ -564,12 +565,14 @@ N_{ab}(J) &amp;= \frac{\sqrt{1+\delta_{ab}(-1)^J}}{1+\delta_{ab}} \nonumber
 \[
 \langle ab; JM | V | cd; J'M' \rangle = \delta_{JJ'} \delta_{MM'} ( ab; JM || V || cd; JM )
 \]</div>
-<p>となる。殻模型の相互作用ファイルには、右辺の換算行列要素に対応する値が記録されていると考えると良い。
-実際には、コード内で、<span class="math notranslate nohighlight">\(m_a, m_b\)</span>の足を陽に持つ行列要素を保持したり、on the flyで計算しようして使う。</p>
-<p><span class="math notranslate nohighlight">\(M\)</span>-schemeでのpp/nnやproton-neutron相互作用の実装などについては、例えば下記の文献が詳しい。</p>
+<p>となる。殻模型の相互作用ファイルには、右辺の換算行列要素に対応する値が記録されている。
+実際には、コード内で、<span class="math notranslate nohighlight">\(H|\psi\rangle\)</span>などの演算を行う際には、<span class="math notranslate nohighlight">\(m_a, m_b\)</span>の足を陽に持つ行列要素をあらかじめ保持したり、
+on the flyで計算して使ったりと、具体的な実装は様々である。
+殻模型コードの実装については例えば下記の文献が詳しい。</p>
 <ul class="simple">
 <li><p>N. Shimizu et al., <a class="reference external" href="https://doi.org/10.1016/j.cpc.2019.06.011">Comput. Phys. Commun. 244, 372 (2019)</a></p></li>
 <li><p>C.W. Johnson et al., <a class="reference external" href="http://dx.doi.org/10.1016/j.cpc.2013.07.022">Comput. Phys. Commun. 184, 2761 (2013)</a></p></li>
+<li><p>C.W. HJohnson et al., <a class="reference external" href="https://arxiv.org/abs/1801.08432">arXiv:1801.08432</a></p></li>
 </ul>
 </div>
 <div class="section" id="mathrm-mg">
