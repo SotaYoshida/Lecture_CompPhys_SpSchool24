@@ -304,13 +304,6 @@ const thebe_selector_output = ".output, .cell_output"
      Juliaパッケージ
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#jupyter-notebook">
-   Jupyter Notebookの実行
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
      プロジェクト
@@ -319,6 +312,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
      Juliaのバージョン管理
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jupyter-notebook">
+     Jupyter Notebookの実行
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -407,13 +405,6 @@ const thebe_selector_output = ".output, .cell_output"
      Juliaパッケージ
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#jupyter-notebook">
-   Jupyter Notebookの実行
-  </a>
-  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
      プロジェクト
@@ -422,6 +413,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
      Juliaのバージョン管理
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jupyter-notebook">
+     Jupyter Notebookの実行
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -661,19 +657,6 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 <p>たとえ異なるパッケージで同一の関数名が定義されていても、Juliaには多重ディスパッチで関数を呼び出す仕組みがあるので、
 問題が起こる(複数のライブラリ間で関数の定義が完全に衝突する)事例は稀なので、基本的に<code class="docutils literal notranslate"><span class="pre">using</span></code>を使えばよい。</p>
 </div>
-</div>
-<div class="section" id="jupyter-notebook">
-<h2>Jupyter Notebookの実行<a class="headerlink" href="#jupyter-notebook" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>この講義の資料のように、ipynb形式のファイルを実行する場合、JuliaのREPLで</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="p">]</span><span class="n">add</span><span class="w"> </span><span class="n">IJulia</span><span class="w"> </span>
-</pre></div>
-</div>
-<p>などとして、IJuliaパッケージをインストールする。<br />
-その後、コードの実行時などにJuliaカーネルを選択することで、Juliaのコードを実行することができる。</p>
-<p><strong>小話</strong></p>
-<p>筆者の環境(VS Code)でJupyter環境でJuliaコードを実行すると、たまに停止やカーネルの再起動といった操作を受け付けず、プロセスが残り続けることがある。
-講義では、資料の配布のしやすさからipynb形式を採用しているが、実際のコード開発や実行において筆者がJupyter環境を使うことはまず無い。</p>
-<p><a class="reference external" href="https://github.com/JuliaLang/IJulia.jl/issues/1052">関連する？issue</a></p>
 <div class="section" id="id6">
 <h3>プロジェクト<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Juliaでは、複数のパッケージを含むプロジェクトを作成することができる。<br />
@@ -692,6 +675,19 @@ GitHubにあるJuliaパッケージのレポジトリをクローンないしダ
 <div class="section" id="id7">
 <h3>Juliaのバージョン管理<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">juliaup</span></code>というJuliaのバージョンを管理するためのツールが便利で、Juliaのバージョンを切り替えることができる。juliaupの<a class="reference external" href="https://github.com/JuliaLang/juliaup">レポジトリ</a>に従ってインストールしておこう。</p>
+</div>
+<div class="section" id="jupyter-notebook">
+<h3>Jupyter Notebookの実行<a class="headerlink" href="#jupyter-notebook" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>この講義の資料のように、ipynb形式のファイルを実行する場合、JuliaのREPLで</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="p">]</span><span class="n">add</span><span class="w"> </span><span class="n">IJulia</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>などとして、IJuliaパッケージをインストールする。<br />
+その後、コードの実行時などにJuliaカーネルを選択することで、Juliaのコードを実行することができる。</p>
+<p><strong>小話</strong></p>
+<p>筆者の環境(VS Code)でJupyter環境でJuliaコードを実行すると、たまに停止やカーネルの再起動といった操作を受け付けず、プロセスが残り続けることがある。
+講義では、資料の配布のしやすさからipynb形式を採用しているが、実際のコード開発や実行において筆者がJupyter環境を使うことはまず無い。</p>
+<p><a class="reference external" href="https://github.com/JuliaLang/IJulia.jl/issues/1052">関連する？issue</a></p>
 </div>
 <div class="section" id="python-vs-julia">
 <h3>サンプルコード: Python vs Julia<a class="headerlink" href="#python-vs-julia" title="このヘッドラインへのパーマリンク">¶</a></h3>
