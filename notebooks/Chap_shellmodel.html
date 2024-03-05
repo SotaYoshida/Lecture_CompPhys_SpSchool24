@@ -712,7 +712,8 @@ VS-IMSRG法では、coreとvalence空間のdecouplingの際に、reference state
 <li><p><a class="reference external" href="https://sites.google.com/alumni.tsukuba.ac.jp/kshell-nuclear/home">KSHELL</a></p></li>
 </ul>
 <p>などが(もちろん他にも)ある。2024年現在においても精力的に開発が行われているものとしては、清水則孝氏(現: 筑波大学 計算科学研究センター)によるKSHELLが、その機能の豊富さ・性能のいずれの面においても抜きん出ており、事実上これ一択、という状況にある。</p>
-<p>筆者のNuclearToolkit.jlにもshell-model計算を行うためのコード群としてShellModel.jlというものを内部に含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。</p>
+<p>筆者のNuclearToolkit.jlにもshell-model計算を行うためのコード群としてShellModel.jlというものを内部に含んでいるものの、これはKSHELLのような高度な機能は持たず、新しいアルゴリズムや代理モデルなどの開発用途に適したものになっている。
+もう少し細かく言うと、KSHELLでは行列要素を保持せずon the flyで計算することでメモリの使用量を抑え、大規模な計算を可能としている一方でShellModel.jlでは行列要素(そのものではなく1b,2b-jumpと呼ばれる必要な遷移)をあらかじめ保持することが前提となっているため、大規模な計算には向いておらず、せいぜいラップトップ上で<span class="math notranslate nohighlight">\(sd\)</span>〜lower <span class="math notranslate nohighlight">\(pf\)</span> shellでKSHELLよりも高速に計算ができる程度である。</p>
 </div>
 <div class="section" id="id8">
 <h2><span class="section-number">3.7. </span>参考文献&amp;謝辞<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
