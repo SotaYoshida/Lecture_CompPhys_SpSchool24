@@ -37,21 +37,23 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="4. Emulator/Surrogate model" href="Chap_emulator.html" />
@@ -190,7 +192,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -241,7 +243,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> 目次
@@ -307,7 +309,76 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>殻模型(配置間相互作用法)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> 目次 </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   3.1. 用語の説明
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jj-coupling">
+   3.2. jj-coupling軌道と魔法数
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   3.3. 殻模型の概要
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   3.4. 有効相互作用理論
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   3.5. 殻模型計算の実際
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     3.5.1. 行列要素の詳細
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mathrm-mg">
+     3.5.2.
+     <span class="math notranslate nohighlight">
+      \({}^{24}\mathrm{Mg}\)
+     </span>
+     の計算例
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   3.6. 殻模型計算コード
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   3.7. 参考文献&amp;謝辞
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="id1">
@@ -493,7 +564,10 @@ pp, nnの項は、それぞれneutron側の状態, proton側の状態を区別�
 proton-neutronの項の場合は、proton側の状態とneutron側の状態の組み合わせを考える必要があるため、一般に考慮すべき項の数が多くなる。</p>
 <p>扱うバレンス核子の数が少なければ、<span class="math notranslate nohighlight">\(M_d = N_p \times N_n\)</span>の行列を明示的に作成してそれを対角化しても良いのだが、
 多くの興味のある問題の場合、行列要素を明示的に保持して対角化することは非現実的となる。</p>
-<p>対称性などの要請から、非零の行列要素の数は、<span class="math notranslate nohighlight">\(M_d\)</span>よりもぐっと小さくなる(スパースである)ことが多い。
+<div class="highlight-{magin}::: notranslate"><div class="highlight"><pre><span></span>殻模型ハミルトニアンは高々２体相互作用であり、２体相互作用で結び付けられる配位の数はそう多くないことからも理解できる。
+</pre></div>
+</div>
+<p>一般に、殻模型におけるハミルトニアン行列<span class="math notranslate nohighlight">\(\langle \psi| \hat{H} | \psi \rangle \)</span>の非零要素の数は、<span class="math notranslate nohighlight">\(M_d\)</span>よりもぐっと小さくなる(スパースである)。
 そこで、行列要素を陽に保持するのではなく、必要なときに行列要素を計算 or 参照する方法を用いる。</p>
 <p>また、実際の計算では、行列を対角化するのではなく、比較的少数のlow-lyingな(＝エネルギーが低い)固有値・固有ベクトルを求めることが殆どである。その際にはLanczos法をはじめ、Krylov部分空間を用いた反復対角化法による計算が主流となる。</p>
 <p>Lanczos法は、「20世紀のトップ10アルゴリズム」の一つ、Krylov部分空間法に属するアルゴリズムであり、
@@ -587,13 +661,13 @@ on the flyで計算して使ったりと、実装は様々である。殻模型�
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">NuclearToolkit</span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">NuclearToolkit</span><span class="w"></span>
 
-<span class="n">target</span> <span class="o">=</span> <span class="s">&quot;Mg24&quot;</span>
-<span class="n">n_eigen</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">targetJ</span><span class="o">=</span><span class="p">[]</span>                                                                                                        
-<span class="n">res_usdb</span> <span class="o">=</span> <span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span> 
-<span class="n">res_nn</span>  <span class="o">=</span> <span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span>      
-<span class="s">&quot;&quot;</span>
+<span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Mg24&quot;</span><span class="w"></span>
+<span class="n">n_eigen</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">targetJ</span><span class="o">=</span><span class="p">[]</span><span class="w">                                                                                                        </span>
+<span class="n">res_usdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./usdb.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w"> </span>
+<span class="n">res_nn</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">main_sm</span><span class="p">(</span><span class="s">&quot;./vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt&quot;</span><span class="p">,</span><span class="n">target</span><span class="p">,</span><span class="n">n_eigen</span><span class="p">,</span><span class="n">targetJ</span><span class="p">)</span><span class="w">      </span>
+<span class="s">&quot;&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -678,8 +752,8 @@ NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などのLa
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="Chap_IMSRG.html" title="前へ ページ">
         <i class="fas fa-angle-left"></i>
@@ -696,20 +770,18 @@ NuclearToolkit.jlにおいても、Tick-Restart法やBlock-Lanczos法などのLa
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          <div class="extra_footer">
-            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+  <p>
+    
+      <div class="extra_footer">
+        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
 
-          </div>
-      </p>
-    </div>
-  </footer>
+      </div>
+  </p>
+</footer>
 </main>
 
 

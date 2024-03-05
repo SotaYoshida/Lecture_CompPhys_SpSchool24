@@ -37,21 +37,23 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="prev" title="3. 殻模型(配置間相互作用法)" href="Chap_shellmodel.html" />
@@ -189,7 +191,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -240,7 +242,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> 目次
@@ -294,7 +296,64 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Emulator/Surrogate model</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> 目次 </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   4.1. 核子系多体問題の代理モデルを取り巻く動向
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eigenvector-continuation-ec">
+   4.2. Eigenvector Continuation (EC)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eigenvector-continuation">
+     4.2.1. Eigenvector continuation法を用いた近似殻模型波動関数の構築
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dmd">
+   4.3. データ駆動型アプローチ (機械学習・DMD)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imsrg-net-pinnsim-srg">
+     4.3.1. IMSRG-Net: PINNsを用いたIM-SRG法の代理モデル
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     4.3.2. 動的モード分解
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   4.4. 核子系の量子計算
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="emulator-surrogate-model">
@@ -381,12 +440,12 @@ naiiveには、サンプル点で得た固有ベクトルが張る低次元空�
 既に得たサンプルが貼る低次元空間における(一般化)固有ベクトルは、元の問題の波動関数と近いものであると期待される。</p>
 <p>実際、EC法は相転移のような特異な領域では、相を跨ぐようなサンプル点を予め用意する必要がある。
 順位交差のように、パラメータ領域によって基底状態と励起状態がクロスするような場合にも、
-サンプル波動関数のなかに、基底状態と励起状態の両方が含まれるようにすることが必要になる。</p>
+サンプル波動関数のなかに、基底状態と励起状態の両方が含まれるようにすることで、精度良く計算できる。</p>
 <div class="section" id="eigenvector-continuation">
 <h3><span class="section-number">4.2.1. </span>Eigenvector continuation法を用いた近似殻模型波動関数の構築<a class="headerlink" href="#eigenvector-continuation" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>配置間相互作用法においてEC法の有用性をいち早く検証したのは、S.König et al., <a class="reference external" href="https://doi.org/10.1016/j.physletb.2020.135814">Phys. Lett. B 810, 10, 135814 (2020)</a>で、Full CI法を用いて得られた<span class="math notranslate nohighlight">\({}^4\mathrm{He}\)</span>の基底状態波動関数について、カイラル核力のlow-energy constants (LECs)に対する不定性評価(感度分析)をやってのけた。
 これは、EC法なしではとても実現できない計算である。
-上記の仕事では、16個のLECのうち3個のLECに対する不定性の評価を行っている。</p>
+上記の仕事では、NNLOまでの16個のLECのうち3個のLECに対する不定性の評価を行っている。</p>
 <p>その後、筆者らは、より多くのパラメータを含む系(現象論的な相互作用を用いた殻模型計算)でEC法の有用性を検証した→<a class="reference external" href="https://doi.org/10.1093/ptep/ptac057">S. Yoshida and Noritaka Shimizu, PTEP 2022 053D02</a></p>
 <p>現象論的な相互作用は、アイソスピン対称性を陽に仮定しても<span class="math notranslate nohighlight">\(sd\)</span>殻で66個、<span class="math notranslate nohighlight">\(pf\)</span>殻で199の1体・2体の行列要素を持つ。
 このような多次元のパラメータ空間においても、25-50点程度のサンプル点で、数%以下の誤差で波動関数を再現できることを示した。
@@ -564,30 +623,30 @@ truncated SVDと呼ばれるような、主要な特異値を取り出す方法�
 truncated SVDについては、<code class="docutils literal notranslate"><span class="pre">Arpack.jl</span></code>ないし<code class="docutils literal notranslate"><span class="pre">KrylovKit.jl</span></code>など、<strong>Krylov部分空間法</strong>を用いたパッケージを用いれば良い。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#使用するパッケージをインストールしておこう (1回実行すればよいため、コメントアウトしておいた)</span>
-<span class="c"># using Pkg </span>
-<span class="c"># Pkg.add(&quot;Arpack&quot;)</span>
-<span class="c"># Pkg.add(&quot;KrylovKit&quot;)</span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#使用するパッケージをインストールしておこう (1回実行すればよいため、コメントアウトしておいた)</span><span class="w"></span>
+<span class="c"># using Pkg </span><span class="w"></span>
+<span class="c"># Pkg.add(&quot;Arpack&quot;)</span><span class="w"></span>
+<span class="c"># Pkg.add(&quot;KrylovKit&quot;)</span><span class="w"></span>
 
-<span class="k">using</span> <span class="n">LinearAlgebra</span> 
-<span class="k">using</span> <span class="n">Arpack</span>
-<span class="k">using</span> <span class="n">KrylovKit</span>
+<span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"> </span>
+<span class="k">using</span><span class="w"> </span><span class="n">Arpack</span><span class="w"></span>
+<span class="k">using</span><span class="w"> </span><span class="n">KrylovKit</span><span class="w"></span>
 
-<span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="w"></span>
 
-<span class="c"># LinearAlgebra.svd(A)</span>
-<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="c"># LinearAlgebra.svd(A)</span><span class="w"></span>
+<span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"></span>
 
-<span class="c"># Arpack.svds(A; nsv=10)</span>
-<span class="n">Z</span> <span class="o">=</span> <span class="n">svds</span><span class="p">(</span><span class="n">A</span><span class="p">;</span> <span class="n">nsv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="c"># Arpack.svds(A; nsv=10)</span><span class="w"></span>
+<span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svds</span><span class="p">(</span><span class="n">A</span><span class="p">;</span><span class="w"> </span><span class="n">nsv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
 
-<span class="c"># KrylovKit.svds(A, nsv)</span>
-<span class="n">vals</span><span class="p">,</span> <span class="n">lvecs</span><span class="p">,</span> <span class="n">rvecs</span> <span class="o">=</span> <span class="n">svdsolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="c"># KrylovKit.svds(A, nsv)</span><span class="w"></span>
+<span class="n">vals</span><span class="p">,</span><span class="w"> </span><span class="n">lvecs</span><span class="p">,</span><span class="w"> </span><span class="n">rvecs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svdsolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
 
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;LinearAlgebra: &quot;</span><span class="p">,</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span> <span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Arpack:        &quot;</span><span class="p">,</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="n">Z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;KrylovKit:     &quot;</span><span class="p">,</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;LinearAlgebra: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Arpack:        &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="n">Z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span><span class="w"></span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;KrylovKit:     &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">digits</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">]))</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -658,8 +717,8 @@ U_r \mathbf{z}_{k+1} &amp;= A U_r \mathbf{z}_k = (U_r \tilde{A} U^t_r)^k U^t_r \
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="Chap_shellmodel.html" title="前へ ページ">
         <i class="fas fa-angle-left"></i>
@@ -669,20 +728,18 @@ U_r \mathbf{z}_{k+1} &amp;= A U_r \mathbf{z}_k = (U_r \tilde{A} U^t_r)^k U^t_r \
         </div>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          <div class="extra_footer">
-            © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+  <p>
+    
+      <div class="extra_footer">
+        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
 
-          </div>
-      </p>
-    </div>
-  </footer>
+      </div>
+  </p>
+</footer>
 </main>
 
 
