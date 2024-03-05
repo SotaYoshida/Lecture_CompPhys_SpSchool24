@@ -426,28 +426,32 @@ H = \sum_{i} \langle h_i \rangle a^\dagger_i a_i
 <ul class="simple">
 <li><p>多体摂動論(Many-body perturbation theory; MBPT)</p></li>
 <li><p>Unitary correlation operator method (UCOM)</p></li>
-<li><p>Coupled-Cluster法やIM-SRG法を用いる方法</p></li>
+<li><p>Coupled-Cluster (CC)</p></li>
+<li><p>In-medium similarity renormalization group (IM-SRG)</p></li>
 </ul>
 <p>こうした第一原理的な方法による有効相互作用(あるいはハミルトニアンに限定せず有効演算子)の導出は、
 今なお国際的にもホットな研究トピックの一つであり、筆者もその分野で研究を行っている一人である。</p>
-<p>一方で、1965-2000年頃の半世紀にわたって、現象論的なアプローチ
-「基底状態エネルギーや(low-lyingな)励起状態に対して、SPEやTBMEをfitする」
-方法論が幅広い原子核(とくに安定核近傍)の性質を非常に精度良く記述することができることが報告されてきた。</p>
-<p>このような方法によって構成された有効相互作用を前者と区別する意味で、現象論的やphenomenologicalと呼ぶことがある。</p>
-<p>現象論的な有効相互作用による計算の成功を示す特徴的な仕事として、前述のsd-shell領域における有効相互作用として、USD(Universal sd shell interaction)及びそれらを拡張したUSDB(USDAもある)相互作用などが知られている。</p>
+<p>一方で、1960年以降の半世紀近くにわたって、現象論的なアプローチ「基底状態エネルギーや(low-lyingな)励起状態に対して、SPEやTBMEをfitする」
+が幅広い原子核(とくに安定核近傍)の性質を非常に精度良く記述することができることが報告されてきた。</p>
+<p>このような方法によって構成された有効相互作用を前者と区別する意味で、現象論的やphenomenologicalと呼ぶことがある。
+もちろん、実験データが無い領域では現象論的に相互作用を決定することも困難なため、前述の方法とは相補的な関係にある。</p>
+<p>現象論的な有効相互作用による計算の成功を示す特徴的な仕事として、前述のsd-shell領域における有効相互作用として、USD(Universal sd shell) interaction及びそれらを拡張したUSDB(USDAもある)相互作用などが知られている。</p>
 <p>USDBでは、<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>--<span class="math notranslate nohighlight">\({}^{40}\mathrm{Ca}\)</span> 領域の基底状態・励起状態の実験値を用いて有効相互作用をfitすることで、
 root-mean-square(rms)値にして200 keV以下の高精度で幅広い原子核を記述することができる事がわかっている。</p>
-<p>もちろん、<span class="math notranslate nohighlight">\(^{16}\mathrm{O}\)</span> コアからの励起が重要な原子核・状態について、<span class="math notranslate nohighlight">\(sd\)</span> shellのバレンス空間のみでの記述では不十分な場合もある。
+<p>もちろん、<span class="math notranslate nohighlight">\(^{16}\mathrm{O}\)</span> コアからの励起が重要な原子核・状態について、<span class="math notranslate nohighlight">\(sd\)</span> shellのバレンス空間のみでの記述では不十分な場合も多くある。
 そうした状態はfitの場合には除外されたり、有効相互作用の評価の際にも除外されることが多いことには留意が必要であるが、
 少なくとも安定核近傍の酸素-カルシウム同位体の基底状態エネルギー・(低エネルギー領域の)励起スペクトル, 電磁遷移, ベータ崩壊などの量を
-広範にわたって殻模型以上に高精度で記述する方法は、現在のところ存在しない。
-その意味でよくUSD(B)を用いた計算は、ゴールドスタンダードと称される。</p>
+広範にわたって殻模型以上に高精度で記述する方法は、現在のところ存在しない。その意味でよくUSD(B)を用いた計算は、ゴールドスタンダードと称される。</p>
 </div>
 <div class="section" id="id5">
 <h2><span class="section-number">3.5. </span>殻模型計算の実際<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>もう少し計算の具体的な中身をイメージするために、より明示的に実際のコードの中でどのような計算が行われているのかを説明する。</p>
+<p>もう少し計算の具体的な中身をイメージするために、実際のコードの中でどのような計算が行われているのかを説明する。</p>
 <p>簡単のため、以下では、<span class="math notranslate nohighlight">\(^{4}\mathrm{He}\)</span>を閉殻芯とした、
-proton-neutronの2体系である<span class="math notranslate nohighlight">\({}^{6}\mathrm{Li}\)</span> (Z=N=3)を考えてみよう。</p>
+proton-neutronのバレンス2体系である<span class="math notranslate nohighlight">\({}^{6}\mathrm{Li}\)</span> (Z=N=3)を考えてみよう。</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>軌道という際には、<span class="math notranslate nohighlight">\(\{n,\all,j,t_z\}\)</span>の足なのか、<span class="math notranslate nohighlight">\(\{n,\ell,j,j_z,t_z\}\)</span>の足なのかをきちんと区別する必要があるが、適宜文脈から判断してもらいたい。</p>
+</div>
 <p>この場合、バレンス空間は、<span class="math notranslate nohighlight">\(0p_{1/2}\)</span>と<span class="math notranslate nohighlight">\(0p_{3/2}\)</span>の2つのjj-coupling軌道からなる。
 軌道内の<span class="math notranslate nohighlight">\(j_z\)</span>で区別される状態の数は、それぞれ<span class="math notranslate nohighlight">\(2j+1\)</span>であるため、<span class="math notranslate nohighlight">\(p_{1/2}\)</span>なら２つ、<span class="math notranslate nohighlight">\(p_{3/2}\)</span>なら４つの状態が存在する.</p>
 <p>さらに、陽子・中性子を明示的に区別する(proton-neutron formalism)で言うなら、軌道の数は合計で6×2の12個ということになる。</p>
@@ -456,8 +460,8 @@ proton-neutronの2体系である<span class="math notranslate nohighlight">\({}
 \[
 | 000001 \rangle_p \otimes | 000001 \rangle_n 
 \]</div>
-<p>のように、陽子・中性子のそれぞれの軌道の数だけビット列を用意し、配位を表す状態ベクトル(bit列)を用意してやれば良い。
-0が非占有, 1が占有を表す。</p>
+<p>のように、陽子・中性子のそれぞれの軌道の数だけビット列を用意し、配位を表す状態ベクトルを用意してやれば良い。
+0が非占有, 1が占有されている軌道を表す。</p>
 <p>今、弱い相互作用は考えず、陽子・中性子の数は変化しないとすると、
 <span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の陽子・中性子それぞれの状態を表すビット列は必ず、どれか一つだけがbitが立っていて、それ以外は0であるような状態になる。
 当然、許される配位の数は<span class="math notranslate nohighlight">\(6^2=36\)</span>個となる。</p>
