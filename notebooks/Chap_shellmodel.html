@@ -328,6 +328,7 @@ activateした空間内での(厳密ないし漸近的に厳密な)対角化計�
 この章でも、殻模型という言葉はこの意味で用いることにする。</p>
 <p>関連する用語として、閉殻芯の存在を仮定せず、全ての核子の自由度を陽に扱うFull-CI計算のことを、
 原子核分野ではno-core shell model (NCSM)と呼ぶ。</p>
+<p>また、模型空間やmodel spaceという語句も良く用いられるが、これは上述のようなactivateされた軌道を指す。あるいは、「<span class="math notranslate nohighlight">\(0f7/2\)</span>の占有数を最小4,最大8の配位に限定して考える」といったような、模型空間を限定することもあり、こうしたtruncationも含めて、模型空間と呼ぶこともある。</p>
 </div>
 <div class="section" id="jj-coupling">
 <h2><span class="section-number">3.2. </span>jj-coupling軌道と魔法数<a class="headerlink" href="#jj-coupling" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -462,9 +463,7 @@ proton-neutronのバレンス2体系である<span class="math notranslate nohig
 \]</div>
 <p>のように、陽子・中性子のそれぞれの軌道の数だけビット列を用意し、配位を表す状態ベクトルを用意してやれば良い。
 0が非占有, 1が占有されている軌道を表す。</p>
-<p>今、弱い相互作用は考えず、陽子・中性子の数は変化しないとすると、
-<span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の陽子・中性子それぞれの状態を表すビット列は必ず、どれか一つだけがbitが立っていて、それ以外は0であるような状態になる。
-当然、許される配位の数は<span class="math notranslate nohighlight">\(6^2=36\)</span>個となる。</p>
+<p>今(弱い相互作用は考えず、陽子・中性子の数は変化しないので)、<span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の陽子・中性子それぞれの状態を表すビット列は必ず、どれか一つだけがbitが立っていて、それ以外は0であるような状態になる。当然、許される配位の数は全部で、<span class="math notranslate nohighlight">\(6^2=36\)</span>個となる。</p>
 <p>この全てを考えてももちろん構わないのだが、実際には(有効)核力の持つ対称性から、
 <span class="math notranslate nohighlight">\(j_z\)</span>の和が0(奇数個の核子からなる核の場合は1/2)の状態のみを考えれば、その中に全ての状態の情報が含まれる。</p>
 <p>したがって、<span class="math notranslate nohighlight">\({}^6\mathrm{Li}\)</span>の状態を表現するためには、状態の角運動量<span class="math notranslate nohighlight">\(J\)</span>が幾つであろうと、
@@ -487,7 +486,7 @@ proton-neutronのバレンス2体系である<span class="math notranslate nohig
 \[
 | \psi \rangle = C_{ij} | i \rangle_p \otimes | j \rangle_n
 \]</div>
-<p>i,jはそれぞれ、proton, neutronの配位を表すビット列(ないしそれに対応する整数)である。</p>
+<p><span class="math notranslate nohighlight">\(i,j\)</span>はそれぞれ、proton, neutronの配位を表すビット列(ないしそれに対応する整数)である。</p>
 <p>このとき、殻模型のハミルトニアンの2体力部分は、proton-proton, neutron-neutron, proton-neutronの3つの項に分かれる。
 (<span class="math notranslate nohighlight">\({}^{6}\mathrm{Li}\)</span>の場合は当然、proton-neutron力のみが効く)。
 pp, nnの項は、それぞれneutron側の状態, proton側の状態を区別しないので、別々に考えられる。
@@ -496,9 +495,7 @@ proton-neutronの項の場合は、proton側の状態とneutron側の状態の�
 多くの興味のある問題の場合、行列要素を明示的に保持して対角化することは非現実的となる。</p>
 <p>対称性などの要請から、非零の行列要素の数は、<span class="math notranslate nohighlight">\(M_d\)</span>よりもぐっと小さくなる(スパースである)ことが多い。
 そこで、行列要素を陽に保持するのではなく、必要なときに行列要素を計算 or 参照する方法を用いる。</p>
-<p>また、実際の計算では、行列を対角化するのではなく、
-比較的少数のlow-lyingな(＝エネルギーが低い)固有値・固有ベクトルを求めることが多い。
-その際にはLanczos法をはじめ、Krylov部分空間を用いた反復対角化法による計算が主流となる。</p>
+<p>また、実際の計算では、行列を対角化するのではなく、比較的少数のlow-lyingな(＝エネルギーが低い)固有値・固有ベクトルを求めることが殆どである。その際にはLanczos法をはじめ、Krylov部分空間を用いた反復対角化法による計算が主流となる。</p>
 <p>Lanczos法は、「20世紀のトップ10アルゴリズム」の一つ、Krylov部分空間法に属するアルゴリズムであり、
 実対称行列の最大(最小)固有値・固有ベクトルを求めるためのアルゴリズムである。
 Lanczos法では、試行関数<span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span>に対して、Hamiltonianを順次作用させて得られるベクトルを用いて、</p>
@@ -570,7 +567,7 @@ N_{ab}(J) &amp;= \frac{\sqrt{1+\delta_{ab}(-1)^J}}{1+\delta_{ab}} \nonumber
 \langle ab; JM | V | cd; J'M' \rangle = \delta_{JJ'} \delta_{MM'} ( ab; JM || V || cd; JM )
 \]</div>
 <p>となる。殻模型の相互作用ファイルには、右辺の換算行列要素に対応する値が記録されている。
-実際には、コード内で、<span class="math notranslate nohighlight">\(H|\psi\rangle\)</span>などの演算を行う際には、<span class="math notranslate nohighlight">\(m_a, m_b\)</span>の足を陽に持つ行列要素をあらかじめ保持したり、
+実際には、コード内で、<span class="math notranslate nohighlight">\(H|\psi\rangle\)</span>などの演算を行う際には、<span class="math notranslate nohighlight">\(m_a, m_b\)</span>など<span class="math notranslate nohighlight">\(j_z\)</span>の足を陽に持つ行列要素をあらかじめ保持したり、
 on the flyで計算して使ったりと、実装は様々である。殻模型コードの実装のより詳細については例えば下記の文献が詳しい。</p>
 <ul class="simple">
 <li><p>N. Shimizu et al., <a class="reference external" href="https://doi.org/10.1016/j.cpc.2019.06.011">Comput. Phys. Commun. 244, 372 (2019)</a></p></li>
@@ -587,7 +584,6 @@ on the flyで計算して使ったりと、実装は様々である。殻模型�
 <ul class="simple">
 <li><p>USDB: 現象論的な相互作用</p></li>
 <li><p>NN-only: 先程の章で計算した２体力から導出された相互作用</p></li>
-<li><p>NN+3NF(lnl): 2体力&amp;３体力からVS-IMSRGで計算した相互作用</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -623,7 +619,7 @@ Ex.     0.0000     1.3484     3.0097     4.2651     4.3170     5.8276     7.8886
 </div>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>上で導出した<span class="math notranslate nohighlight">\(e_\mathrm{max}=4\)</span>と非常に小さい計算で、<span class="math notranslate nohighlight">\(e_\mathrm{max}\)</span>や<span class="math notranslate nohighlight">\(\hbar\omega\)</span>に対して収束した結果を与えるものではないことに注意。</p>
+<p>ここで用いている相互作用&quot;vsimsrg...&quot;は、上で導出した<span class="math notranslate nohighlight">\(e_\mathrm{max}=4\)</span>と非常に小さい計算で、<span class="math notranslate nohighlight">\(e_\mathrm{max}\)</span>や<span class="math notranslate nohighlight">\(\hbar\omega\)</span>に対して収束した結果を与えるものではないことに注意。</p>
 </div>
 <p>２体力レベルでも現象論的相互作用と(そこそこ)似通ったスペクトルが得られている。<br />
 binding energyについては、現象論的相互作用の場合は、コア(今の場合、<span class="math notranslate nohighlight">\({}^{16}\mathrm{O}\)</span>)やCoulomb相互作用は現象論的に与えるのに対し、
