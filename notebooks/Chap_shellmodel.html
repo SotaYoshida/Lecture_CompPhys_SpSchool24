@@ -493,9 +493,6 @@ pp, nnの項は、それぞれneutron側の状態, proton側の状態を区別�
 proton-neutronの項の場合は、proton側の状態とneutron側の状態の組み合わせを考える必要があるため、一般に考慮すべき項の数が多くなる。</p>
 <p>扱うバレンス核子の数が少なければ、<span class="math notranslate nohighlight">\(M_d = N_p \times N_n\)</span>の行列を明示的に作成してそれを対角化しても良いのだが、
 多くの興味のある問題の場合、行列要素を明示的に保持して対角化することは非現実的となる。</p>
-<div class="highlight-{magin}::: notranslate"><div class="highlight"><pre><span></span>殻模型ハミルトニアンは高々２体相互作用であり、２体相互作用で結び付けられる配位の数はそう多くないことからも理解できる。
-</pre></div>
-</div>
 <p>一般に、殻模型におけるハミルトニアン行列<span class="math notranslate nohighlight">\(\langle \psi| \hat{H} | \psi \rangle \)</span>の非零要素の数は、<span class="math notranslate nohighlight">\(M_d\)</span>よりもぐっと小さくなる(スパースである)。
 そこで、行列要素を陽に保持するのではなく、必要なときに行列要素を計算 or 参照する方法を用いる。</p>
 <p>また、実際の計算では、行列を対角化するのではなく、比較的少数のlow-lyingな(＝エネルギーが低い)固有値・固有ベクトルを求めることが殆どである。その際にはLanczos法をはじめ、Krylov部分空間を用いた反復対角化法による計算が主流となる。</p>
