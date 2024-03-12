@@ -694,6 +694,34 @@ V(\vec{p},\vec{p}')= V_C + \boldsymbol{\tau}_1 \cdot \boldsymbol{\tau}_2 W_C +
 <p>といった一般的な形で書くことができる。<span class="math notranslate nohighlight">\(V\)</span>や<span class="math notranslate nohighlight">\(W\)</span>はそれぞれ、運動量やスピンへの依存性で寄与を整理するもので、
 <span class="math notranslate nohighlight">\(C\)</span> (central), <span class="math notranslate nohighlight">\(S\)</span> (spin), <span class="math notranslate nohighlight">\(LS\)</span> (spin-orbit), <span class="math notranslate nohighlight">\(T\)</span> (tensor), <span class="math notranslate nohighlight">\(\sigma L\)</span> (spin-spin-orbit)などと分類され、それぞれが <span class="math notranslate nohighlight">\( k\equiv | \vec{k} | \)</span> や <span class="math notranslate nohighlight">\(q\equiv | \vec{q} |\)</span> の関数となる。
 例えばMachleidtらのレビュー論文<a class="reference external" href="https://doi.org/10.1016/j.physrep.2011.02.001">Phys. Rep. 503, 1 (2011)</a>をみると、カイラル摂動論に基づいてこうした各項の振幅を計算する方法が示されている事がわかる。</p>
+<p>例を幾つか挙げよう:</p>
+<ul>
+<li><p>OPEP(One-pion exchange potential&#64;LO)</p>
+<div class="math notranslate nohighlight">
+\[
+  V(p,p') = - \frac{g_A^2}{4 f_\pi^2} \vec{\tau}_1 \cdot \vec{\tau}_2 \frac{\sigma_1 \cdot \vec{q} \sigma_2 \cdot \vec{q}}{q^2 + m_\pi^2 }
+  \]</div>
+</li>
+</ul>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>この<span class="math notranslate nohighlight">\(L(q)\)</span>部分が、Dimensional regularizationによるカットオフを元にした表式で、SFRによるカットオフを用いた場合には、表式が変更をうける。</p>
+</div>
+<ul>
+<li><p>NLOにおける<span class="math notranslate nohighlight">\(W_C\)</span>項 EM reviewの(4.9)式:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \begin{align}
+  W_C(p,p') &amp; = - \frac{L(q)}{384 \pi^2 f^4_\pi} 
+  \left[
+    4 m_\pi^2 (5g^4_A -4g_A^2 -1) + q^2 (23g^4_A - 10g^2_A - 1) + \frac{48g^4_Am^4_\pi}{w^2}
+  \right] \nonumber \\
+  w &amp; = \sqrt{q^2 + 4m^2_\pi} \nonumber \\
+  L(q) &amp; = \frac{w}{q}\ln \left(\frac{w+q}{2m_\pi}\right) \nonumber
+  \end{align}
+  \end{split}\]</div>
+</li>
+</ul>
 <div class="section" id="partial-wave-momentum-space-langle-p-l-s-j-t-z-v-p-lsjt-z-rangle">
 <h3><span class="section-number">1.2.1. </span>partial-wave momentum space: <span class="math notranslate nohighlight">\(\langle p';L'S'J'T_z |V|p;LSJT_z\rangle\)</span><a class="headerlink" href="#partial-wave-momentum-space-langle-p-l-s-j-t-z-v-p-lsjt-z-rangle" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="margin sidebar">
