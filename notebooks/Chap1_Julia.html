@@ -1,451 +1,418 @@
 
 <!DOCTYPE html>
 
-<html lang="ja">
+
+<html lang="ja" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Julia入門&amp;導入 &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-      
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
-
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/translations.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Chap1_Julia';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="1. 核力" href="Chap_NuclearForce.html" />
     <link rel="prev" title="講義の狙いと資料の概要" href="../home.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="ja">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <dialog id="pst-search-dialog">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../home.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo_full.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../home.html">
-   講義の狙いと資料の概要
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  はじめに
- </span>
-</p>
+    
+    
+    <img src="../_static/logo_full.png" class="logo__image only-light" alt="NuclearToolkit.jlによる　原子核構造計算入門 - Home"/>
+    <img src="../_static/logo_full.png" class="logo__image only-dark pst-js-only" alt="NuclearToolkit.jlによる　原子核構造計算入門 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../home.html">
+                    講義の狙いと資料の概要
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">はじめに</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Julia入門&amp;導入
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Julia入門&amp;導入</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part1
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part1</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_NuclearForce.html">
-   1. 核力
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_IMSRG.html">
-   2. 核子系の第一原理計算
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_NuclearForce.html">1. 核力</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_IMSRG.html">2. 核子系の第一原理計算</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part2
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part2</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_shellmodel.html">
-   3. 殻模型(配置間相互作用法)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_emulator.html">
-   4. Emulator/Surrogate model
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_shellmodel.html">3. 殻模型(配置間相互作用法)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_emulator.html">4. Emulator/Surrogate model</a></li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
-                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/Chap1_Julia.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
-                    class="fab fa-github"></i>リポジトリ</button></a>
-        <a class="issues-button"
-            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap1_Julia.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
         
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap1_Julia.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
-        title="全画面モード"><i
-            class="fas fa-expand"></i></button></a>
 
-            <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap1_Julia.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Chap1_Julia.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
+</div>
+              
+              
 
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Julia入門&導入</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> 目次
+            <div>
+                <h2> 目次 </h2>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Juliaとは
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python">
-   Pythonとの基本文法の違い
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     対応早見表
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tips">
-   高速化のtips
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   Juliaの実行環境
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Juliaのインストール
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#mac">
-       Macの場合
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#windows">
-       Windowsの場合
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#linux-wsl">
-       Linux(WSL)の場合
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     Juliaパッケージ
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     プロジェクト
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     Juliaのバージョン管理
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#jupyter-notebook">
-     Jupyter Notebookの実行
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#python-vs-julia">
-     サンプルコード: Python vs Julia
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nucleartoolkit-jl">
-   NuclearToolkit.jlの導入
-  </a>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Juliaとは</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Pythonとの基本文法の違い</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">対応早見表</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">高速化のtips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Juliaの実行環境</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Juliaのインストール</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mac">Macの場合</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windowsの場合</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-wsl">Linux(WSL)の場合</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Juliaパッケージ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">プロジェクト</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Juliaのバージョン管理</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook">Jupyter Notebookの実行</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-vs-julia">サンプルコード: Python vs Julia</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleartoolkit-jl">NuclearToolkit.jlの導入</a></li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Julia入門&導入</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> 目次 </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Juliaとは
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python">
-   Pythonとの基本文法の違い
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     対応早見表
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tips">
-   高速化のtips
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   Juliaの実行環境
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Juliaのインストール
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#mac">
-       Macの場合
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#windows">
-       Windowsの場合
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#linux-wsl">
-       Linux(WSL)の場合
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     Juliaパッケージ
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     プロジェクト
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     Juliaのバージョン管理
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#jupyter-notebook">
-     Jupyter Notebookの実行
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#python-vs-julia">
-     サンプルコード: Python vs Julia
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nucleartoolkit-jl">
-   NuclearToolkit.jlの導入
-  </a>
- </li>
-</ul>
 
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
-              <div>
+              
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="julia">
-<h1>Julia入門&amp;導入<a class="headerlink" href="#julia" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="julia">
+<h1>Julia入門&amp;導入<a class="headerlink" href="#julia" title="Link to this heading">#</a></h1>
 <p>※一部、所属大学における講義資料として作成中のものを含みます。</p>
-<div class="section" id="id1">
-<h2>Juliaとは<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<section id="id1">
+<h2>Juliaとは<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>Juliaは、MITで開発された、数値計算を得意とするプログラミング言語で、
 PythonやR、MATLABなどの言語の良いところを取り入れて開発されていて、高速に動作するという特徴を有する。</p>
 <p>作者らの記事<a class="reference external" href="https://julialang.org/blog/2012/02/why-we-created-julia/">Why We Created Julia</a>から重要な部分を引用:</p>
@@ -454,9 +421,9 @@ PythonやR、MATLABなどの言語の良いところを取り入れて開発さ�
 </div></blockquote>
 <p>ここにJulia言語の理念と特徴が集約されている。</p>
 <p>この講義でJuliaを使用する理由は、限られた時間と少ない労力(コーディングや実行時間)でより多くのトピックを学ぶためである。</p>
-</div>
-<div class="section" id="python">
-<h2>Pythonとの基本文法の違い<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+<section id="python">
+<h2>Pythonとの基本文法の違い<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
 <p>Pythonは0-based indexだが、Juliaは1-based indexで、配列<code class="docutils literal notranslate"><span class="pre">arr</span></code>の先頭の要素は<code class="docutils literal notranslate"><span class="pre">arr[1]</span></code>となる。<br />
 その意味では、PythonはC言語に近く、JuliaはMATLABやFortranに近いと言える。</p>
 <p>Pythonの場合は、インデントを使ってブロックを表現するが、Juliaの場合は、<code class="docutils literal notranslate"><span class="pre">begin</span></code>と<code class="docutils literal notranslate"><span class="pre">end</span></code>を使ってブロックを表現する。<br />
@@ -467,31 +434,31 @@ PythonやR、MATLABなどの言語の良いところを取り入れて開発さ�
 編集の過程でインデントが崩れてしまい、バグの温床になったりすることがあるので、
 Juliaの方が、ブロックに対してambiguityが少ないというメリットがあるように思う。</p>
 <p>またNumpyで言うところのブロードキャストをdefaultで有していて、<code class="docutils literal notranslate"><span class="pre">v</span></code>がFloat64の一次元配列とすると</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">v</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">v</span>
 </pre></div>
 </div>
 <p>でスカラー倍をしたベクトル<code class="docutils literal notranslate"><span class="pre">u</span></code>を作ることができる。</p>
 <p>また、</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="w"> </span><span class="o">.=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">u</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="w"> </span><span class="o">.=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">u</span>
 </pre></div>
 </div>
 <p>と書くと、<code class="docutils literal notranslate"><span class="pre">v</span></code>(が既に定義されていれば)の各要素に<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">.*</span> <span class="pre">u</span></code>の各要素を代入してくれる。<br />
 単に</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">u</span><span class="w"></span>
-<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">B</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">u</span>
+<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">B</span>
 </pre></div>
 </div>
 <p>などと書くと、<code class="docutils literal notranslate"><span class="pre">v</span></code>や<code class="docutils literal notranslate"><span class="pre">A</span></code>を新たに定義してしまい、メモリ確保が発生する。
 ブロードキャストは、特に大次元のベクトルや行列を操作する際、メモリを節約したり更新操作を速く行うために有用である。</p>
 <p>また、<code class="docutils literal notranslate"><span class="pre">&#64;.</span></code>というマクロをつけることで、ブロードキャストを明示的に書く必要がなくなり、</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@.</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">C</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="nd">@.</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">C</span>
 </pre></div>
 </div>
 <p>などとしても<span class="math notranslate nohighlight">\(A .= a .* (B .* C)\)</span>と同じ意味になるが、
 なれないうちは、ブロードキャストを明示的に書いた方が良い。</p>
-<div class="section" id="id2">
-<h3>対応早見表<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<table class="colwidths-auto table">
+<section id="id2">
+<h3>対応早見表<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
 <th class="head"><p>Julia</p></th>
@@ -542,14 +509,15 @@ Juliaの方が、ブロックに対してambiguityが少ないというメリッ
 </tbody>
 </table>
 </div>
-</div>
-<div class="section" id="tips">
-<h2>高速化のtips<a class="headerlink" href="#tips" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="margin sidebar">
+</section>
+</section>
+<section id="tips">
+<h2>高速化のtips<a class="headerlink" href="#tips" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>コード自体が行う計算が軽量な場合、JITコンパイルの時間が無視できなくなるため、
 実行コマンドを叩いてからの経過時間を競うようなプログラミングコンテストなどにはJuliaは不向きと言えるかもしれない。</p>
-</div>
+</aside>
 <p>JuliaはPythonのように動的に使用することができるが、
 Just-In-Time(JIT)コンパイルといって、実行時にソースコードを&quot;幾つかの工程&quot;を踏んで機械語に翻訳して実行することで
 (JITコンパイル自体の時間が生じるものの)非常に高速に実行することができる。</p>
@@ -558,31 +526,31 @@ Juliaでは明示的に型を指定することは必須ではなく、きちん
 ただし、演算の途中で型の不一致などがあると、<em>勝手に速いコードを生成する</em>妨げになり、コードが遅くなるため、
 そうした想定外の型の不一致を避けるために、関数の引数や返り値の型を明示的に指定することが有用となる。</p>
 <p>特に、行列やベクトルを定義するときは、その型(とサイズ)を明示的に指定して定義するのが良い。</p>
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="c"># 倍精度floatを要素に持つn×m行列を0行列で定義</span><span class="w"></span>
-<span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="c"># 単精度floatを要素に持つn×m行列を正規乱数をつかって定義</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="c"># 倍精度floatを要素に持つn×m行列を0行列で定義</span>
+<span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="c"># 単精度floatを要素に持つn×m行列を正規乱数をつかって定義</span>
 </pre></div>
 </div>
 <p>その他、高速化のtipsについては公式ドキュメントの<a class="reference external" href="https://docs.julialang.org/en/v1/manual/performance-tips/">Performance Tips</a>が詳しい。</p>
-</div>
-<div class="section" id="id3">
-<h2>Juliaの実行環境<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+<section id="id3">
+<h2>Juliaの実行環境<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <p>Juliaを動かす方法は幾つかあるが、この講義では、
 Juliaをインストールしてターミナル(VS code経由など含む)ないし、JupyterNotebook環境で実行する方法を推奨とする。<br />
 一度インストールして<code class="docutils literal notranslate"><span class="pre">IJulia.jl</span></code>パッケージをインストールすれば、.ipynb形式のファイルのJupyter用カーネルを用意することができる。</p>
-<div class="section" id="id4">
-<h3>Juliaのインストール<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<section id="id4">
+<h3>Juliaのインストール<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>では、実際にJuliaをインストールする方法をOSごとに紹介しよう。<br />
 (著者の意見では)Juliaの環境構築はPythonの環境構築よりも遥かに簡単で安全である。
 以下に示すOSごとの手順のほか、最近(v1.10くらいの頃から？)は<a class="reference external" href="https://julialang.org/downloads/">公式ページ</a>でも、後述のjuliaupを用いる方法が推奨されている。</p>
-<div class="section" id="mac">
-<h4>Macの場合<a class="headerlink" href="#mac" title="このヘッドラインへのパーマリンク">¶</a></h4>
-<ol>
+<section id="mac">
+<h4>Macの場合<a class="headerlink" href="#mac" title="Link to this heading">#</a></h4>
+<ol class="arabic">
 <li><p>Julia言語の<a class="reference external" href="https://julialang.org/downloads/">公式ページ</a>から、macOS用の.dmgファイル(長期サポート(LTS)のv1.6か最新版)をダウンロードする。<br />
 ※Apple Siliconチップの場合は、macOS(Apple Silicon)を選択するほうが性能上良いが、どちらでも動かすことは可能。</p></li>
 <li><p>ダウンロードしたファイルを開き、Juliaアプリケーションをアプリケーションフォルダに移動する。</p></li>
 <li><p>PATHを通すために、ターミナルを開き下記を実行する。<br />
 ※Julia-1.6の部分やbashrcの部分は、適宜ダウンロードしたJuliaのバージョンに置き換えたり使用しているシェルに合わせて変更すること。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;/Applications/Julia-1.6.app/Contents/Resources/julia/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 <p>Mac OSの場合、(いつからだったか)標準のシェルがbashからzshに変更されているので、zshを使う場合は、<code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>ではなく<code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code>に追記すること。</p>
@@ -590,26 +558,26 @@ Juliaをインストールしてターミナル(VS code経由など含む)ない
 <li><p>ターミナルで<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code>などを行い変更を反映したのち、<code class="docutils literal notranslate"><span class="pre">julia</span></code>と入力して、JuliaのREPL(対話環境)が起動することを確認する。</p></li>
 </ol>
 <p>Dockerを使う方法もあるが、その場合は(とくにApple Siliconの場合は)適切なLinuxイメージを用いれば、以降のLinuxの場合の手順に従えばよい。</p>
-</div>
-<div class="section" id="windows">
-<h4>Windowsの場合<a class="headerlink" href="#windows" title="このヘッドラインへのパーマリンク">¶</a></h4>
-<div class="margin sidebar">
+</section>
+<section id="windows">
+<h4>Windowsの場合<a class="headerlink" href="#windows" title="Link to this heading">#</a></h4>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>えっと...pure Windows環境の場合は勘弁してください。</p>
-</div>
-<ol class="simple">
+</aside>
+<ol class="arabic simple">
 <li><p>WSL2をインストールする。</p></li>
 <li><p>下記のLinuxの場合の手順に従う。</p></li>
 </ol>
-</div>
-<div class="section" id="linux-wsl">
-<h4>Linux(WSL)の場合<a class="headerlink" href="#linux-wsl" title="このヘッドラインへのパーマリンク">¶</a></h4>
-<ol>
+</section>
+<section id="linux-wsl">
+<h4>Linux(WSL)の場合<a class="headerlink" href="#linux-wsl" title="Link to this heading">#</a></h4>
+<ol class="arabic">
 <li><p>Julia言語の<a class="reference external" href="https://julialang.org/downloads/">公式ページ</a>から、Linux用のtar.gzファイル(長期サポート(LTS)のv1.6か最新版)をダウンロードする。<br />
 ※ アーキテクチャに応じたものを選択すること。</p></li>
 <li><p>tar.gzを解凍すると<code class="docutils literal notranslate"><span class="pre">julia-1.9.0</span></code>というフォルダができる。この中の<code class="docutils literal notranslate"><span class="pre">julia-1.9.0/bin/julia</span></code>が実行ファイルなので、
 この実行ファイルにPATHを通すために、ターミナルを開き下記のように実行する。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;/path/to/julia-1.9.0/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;/path/to/julia-1.9.0/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 <ul class="simple">
@@ -620,10 +588,10 @@ Juliaをインストールしてターミナル(VS code経由など含む)ない
 </li>
 <li><p>ターミナルで<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code>などを行い変更を反映したのち、<code class="docutils literal notranslate"><span class="pre">julia</span></code>と入力して、JuliaのREPL(対話環境)が起動することを確認する。</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="id5">
-<h3>Juliaパッケージ<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</section>
+</section>
+<section id="id5">
+<h3>Juliaパッケージ<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>Juliaには、独自のパッケージマネージャが組み込まれており、それ自体が<code class="docutils literal notranslate"><span class="pre">Pkg</span></code>というパッケージになっている。
 Juliaでパッケージを使用する際は、<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">パッケージ名</span></code>としてやればよい。これが、Pythonでいう<code class="docutils literal notranslate"><span class="pre">import</span></code>に相当する。</p>
 <p>Juliaパッケージのインストールは、<code class="docutils literal notranslate"><span class="pre">Pkg.add(&quot;パッケージ名&quot;)</span></code>とする。
@@ -640,9 +608,9 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 ランダム行列を作って、行列のdeterminant(行列式)を求めてみる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"></span>
-<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
-<span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span>
+<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -656,9 +624,9 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">パッケージ名</span></code>とすると、パッケージ内の関数や型を、<code class="docutils literal notranslate"><span class="pre">パッケージ名.関数名</span></code>のようにして呼び出す必要がある。</p>
 <p>たとえ異なるパッケージで同一の関数名が定義されていても、Juliaには多重ディスパッチで関数を呼び出す仕組みがあるので、
 問題が起こる(複数のライブラリ間で関数の定義が完全に衝突する)事例は稀なので、基本的に<code class="docutils literal notranslate"><span class="pre">using</span></code>を使えばよい。</p>
-</div>
-<div class="section" id="id6">
-<h3>プロジェクト<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</section>
+<section id="id6">
+<h3>プロジェクト<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>Juliaでは、複数のパッケージを含むプロジェクトを作成することができる。<br />
 自作パッケージなどのプロジェクトフォルダ内に<code class="docutils literal notranslate"><span class="pre">Project.toml</span></code>と<code class="docutils literal notranslate"><span class="pre">Manifest.toml</span></code>というファイルを作成することで、
 複雑な依存関係を含むパッケージの管理を行いながら、開発・実行することができる。<br />
@@ -666,18 +634,18 @@ package_nameの部分はもちろん、自分の使いたいパッケージ名�
 <p>とくに自作パッケージを作成する場合は必須事項となるので、<a class="reference external" href="https://pkgdocs.julialang.org/v1/toml-files/">Pkg.jlのドキュメント</a>や<br />
 日本語の書籍であれば<a class="reference external" href="https://www.kspub.co.jp/book/detail/5318195.html">Juliaプログラミング大全</a>や<a class="reference external" href="https://gihyo.jp/book/2023/978-4-297-13350-4">実践Julia入門</a>を参照してほしい。</p>
 <p>bashrc(など)に、</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">JULIA_PROJECT</span><span class="o">=</span>@.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">JULIA_PROJECT</span><span class="o">=</span>@.
 </pre></div>
 </div>
 <p>と書いておけば、<code class="docutils literal notranslate"><span class="pre">julia</span></code>を実行した際に、そのディレクトリがJuliaプロジェクトであれば、tomlファイルを介してそのプロジェクトの環境を読み込んでくれる。
 GitHubにあるJuliaパッケージのレポジトリをクローンないしダウンロードしてきてサンプルコードをサクッと使いたい場合は、こちらの方法も有用である。</p>
-</div>
-<div class="section" id="id7">
-<h3>Juliaのバージョン管理<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</section>
+<section id="id7">
+<h3>Juliaのバージョン管理<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">juliaup</span></code>というJuliaのバージョンを管理するためのツールが便利で、Juliaのバージョンを切り替えることができる。juliaupの<a class="reference external" href="https://github.com/JuliaLang/juliaup">レポジトリ</a>に従ってインストールしておこう。</p>
-</div>
-<div class="section" id="jupyter-notebook">
-<h3>Jupyter Notebookの実行<a class="headerlink" href="#jupyter-notebook" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</section>
+<section id="jupyter-notebook">
+<h3>Jupyter Notebookの実行<a class="headerlink" href="#jupyter-notebook" title="Link to this heading">#</a></h3>
 <p>この講義の資料のように、ipynb形式のファイルを実行する場合、JuliaのREPLで</p>
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="p">]</span><span class="n">add</span><span class="w"> </span><span class="n">IJulia</span><span class="w"> </span>
 </pre></div>
@@ -688,9 +656,9 @@ GitHubにあるJuliaパッケージのレポジトリをクローンないしダ
 <p>筆者の環境(VS Code)でJupyter環境でJuliaコードを実行すると、たまに停止やカーネルの再起動といった操作を受け付けず、プロセスが残り続けることがある。
 講義では、資料の配布のしやすさからipynb形式を採用しているが、実際のコード開発や実行において筆者がJupyter環境を使うことはまず無い。</p>
 <p><a class="reference external" href="https://github.com/JuliaLang/IJulia.jl/issues/1052">関連する？issue</a></p>
-</div>
-<div class="section" id="python-vs-julia">
-<h3>サンプルコード: Python vs Julia<a class="headerlink" href="#python-vs-julia" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</section>
+<section id="python-vs-julia">
+<h3>サンプルコード: Python vs Julia<a class="headerlink" href="#python-vs-julia" title="Link to this heading">#</a></h3>
 <p>ランダム行列の特異値分解のコードを書いてみよう。どちらも同じくらいシンプルになる。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#ランダム行列を生成し特異値分解するPythonコード</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -709,31 +677,31 @@ GitHubにあるJuliaパッケージのレポジトリをクローンないしダ
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#ランダム行列を生成し特異値分解するJuliaコード</span><span class="w"></span>
-<span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c">#ランダム行列を生成し特異値分解するJuliaコード</span>
+<span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span>
 
-<span class="k">function</span><span class="w"> </span><span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="n">dim</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"></span>
-<span class="k">end</span><span class="w"></span>
+<span class="k">function</span><span class="w"> </span><span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randn</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="n">dim</span><span class="p">)</span>
+<span class="w">    </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">V</span>
+<span class="k">end</span>
 
-<span class="k">function</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">dim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
-<span class="w">    </span><span class="n">itnum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">itnum</span><span class="w"></span>
+<span class="k">function</span><span class="w"> </span><span class="n">main</span><span class="p">()</span>
+<span class="w">    </span><span class="n">dim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
+<span class="w">    </span><span class="n">itnum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">itnum</span>
 <span class="w">        </span><span class="n">mat_svd</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span><span class="w">    </span>
-<span class="w">    </span><span class="k">end</span><span class="w"></span>
-<span class="k">end</span><span class="w"></span>
-<span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+<span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="nucleartoolkit-jl">
-<h2>NuclearToolkit.jlの導入<a class="headerlink" href="#nucleartoolkit-jl" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+</section>
+<section id="nucleartoolkit-jl">
+<h2>NuclearToolkit.jlの導入<a class="headerlink" href="#nucleartoolkit-jl" title="Link to this heading">#</a></h2>
 <p>この講義では、筆者が2022年に公開したJuliaパッケージ<a class="reference external" href="https://github.com/SotaYoshida/NuclearToolkit.jl">NuclearToolkit.jl</a>の実行結果の紹介を行う。</p>
 <p>このパッケージの概要と、導入方法などをまとめておく。
 また、パッケージには一応<a class="reference external" href="https://sotayoshida.github.io/NuclearToolkit.jl/stable/">ドキュメント</a>があるので、
@@ -754,24 +722,24 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
 <p>パッケージのインストールは簡単で、</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span><span class="w"></span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;NuclearToolkit&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;NuclearToolkit&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>とするだけ。</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>CIといってもなんちゃってテストコードが多く、カバレッジも75%程度だが、主要な機能については破壊的な変更を防ぐ程度のテストは回してある。</p>
-</div>
+</aside>
 <p>パッケージはGitHub Actionsを用いて、Linux, macOS, Windowsの3つのOSでCIを回しているので、少なくともv1.9以降のJuliaであれば、どのOSでも動くはずであるが、本資料の執筆時点で筆者が使用している、Julia v1.10.0及びNuclearToolkit.jlのv0.4.1(2024/03/04)以降での実行を推奨とする。</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p>ぜひ、Juliaの導入, NuclearToolkit.jlの導入ののち、JuliaのREPLで<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">NuclearToolkit</span></code>として、パッケージを読み込むところまでを事前に試してください。もし、エラーが出たり、環境構築でわからないことがあれば、Slack or 講義の前など、気軽に声をかけてください。</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -785,7 +753,7 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
             mode: "julia-1.10"
         },
         kernelOptions: {
-            kernelName: "julia-1.10",
+            name: "julia-1.10",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -793,45 +761,117 @@ NuclearToolkit.jlではそれぞれ数千行、合計2万行程度なので、�
     </script>
     <script>kernelName = 'julia-1.10'</script>
 
-              </div>
+                </article>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../home.html" title="前へ ページ">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">前へ</p>
-            <p class="prev-next-title">講義の狙いと資料の概要</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../home.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">講義の狙いと資料の概要</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Chap_NuclearForce.html" title="次へ ページ">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Chap_NuclearForce.html"
+       title="次ページ">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
         <p class="prev-next-title"><span class="section-number">1. </span>核力</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
+                </footer>
+              
+            </div>
             
-        </div>
-    </div>
-    <footer class="footer">
-  <p>
-    
-      <div class="extra_footer">
-        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
-
-      </div>
-  </p>
-</footer>
-</main>
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-      </div>
-    </div>
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Juliaとは</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Pythonとの基本文法の違い</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">対応早見表</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">高速化のtips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Juliaの実行環境</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Juliaのインストール</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mac">Macの場合</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windowsの場合</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-wsl">Linux(WSL)の場合</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Juliaパッケージ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">プロジェクト</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Juliaのバージョン管理</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook">Jupyter Notebookの実行</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-vs-julia">サンプルコード: Python vs Julia</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleartoolkit-jl">NuclearToolkit.jlの導入</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
 
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

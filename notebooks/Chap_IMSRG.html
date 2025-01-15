@@ -1,366 +1,402 @@
 
 <!DOCTYPE html>
 
-<html lang="ja">
+
+<html lang="ja" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>2. 核子系の第一原理計算 &#8212; NuclearToolkit.jlによる　原子核構造計算入門</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-      
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
-
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/translations.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Chap_IMSRG';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="3. 殻模型(配置間相互作用法)" href="Chap_shellmodel.html" />
     <link rel="prev" title="1. 核力" href="Chap_NuclearForce.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="ja">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <dialog id="pst-search-dialog">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../home.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo_full.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">NuclearToolkit.jlによる　原子核構造計算入門</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="この本を検索..." aria-label="この本を検索..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../home.html">
-   講義の狙いと資料の概要
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  はじめに
- </span>
-</p>
+    
+    
+    <img src="../_static/logo_full.png" class="logo__image only-light" alt="NuclearToolkit.jlによる　原子核構造計算入門 - Home"/>
+    <img src="../_static/logo_full.png" class="logo__image only-dark pst-js-only" alt="NuclearToolkit.jlによる　原子核構造計算入門 - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../home.html">
+                    講義の狙いと資料の概要
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">はじめに</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap1_Julia.html">
-   Julia入門&amp;導入
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Chap1_Julia.html">Julia入門&amp;導入</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part1
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part1</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_NuclearForce.html">
-   1. 核力
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   2. 核子系の第一原理計算
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_NuclearForce.html">1. 核力</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 核子系の第一原理計算</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Part2
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part2</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_shellmodel.html">
-   3. 殻模型(配置間相互作用法)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Chap_emulator.html">
-   4. Emulator/Surrogate model
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_shellmodel.html">3. 殻模型(配置間相互作用法)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Chap_emulator.html">4. Emulator/Surrogate model</a></li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
-                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/Chap_IMSRG.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
-                    class="fab fa-github"></i>リポジトリ</button></a>
-        <a class="issues-button"
-            href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_IMSRG.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
         
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
-</div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+<div class="article-header-buttons">
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
-        title="全画面モード"><i
-            class="fas fa-expand"></i></button></a>
 
-            <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/SotaYoshida/Lecture_CompPhys_SpSchool24/master?urlpath=tree/docs/notebooks/Chap_IMSRG.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="発売 Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> 目次
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-medium-similarity-renormalization-group-im-srg">
-   2.1. In-medium Similarity Renormalization Group (IM-SRG)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#clubsuit-imsrgmagnus">
-     2.1.1.
-     <span class="math notranslate nohighlight">
-      \(\clubsuit\)
-     </span>
-     IMSRGのMagnus展開
-    </a>
-   </li>
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="ソースリポジトリ"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SotaYoshida/Lecture_CompPhys_SpSchool24/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Chap_IMSRG.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="問題を報告"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#normal-ordering">
-   2.2. Normal ordering
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#valence-space-imsrg-vs-imsrg">
-   2.3. Valence-space IMSRG (VS-IMSRG)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#clubsuit-hf-mbpt">
-   2.4.
-   <span class="math notranslate nohighlight">
-    \(\clubsuit\)
-   </span>
-   HF-MBPT
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nucleartoolkit-jlimsrg">
-   2.5. NuclearToolkit.jlを用いたIMSRG計算
-  </a>
- </li>
-</ul>
+</div>
 
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Chap_IMSRG.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>核子系の第一原理計算</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-medium-similarity-renormalization-group-im-srg">2.1. In-medium Similarity Renormalization Group (IM-SRG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clubsuit-imsrgmagnus">2.1.1. <span class="math notranslate nohighlight">\(\clubsuit\)</span> IMSRGのMagnus展開</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-ordering">2.2. Normal ordering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valence-space-imsrg-vs-imsrg">2.3. Valence-space IMSRG (VS-IMSRG)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clubsuit-hf-mbpt">2.4. <span class="math notranslate nohighlight">\(\clubsuit\)</span> HF-MBPT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleartoolkit-jlimsrg">2.5. NuclearToolkit.jlを用いたIMSRG計算</a></li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>核子系の第一原理計算</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> 目次 </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#in-medium-similarity-renormalization-group-im-srg">
-   2.1. In-medium Similarity Renormalization Group (IM-SRG)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#clubsuit-imsrgmagnus">
-     2.1.1.
-     <span class="math notranslate nohighlight">
-      \(\clubsuit\)
-     </span>
-     IMSRGのMagnus展開
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#normal-ordering">
-   2.2. Normal ordering
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#valence-space-imsrg-vs-imsrg">
-   2.3. Valence-space IMSRG (VS-IMSRG)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#clubsuit-hf-mbpt">
-   2.4.
-   <span class="math notranslate nohighlight">
-    \(\clubsuit\)
-   </span>
-   HF-MBPT
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nucleartoolkit-jlimsrg">
-   2.5. NuclearToolkit.jlを用いたIMSRG計算
-  </a>
- </li>
-</ul>
 
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            
-              <div>
+              
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
-<h1><span class="section-number">2. </span>核子系の第一原理計算<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">2. </span>核子系の第一原理計算<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <p>核子系の&quot;第一原理計算&quot;の定義はまちまちだが、一般的には</p>
 <ul class="simple">
 <li><p>核子の自由度を陽に扱う</p></li>
@@ -388,8 +424,8 @@ post-HF法のうちとくにIn-medium Similarity Renormalization Group(IM-SRG)�
 原子核の基底状態の第一原理計算手法としてだけでなく、
 殻模型の有効相互作用(バレンス空間の有効核力)の導出にも用いられるなど、応用上も非常に重要な手法である。</p>
 <p>以下では、NuclearToolkit.jlを用いて、IMSRG法による核子系の第一原理計算も少し体験してみよう。</p>
-<div class="section" id="in-medium-similarity-renormalization-group-im-srg">
-<h2><span class="section-number">2.1. </span>In-medium Similarity Renormalization Group (IM-SRG)<a class="headerlink" href="#in-medium-similarity-renormalization-group-im-srg" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<section id="in-medium-similarity-renormalization-group-im-srg">
+<h2><span class="section-number">2.1. </span>In-medium Similarity Renormalization Group (IM-SRG)<a class="headerlink" href="#in-medium-similarity-renormalization-group-im-srg" title="Link to this heading">#</a></h2>
 <p>核力のソフト化の議論で登場した相似変換くりこみ群(SRG)は、核力をソフト化する方法として考案された後、
 核子系の第一原理計算にも応用されるようになった。</p>
 <ul class="simple">
@@ -431,8 +467,8 @@ H(s) = U(s) H(0) U^\dagger(s)
 \]</div>
 <p>を満たす、反エルミート行列である。この<span class="math notranslate nohighlight">\(\eta\)</span>についても幾らかの定義があるが、最もよく用いられるものはarctangent関数を用いたものである。
 さらに詳細が知りたい人はレビュー論文<a class="reference external" href="https://doi.org/10.1146/annurev-nucl-101917-021120">S.R. Stroberg et al., 	Ann. Rev. Nucl. and Part. Sci., 69 307-362 (2019)</a>を参照すると良い。</p>
-<div class="section" id="clubsuit-imsrgmagnus">
-<h3><span class="section-number">2.1.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> IMSRGのMagnus展開<a class="headerlink" href="#clubsuit-imsrgmagnus" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<section id="clubsuit-imsrgmagnus">
+<h3><span class="section-number">2.1.1. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> IMSRGのMagnus展開<a class="headerlink" href="#clubsuit-imsrgmagnus" title="Link to this heading">#</a></h3>
 <p>以下はテクニカルなので、原子核の第一原理計算を専門にしようと思う人以外は飛ばしてもよい。</p>
 <p>実際のコードの実装では、Magnus展開を用いたIMSRGの定式化<a class="reference external" href="https://doi.org/10.1103/PhysRevC.92.034331">T.D. Morris et al., Phys. Rev. C 92, 034331 (2015)</a>を用いることで、演算子ごとのflow方程式を考えることなく系統的に計算を行うことができる。
 そのキモは、ユニタリ変換の生成子<span class="math notranslate nohighlight">\(\Omega(s)\)</span>を明示的に導入することである。</p>
@@ -450,10 +486,10 @@ ad^{(0)}_{\Omega}(\eta) &amp; = \eta,
 <p>ここで、<span class="math notranslate nohighlight">\(B_k\)</span>はBernoulli数である。</p>
 <p>これにより、<span class="math notranslate nohighlight">\(\Omega(s)\)</span>さえ求まれば、Hamiltonianのflowだけでなく、任意の演算子のflowを計算することができる。
 演算子のflowはBaker-Campbell-Hausdorff (BCH)公式を用いて計算してやればよい。</p>
-</div>
-</div>
-<div class="section" id="normal-ordering">
-<h2><span class="section-number">2.2. </span>Normal ordering<a class="headerlink" href="#normal-ordering" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+</section>
+<section id="normal-ordering">
+<h2><span class="section-number">2.2. </span>Normal ordering<a class="headerlink" href="#normal-ordering" title="Link to this heading">#</a></h2>
 <p>３体力の効果を含めた多体計算手法では、実用上、通常、3体項を顕わに扱うことはできない。
 そこで、３体力の効果を可能な限り取り込むために、通常、normal orderingと呼ばれる手法が用いられる。
 つまり、適当なreference stateを用いて、ハミルトニアンをnormal orderingすることで、3体項の効果をできるだけ2体項に取り込む。</p>
@@ -502,9 +538,9 @@ W_{pqrstu}&amp;  = \langle pqr | V^{(3)} | stu \rangle \nonumber
 \end{split}\]</div>
 <p>flowの各ステップで必要な演算が全て行列・行列積などで書ければ、IMSRG flowの計算はBLASを用いるだけであり、
 GPUなどを用いた高速化も期待できるが、実際には、全ての演算を単純に行列・行列積で書き下すことは難しく、実際の計算はそれほど簡単ではない。</p>
-</div>
-<div class="section" id="valence-space-imsrg-vs-imsrg">
-<h2><span class="section-number">2.3. </span>Valence-space IMSRG (VS-IMSRG)<a class="headerlink" href="#valence-space-imsrg-vs-imsrg" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+<section id="valence-space-imsrg-vs-imsrg">
+<h2><span class="section-number">2.3. </span>Valence-space IMSRG (VS-IMSRG)<a class="headerlink" href="#valence-space-imsrg-vs-imsrg" title="Link to this heading">#</a></h2>
 <p>IMSRG法は、閉殻やsub-shell closedの核子系の基底状態の計算には非常に有効であるが、odd核など、開殻の計算には適さない。
 そのため、開殻系の計算には、Valence-space IMSRG (VS-IMSRG)法が用いられる。</p>
 <p>IMSRG法のユニタリ変換のdecouplingの対象が、particle-hole間であったのに対し、
@@ -523,9 +559,9 @@ VS-IMSRG法を用いた方法では、模型空間外の軌道の効果をVS-IMS
 <li><p>GT transition (β崩壊): P.Gysbers et al., <a class="reference external" href="https://doi.org/10.1038/s41567-019-0450-7">Nature Physics 15, 428–433 (2019)</a></p></li>
 <li><p>2β decay: J.M. Yao et al., <a class="reference external" href="https://doi.org/10.1103/PhysRevC.103.014315">Phys. Rev. C 103, 014315 (2021)</a></p></li>
 </ul>
-</div>
-<div class="section" id="clubsuit-hf-mbpt">
-<h2><span class="section-number">2.4. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> HF-MBPT<a class="headerlink" href="#clubsuit-hf-mbpt" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+<section id="clubsuit-hf-mbpt">
+<h2><span class="section-number">2.4. </span><span class="math notranslate nohighlight">\(\clubsuit\)</span> HF-MBPT<a class="headerlink" href="#clubsuit-hf-mbpt" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">NuclearToolkit.jl</span></code>では、いくつかの多体計算手法が実装されているが、
 (sub-)shell-closedな原子核の場合、その基底状態のエネルギーと半径のみに興味がある場合、
 最もカンタンな方法は、HF-MBPT (Hartree-Fock Many-Body Perturbation Theory)と呼ばれる計算によるものである。</p>
@@ -539,21 +575,26 @@ Isaiah Shavitt and Rodney J. Bartlettによる有名な黒い本を参照され�
 <p>核力とMBPTの性質上、相互作用や原子核によっては結果が上手く収束しない場合もあるが、
 十分にソフトな相互作用であれば、HF-MBPT(3)を用いれば
 Coupled-Cluster法のCCSDやIM-SRG(2)と<em>そう遠くない</em>エネルギーの推定値を得ることができる。</p>
-</div>
-<div class="section" id="nucleartoolkit-jlimsrg">
-<h2><span class="section-number">2.5. </span>NuclearToolkit.jlを用いたIMSRG計算<a class="headerlink" href="#nucleartoolkit-jlimsrg" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</section>
+<section id="nucleartoolkit-jlimsrg">
+<h2><span class="section-number">2.5. </span>NuclearToolkit.jlを用いたIMSRG計算<a class="headerlink" href="#nucleartoolkit-jlimsrg" title="Link to this heading">#</a></h2>
 <p>コード中のインターフェースはHF-MBPTとIMSRG法で共通になっており、<code class="docutils literal notranslate"><span class="pre">hf_main</span></code>関数が主な関数となる。
 (IMSRG法で計算する/しない場合のいずれでもHF-MBPTの計算を試みるようになっている)<br />
 <code class="docutils literal notranslate"><span class="pre">doIMSRG</span></code>というオプション変数を<code class="docutils literal notranslate"><span class="pre">true</span></code>にすることで、IMSRG法の計算を行うことができる。</p>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sntf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tbme_em500n3lo_srg2.0hw20emax4.snt.bin&quot;</span><span class="w"></span>
-<span class="n">hw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="w"></span>
-<span class="n">emax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
-<span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span><span class="w"> </span><span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">sntf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tbme_em500n3lo_srg2.0hw20emax4.snt.bin&quot;</span>
+<span class="n">hw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span>
+<span class="n">emax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span><span class="w"> </span><span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BLAS.get_config() LBTConfig([ILP64] libopenblas64_.dylib)
 BLAS.get_num_threads() 1 nthreads 1
@@ -1139,6 +1180,7 @@ def-by-run d6j_lj done!
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>「Click to show」をクリックすると開ける実行ログ中にあるように、<span class="math notranslate nohighlight">\(\eta(s)\)</span>(ユニタリ変換の生成子)のnormが小さくなっていくことがわかる。</p>
 <p>また、基底状態エネルギーの値を見ると、</p>
@@ -1148,19 +1190,24 @@ def-by-run d6j_lj done!
 <li><p>IMSRG(2): -156.821</p></li>
 </ul>
 <p>実験値は-127.619 MeVである。HFの方が実験値に近いじゃないか！と思うかもしれないが、今考えている相互作用はinduced&amp;genuine３体力の寄与を無視しているため、束縛エネルギーを過大評価するのが自然な相互作用になっている。</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>例えば、前章末尾で紹介したNN+3NF(lnl,N3LO)を用いると、<span class="math notranslate nohighlight">\(e_{\mathrm{max}}=14\)</span>, <span class="math notranslate nohighlight">\(E_\mathrm{3max} =16\)</span>という大きな模型空間で計算すると、
 <span class="math notranslate nohighlight">\(−128.6\)</span> MeVという、実験値にかなり近い値が得られる。</p>
-</div>
+</aside>
 <p>また、模型空間(baseのサイズを決める<span class="math notranslate nohighlight">\(e_{\mathrm{max}}\)</span>)もかなり小さいため、実験値との比較を考えてもそう意味はない。</p>
 <p>また、模型空間を<span class="math notranslate nohighlight">\(sd\)</span>殻として、<span class="math notranslate nohighlight">\({}^{24}\mathrm{Mg}\)</span> 用に有効相互作用を計算してみよう。</p>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span><span class="w"> </span><span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">corenuc</span><span class="o">=</span><span class="s">&quot;O16&quot;</span><span class="p">,</span><span class="n">ref</span><span class="o">=</span><span class="s">&quot;nuc&quot;</span><span class="p">,</span><span class="n">valencespace</span><span class="o">=</span><span class="s">&quot;sd-shell&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">hf_main</span><span class="p">([</span><span class="s">&quot;O16&quot;</span><span class="p">],</span><span class="n">sntf</span><span class="p">,</span><span class="n">hw</span><span class="p">,</span><span class="n">emax</span><span class="p">;</span><span class="w"> </span><span class="n">doIMSRG</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">corenuc</span><span class="o">=</span><span class="s">&quot;O16&quot;</span><span class="p">,</span><span class="n">ref</span><span class="o">=</span><span class="s">&quot;nuc&quot;</span><span class="p">,</span><span class="n">valencespace</span><span class="o">=</span><span class="s">&quot;sd-shell&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BLAS.get_config() LBTConfig([ILP64] libopenblas64_.dylib)
 BLAS.get_num_threads() 1 nthreads 1
@@ -1987,11 +2034,12 @@ Starting VS-IMSRG flow
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>この結果、殻模型計算コードのインプットとして用いることのできる相互作用ファイルが生成される。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">(</span><span class="sb">`head -n 20 vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt`</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">(</span><span class="sb">`head -n 20 vsimsrg_sd-shell_coreO16refO16_O16_hw20e4_Delta0.0.snt`</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2023,8 +2071,8 @@ Starting VS-IMSRG flow
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2038,7 +2086,7 @@ Starting VS-IMSRG flow
             mode: "julia-1.10"
         },
         kernelOptions: {
-            kernelName: "julia-1.10",
+            name: "julia-1.10",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2046,45 +2094,104 @@ Starting VS-IMSRG flow
     </script>
     <script>kernelName = 'julia-1.10'</script>
 
-              </div>
+                </article>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="Chap_NuclearForce.html" title="前へ ページ">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">前へ</p>
-            <p class="prev-next-title"><span class="section-number">1. </span>核力</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Chap_NuclearForce.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>核力</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Chap_shellmodel.html" title="次へ ページ">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Chap_shellmodel.html"
+       title="次ページ">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
         <p class="prev-next-title"><span class="section-number">3. </span>殻模型(配置間相互作用法)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
+                </footer>
+              
+            </div>
             
-        </div>
-    </div>
-    <footer class="footer">
-  <p>
-    
-      <div class="extra_footer">
-        © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
-
-      </div>
-  </p>
-</footer>
-</main>
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-      </div>
-    </div>
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-medium-similarity-renormalization-group-im-srg">2.1. In-medium Similarity Renormalization Group (IM-SRG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clubsuit-imsrgmagnus">2.1.1. <span class="math notranslate nohighlight">\(\clubsuit\)</span> IMSRGのMagnus展開</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-ordering">2.2. Normal ordering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valence-space-imsrg-vs-imsrg">2.3. Valence-space IMSRG (VS-IMSRG)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clubsuit-hf-mbpt">2.4. <span class="math notranslate nohighlight">\(\clubsuit\)</span> HF-MBPT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleartoolkit-jlimsrg">2.5. NuclearToolkit.jlを用いたIMSRG計算</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
 
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  © Copyright 2024-present by 吉田 聡太 (Sota Yoshida). 本コンテンツは<a rel="license" href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0 ライセンス</a>の下に提供されています。 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>　ただし、資料中のコードセル部分は<a rel="license" href="https://opensource.org/licenses/MIT">MITライセンス</a>の下に提供されています。
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
